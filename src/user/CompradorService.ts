@@ -1,7 +1,8 @@
 import axios from "axios"
+import { DtAltaProducto } from "./VendedorService"
 
 
-export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[], token:String): Promise<void> => {
+export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[], token:String): Promise<String> => {
     const json = JSON.stringify(solicitud);
     const blob = new Blob([json], {
         type: 'application/json'
@@ -17,10 +18,10 @@ export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[]
             "Authorization" : `Bearer ${token}`
         },
     }).then((response) => {
-        console.log(response)
+        return response.data;
     })
         .catch((error) => {
-            console.log(error)
+            return error;
         })
 }
 
@@ -29,22 +30,12 @@ type Dtsolicitud = {
     nombreEmpresa?: string
     rut?: string
     telefonoEmpresa?: string
-    producto: {
-        emailVendedor: string
-        nombreProducto: string
-        stock: number
-        descripcion: string
-        fechaFin?: string
-        precio: number
-        diasGarantia: number
-        permiteEnvio: boolean
-        categorias: [String]
-        esSolicitud: boolean
-    },
-    local: {
+    producto: DtAltaProducto,
+    local?: {
         calle: string
         numero: string
         departamento: string
         notas: string
     }
+    idDireccion?: number
 }

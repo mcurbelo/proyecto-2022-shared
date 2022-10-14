@@ -1,7 +1,7 @@
 import axios from "axios"
 
 
-export const altaProducto = (datosProducto: DtAltaProducto, imagenes: File[], token: String): Promise<void> => {
+export const altaProducto = (datosProducto: DtAltaProducto, imagenes: File[], token: String): Promise<String> => {
     const json = JSON.stringify(datosProducto);
     const blob = new Blob([json], {
         type: 'application/json'
@@ -17,23 +17,22 @@ export const altaProducto = (datosProducto: DtAltaProducto, imagenes: File[], to
             "Authorization": `Bearer ${token}`
         },
     }).then((response) => {
-        console.log(response)
+        return response.data;
     })
         .catch((error) => {
-            console.log(error)
+            return error;
         })
 }
 
-type DtAltaProducto = {
-    emailVendedor: string
-    nombreProducto: string
-    stock: number
-    descripcion: string
-    fechaFin?: string
-    precio: number
-    diasGarantia: number
-    permiteEnvio: boolean
-    categorias: [String]
-    esSolicitud: boolean
-
+export type DtAltaProducto = {
+        emailVendedor: string
+        nombreProducto: string
+        stock: number
+        descripcion: string
+        fechaFin?: string
+        precio: number
+        diasGarantia: number
+        permiteEnvio: boolean
+        categorias: [String]
+        esSolicitud: boolean
 }

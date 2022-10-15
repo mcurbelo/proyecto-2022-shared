@@ -19,6 +19,7 @@ var iniciarSesion = function (email, password) {
         return {
             success: true,
             token: response.data['jwt-token'],
+            uuid: (response.data.uuid)
         };
     })
         .catch(function (error) {
@@ -32,7 +33,8 @@ var registrarUsuario = function (datos) {
         if (response.data.success) {
             return {
                 success: true,
-                token: response.data.token
+                token: response.data.token,
+                uuid: response.data.uuid
             };
         }
         else {

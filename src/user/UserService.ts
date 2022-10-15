@@ -17,6 +17,7 @@ export const iniciarSesion = (email: string, password: string) : Promise<Iniciar
     return {
       success: true,
       token: (response.data['jwt-token'] as string),
+      uuid: (response.data.uuid)
     }
   })
   .catch((error) => {
@@ -30,7 +31,8 @@ export const registrarUsuario = (datos: RegistrarUsuarioRequest) : Promise<Inici
       if(response.data.success) {
         return {
           success: true,
-          token: (response.data.token as string)
+          token: (response.data.token as string),
+          uuid: (response.data.uuid as string)
         }
       } else {
         return {
@@ -57,6 +59,7 @@ type RegistrarUsuarioRequest = {
 type IniciarSesionResponse = {
   success: boolean;
   token?: string;
+  uuid?: string;
   error?: string;
 }
 

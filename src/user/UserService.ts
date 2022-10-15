@@ -1,7 +1,8 @@
 import axios from "axios"
+import { Auth } from ".."
 
 export const iniciarSesion = (email: string, password: string) : Promise<IniciarSesionResponse> => {
-  return axios.post("http://localhost:8080/api/auth/iniciarSesion", {
+  return axios.post(`http://${Auth.endpoint}/api/auth/iniciarSesion`, {
     correo: email,
     password: password
   }).then((response) => {
@@ -16,7 +17,7 @@ export const iniciarSesion = (email: string, password: string) : Promise<Iniciar
 }
 
 export const registrarUsuario = (datos: RegistrarUsuarioRequest) : Promise<IniciarSesionResponse> => {
-  return axios.post("http://localhost:8080/api/auth/registrarse", datos)
+  return axios.post(`http://${Auth.endpoint}/api/auth/registrarse`, datos)
     .then((response) => {
       if(response.data.success) {
         return {

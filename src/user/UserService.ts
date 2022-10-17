@@ -1,14 +1,6 @@
 import axios from "axios"
 import { Auth } from ".."
 
-export const agregarTarjeta = (tarjeta: CreditCard, uuid: string, token: string) : Promise<any> => {
-  return axios.post(`http://${Auth.endpoint}/api/usuarios/${uuid}/tarjetas`, tarjeta, {
-    headers: {
-      authentication: `Bearer ${token}`
-    }
-  })
-}
-
 export const iniciarSesion = (email: string, password: string) : Promise<IniciarSesionResponse> => {
   return axios.post(`http://${Auth.endpoint}/api/auth/iniciarSesion`, {
     correo: email,
@@ -61,10 +53,4 @@ type IniciarSesionResponse = {
   token?: string;
   uuid?: string;
   error?: string;
-}
-
-type CreditCard = {
-  cardNumber: string;
-  cardCvv: string;
-  cardExpiration: string;
 }

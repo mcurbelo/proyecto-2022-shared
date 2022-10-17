@@ -1,16 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registrarUsuario = exports.iniciarSesion = exports.agregarTarjeta = void 0;
+exports.registrarUsuario = exports.iniciarSesion = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
-var agregarTarjeta = function (tarjeta, uuid, token) {
-    return axios_1.default.post("http://" + __1.Auth.endpoint + "/api/usuarios/" + uuid + "/tarjetas", tarjeta, {
-        headers: {
-            authentication: "Bearer " + token
-        }
-    });
-};
-exports.agregarTarjeta = agregarTarjeta;
 var iniciarSesion = function (email, password) {
     return axios_1.default.post("http://" + __1.Auth.endpoint + "/api/auth/iniciarSesion", {
         correo: email,

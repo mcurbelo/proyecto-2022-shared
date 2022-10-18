@@ -6,15 +6,15 @@ var __1 = require("..");
 var axiosConfig = function (token) {
     return {
         headers: {
-            authorization: "Bearer " + token
+            authorization: "Bearer ".concat(token)
         }
     };
 };
 var agregarTarjeta = function (request) {
-    return axios_1.default.post("http://" + __1.Auth.endpoint + "/api/usuarios/" + request.uuid + "/tarjetas", request, axiosConfig(request.token));
+    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/usuarios/").concat(request.uuid, "/tarjetas"), request, axiosConfig(request.token));
 };
 exports.agregarTarjeta = agregarTarjeta;
 var fetchTarjetas = function (request) {
-    return axios_1.default.get("http://" + __1.Auth.endpoint + "/api/usuarios/" + request.uuid + "/tarjetas", axiosConfig(request.token));
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/usuarios/").concat(request.uuid, "/tarjetas"), axiosConfig(request.token));
 };
 exports.fetchTarjetas = fetchTarjetas;

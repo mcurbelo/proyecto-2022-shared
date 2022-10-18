@@ -39,13 +39,37 @@ export const registrarUsuario = (datos: RegistrarUsuarioRequest) : Promise<Inici
     })
 }
 
+export const obtenerInformacion = (uuid: string) : Promise<InfoUsuarioResponse> => {
+  return axios.get(`http://${Auth.endpoint}/api/usuarios/obtenerInfoUsuarios/` + "aa0f9306-09e8-45ba-9e4e-1cf61528c7fd").then((response) => {
+    return {
+      nombre: response.data.nombre,
+      apellido: response.data.apellido,
+      correo: response.data.correo,
+      telefono: response.data.correo,
+      imagen: response.data.imagen.data
+    }
+  })
+  .catch((error) => {
+    return {success: false}
+  })
+}
+
 type RegistrarUsuarioRequest = {
   apellido: string;
   correo: string;
-  fechaNac: string;
   nombre: string;
   password: string;
   telefono: string;
+  fechaNac: string;
+}
+
+type InfoUsuarioResponse = {
+  success?: boolean;
+  apellido?: string;
+  correo?: string;
+  nombre?: string;
+  telefono?: string;
+  imagen?: string;
 }
 
 type IniciarSesionResponse = {

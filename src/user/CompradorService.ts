@@ -1,6 +1,6 @@
 import axios from "axios"
 import { DtAltaProducto } from "./VendedorService"
-
+import { Auth } from ".."
 
 export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[], token:String): Promise<String> => {
     const json = JSON.stringify(solicitud);
@@ -12,7 +12,7 @@ export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[]
     imagenes.forEach((imagen: File) => {
         data.append("imagenes", imagen);
     })
-    return axios.post("http://localhost:8080/api/compradores/solicitudVendedor", data, {
+    return axios.post(`http://${Auth.endpoint}api/compradores/solicitudVendedor`, data, {
         headers: {
             "Content-Type": "multipart/form-data",
             "Authorization" : `Bearer ${token}`

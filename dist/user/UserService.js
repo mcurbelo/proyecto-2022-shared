@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.obtenerInformacion = exports.registrarUsuario = exports.iniciarSesion = void 0;
+exports.updateUser = exports.obtenerInformacion = exports.registrarUsuario = exports.iniciarSesion = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
 var iniciarSesion = function (email, password) {
@@ -42,13 +42,15 @@ var registrarUsuario = function (datos) {
 };
 exports.registrarUsuario = registrarUsuario;
 var obtenerInformacion = function (uuid) {
-    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/usuarios/obtenerInfoUsuarios/") + "aa0f9306-09e8-45ba-9e4e-1cf61528c7fd").then(function (response) {
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/usuarios/") + uuid + "/infoUsuario").then(function (response) {
         return {
             nombre: response.data.nombre,
             apellido: response.data.apellido,
             correo: response.data.correo,
-            telefono: response.data.correo,
-            imagen: response.data.imagen.data
+            telefono: response.data.telefono,
+            imagen: response.data.imagen.data,
+            datosVendedor: response.data.datosVendedor,
+            calificacion: response.data.calificacion
         };
     })
         .catch(function (error) {
@@ -56,3 +58,23 @@ var obtenerInformacion = function (uuid) {
     });
 };
 exports.obtenerInformacion = obtenerInformacion;
+var updateUser = function (datos) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/usuarios/") + datos.uuid + "/infoBasica", {
+        "apellido": datos.apellido,
+        "correo": datos.correo,
+        "nombre": datos.nombre,
+        "telefono": datos.telefono,
+        "imagen": {
+            "data": datos.imagen.data
+        }
+    })
+        .then(function (response) {
+        return {
+            success: true
+        };
+    })
+        .catch(function (error) {
+        return { success: false };
+    });
+};
+exports.updateUser = updateUser;

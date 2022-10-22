@@ -39,13 +39,66 @@ export const registrarUsuario = (datos: RegistrarUsuarioRequest) : Promise<Inici
     })
 }
 
+export const obtenerInformacion = (uuid: string) : Promise<InfoUsuarioResponse> => {
+  return axios.get(`http://${Auth.endpoint}/api/usuarios/`+ uuid +`/infoUsuario`).then((response) => {
+    return {
+      nombre: response.data.nombre,
+      apellido: response.data.apellido,
+      correo: response.data.correo,
+      telefono: response.data.telefono,
+      imagen: response.data.imagen.data,
+      datosVendedor: response.data.datosVendedor,
+      calificacion: response.data.calificacion
+    }
+  })
+  .catch((error) => {
+    return {success: false}
+  })
+}
+
+
+export const updateUser = (datos: UpdateInfo) : Promise<UpdateResponse> => {
+  return axios.put(`http://${Auth.endpoint}/api/usuarios/`+ datos.uuid +`/infoBasica`, 
+    {
+      "apellido": datos.apellido,
+      "correo": datos.correo,
+      "nombre": datos.nombre,
+      "telefono": datos.telefono,
+      "imagen": {
+        "data": datos.imagen.data
+      }
+  })
+  .then((response) => {
+    return {
+      success: true
+    }
+  })
+  .catch((error) => {
+    return {success: false}
+  })
+
+
+}
+
+
 type RegistrarUsuarioRequest = {
   apellido: string;
   correo: string;
-  fechaNac: string;
   nombre: string;
   password: string;
   telefono: string;
+  fechaNac: string;
+}
+
+type InfoUsuarioResponse = {
+  success?: boolean;
+  apellido?: string;
+  correo?: string;
+  nombre?: string;
+  telefono?: string;
+  imagen?: string;
+  datosVendedor?: any;
+  calificacion?: number;
 }
 
 type IniciarSesionResponse = {
@@ -53,4 +106,23 @@ type IniciarSesionResponse = {
   token?: string;
   uuid?: string;
   error?: string;
+}
+
+type UpdateResponse = {
+  success: boolean;
+  message?: string;
+}
+
+type UpdateInfo = {
+    uuid: string,
+    correo?: string,
+    nombre?: string,
+    apellido?: string,
+    telefono?: string,
+    imagen: {
+      data: string,
+      nombre?: string,
+      tamaño?: 0,
+      formato?: string
+    }
 }

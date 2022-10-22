@@ -131,10 +131,10 @@ export type DtAltaProducto = {
 }
 
 export type DtFiltrosMisProductos = {
-    fecha?: Date,
+    fecha?: String,
     nombre?: String,
     categorias?: [String],
-    EstadoProducto?: EstadoProducto
+    estadoProducto?: EstadoProducto
 }
 
 export type DtFiltoReclamo = {

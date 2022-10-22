@@ -17,10 +17,10 @@ export declare type DtAltaProducto = {
     esSolicitud: boolean;
 };
 export declare type DtFiltrosMisProductos = {
-    fecha?: Date;
+    fecha?: String;
     nombre?: String;
     categorias?: [String];
-    EstadoProducto?: EstadoProducto;
+    estadoProducto?: EstadoProducto;
 };
 export declare type DtFiltoReclamo = {
     fecha?: Date;

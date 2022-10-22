@@ -4,7 +4,7 @@ exports.registrarUsuario = exports.iniciarSesion = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
 var iniciarSesion = function (email, password) {
-    return axios_1.default.post("http://" + __1.Auth.endpoint + "/api/auth/iniciarSesion", {
+    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/auth/iniciarSesion"), {
         correo: email,
         password: password
     }).then(function (response) {
@@ -20,7 +20,7 @@ var iniciarSesion = function (email, password) {
 };
 exports.iniciarSesion = iniciarSesion;
 var registrarUsuario = function (datos) {
-    return axios_1.default.post("http://" + __1.Auth.endpoint + "/api/auth/registrarse", datos)
+    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/auth/registrarse"), datos)
         .then(function (response) {
         if (response.data.success) {
             return {

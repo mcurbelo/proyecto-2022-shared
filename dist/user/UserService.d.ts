@@ -11,6 +11,7 @@ declare type RegistrarUsuarioRequest = {
 declare type IniciarSesionResponse = {
     success: boolean;
     token?: string;
+    uuid?: string;
     error?: string;
 };
 export {};

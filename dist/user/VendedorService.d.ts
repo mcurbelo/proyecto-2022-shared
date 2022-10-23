@@ -76,10 +76,18 @@ export declare type DtReclamo = {
     autor: string;
     idReclamo: string;
 };
+export declare type DtProductoSlim = {
+    idProducto: string;
+    nombre: string;
+    imagen: string;
+    precio: number;
+    stock: number;
+};
 export declare type listados = {
-    productos?: DtMiProducto;
+    misProductos?: DtMiProducto;
     ventas?: DtCompraSlimVendedor;
     reclamos?: DtReclamo;
+    productos?: DtProductoSlim;
     currentPage: Number;
     totalItems: Number;
     totalPages: Number;

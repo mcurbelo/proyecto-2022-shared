@@ -1,7 +1,8 @@
 import axios from "axios"
 import { Auth } from ".."
+import { DtProductoSlim, listados } from "./VendedorService";
 
-export const listarProductos = (pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltros): Promise<String> => {
+export const listarProductos = (pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltros): Promise<listados> => {
     const searchParams = new URLSearchParams();
     if (pageNo != "") searchParams.append("pageNo", pageNo);
     if (pageSize != "") searchParams.append("pageSize", pageSize);
@@ -12,17 +13,36 @@ export const listarProductos = (pageNo: string, pageSize: string, sortBy: string
     }
     if (filtros.nombre != undefined) searchParams.append("nombre", filtros.nombre);
     if (filtros.idEventoPromocional != undefined) searchParams.append("idEventoPromocional", filtros.idEventoPromocional);
-    if(filtros.recibirInfoEventoActivo) searchParams.append("infoEventoActivo", "true");
+    if (filtros.recibirInfoEventoActivo) searchParams.append("infoEventoActivo", "true");
     return axios.get(`http://${Auth.endpoint}/api/productos`).then((response) => {
-        return response.status;
+        return response.data;
     })
         .catch((error) => {
-            return error.response.data.message;;
+            return error.response.data.message;
         })
 }
 
+export const infoProducto (idProducto: string): Promise<DtProductoSlim> =>{
 
-export type DtFiltros={
+}
+
+export type DtProducto = {
+    idProducto: string,
+    idVendedor: string,
+    imagenes: string[],
+    nombre: string,
+    descripcion: string,
+    precio: number,
+    permiteEnvio: boolean,
+    comentarios: 
+    nombreVendedor: string,
+    calificacion: number,
+    imagenDePerfil: string,
+
+}
+
+
+export type DtFiltros = {
     recibirInfoEventoActivo?: boolean,
     nombre?: string,
     categorias?: string[],

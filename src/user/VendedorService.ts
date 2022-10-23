@@ -176,12 +176,19 @@ export type DtReclamo = {
 }
 
 
-
+export type DtProductoSlim ={
+    idProducto:string,
+    nombre:string,
+    imagen:string,
+    precio: number,
+    stock:number
+}
 
 export type listados = {
-    productos?: DtMiProducto,
+    misProductos?: DtMiProducto,
     ventas?: DtCompraSlimVendedor,
     reclamos?: DtReclamo,
+    productos?: DtProductoSlim,
     currentPage: Number,
     totalItems: Number,
     totalPages: Number

@@ -1,7 +1,8 @@
-export declare const listarProductos: (idUsuario: String, token: String, pageNo: String, pageSize: String, sortBy: String, sortDir: String, filtros: DtFiltros) => Promise<String>;
+import { listados } from "./VendedorService";
+export declare const listarProductos: (pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltros) => Promise<listados>;
 export declare type DtFiltros = {
     recibirInfoEventoActivo?: boolean;
-    nombre?: String;
-    categorias?: [String];
-    idEventoPromocional?: String;
+    nombre?: string;
+    categorias?: string[];
+    idEventoPromocional?: string;
 };

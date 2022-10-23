@@ -14,7 +14,7 @@ var altaProducto = function (datosProducto, imagenes, token) {
         data.append("imagenes", imagen);
     });
     return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/productos"), data).then(function (response) {
-        return response.statusText;
+        return response.status;
     })
         .catch(function (error) {
         return error.response.data.message;
@@ -86,7 +86,7 @@ var listarMisVentas = function (idUsuario, token, pageNo, pageSize, sortBy, sort
 exports.listarMisVentas = listarMisVentas;
 var gestionarReclamo = function (idUsuario, token, idVenta, idReclamo, accion) {
     return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/reclamos/").concat(idReclamo, "?accion=").concat(accion)).then(function (response) {
-        return response.statusText;
+        return response.status;
     })
         .catch(function (error) {
         return error.response.data.message;

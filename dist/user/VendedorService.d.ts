@@ -3,7 +3,12 @@ export declare const cambiarEstadoProducto: (idUsuario: String, token: String, i
 export declare const listarMisProductos: (idUsuario: String, token: String, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltrosMisProductos) => Promise<listados>;
 export declare const listarMisVentas: (idUsuario: String, token: String, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltrosVentas) => Promise<listados>;
 export declare const gestionarReclamo: (idUsuario: String, token: String, idVenta: String, idReclamo: String, accion: TipoResolucion) => Promise<String>;
+export declare const cambiarEstadoVenta: (idUsuario: String, token: String, idVenta: String, accion: EstadoCompra, info: DtConfirmarCompra) => Promise<String>;
 export declare const listarReclamosRecibidos: (idUsuario: String, token: String, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltoReclamo) => Promise<listados>;
+export declare type DtConfirmarCompra = {
+    fechayHoraRetiro?: string;
+    fechayHoraEntrega?: string;
+};
 export declare type DtAltaProducto = {
     emailVendedor: string;
     nombreProducto: string;

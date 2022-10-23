@@ -75,6 +75,15 @@ export const gestionarReclamo = (idUsuario: String, token: String, idVenta: Stri
         })
 }
 
+export const cambiarEstadoVenta = (idUsuario: String, token: String, idVenta: String, accion: EstadoCompra, info:DtConfirmarCompra ): Promise<String> => {
+    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?accion=${accion}`, info).then((response) => {
+        return response.status;
+    })
+        .catch((error) => {
+            return error.response.data.message;
+        })
+}
+
 export const listarReclamosRecibidos = (idUsuario: String, token: String, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltoReclamo): Promise<listados> => {
     const searchParams = new URLSearchParams();
     if (pageNo != "") searchParams.append("pageNo", pageNo);
@@ -92,6 +101,11 @@ export const listarReclamosRecibidos = (idUsuario: String, token: String, pageNo
         .catch((error) => {
             return error.response.data.message;;
         })
+}
+
+export type DtConfirmarCompra  ={
+    fechayHoraRetiro?: string,
+    fechayHoraEntrega?: string
 }
 
 

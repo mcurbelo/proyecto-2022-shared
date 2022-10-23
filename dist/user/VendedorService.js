@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EstadoCompra = exports.EstadoProducto = exports.TipoReclamo = exports.TipoResolucion = exports.listarReclamosRecibidos = exports.gestionarReclamo = exports.listarMisVentas = exports.listarMisProductos = exports.cambiarEstadoProducto = exports.altaProducto = void 0;
+exports.EstadoCompra = exports.EstadoProducto = exports.TipoReclamo = exports.TipoResolucion = exports.listarReclamosRecibidos = exports.cambiarEstadoVenta = exports.gestionarReclamo = exports.listarMisVentas = exports.listarMisProductos = exports.cambiarEstadoProducto = exports.altaProducto = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
 var altaProducto = function (datosProducto, imagenes, token) {
@@ -93,6 +93,15 @@ var gestionarReclamo = function (idUsuario, token, idVenta, idReclamo, accion) {
     });
 };
 exports.gestionarReclamo = gestionarReclamo;
+var cambiarEstadoVenta = function (idUsuario, token, idVenta, accion, info) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/estado?accion=").concat(accion), info).then(function (response) {
+        return response.status;
+    })
+        .catch(function (error) {
+        return error.response.data.message;
+    });
+};
+exports.cambiarEstadoVenta = cambiarEstadoVenta;
 var listarReclamosRecibidos = function (idUsuario, token, pageNo, pageSize, sortBy, sortDir, filtros) {
     var searchParams = new URLSearchParams();
     if (pageNo != "")

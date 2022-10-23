@@ -22,9 +22,18 @@ export const listarProductos = (pageNo: string, pageSize: string, sortBy: string
         })
 }
 
-export const infoProducto (idProducto: string): Promise<DtProductoSlim> =>{
-
+export const infoProducto = (idProducto: string): Promise<DtProductoSlim> => {
+    return axios.get(`http://${Auth.endpoint}/api/productos/${idProducto}`).then((response) => {
+        return response.status;
+    })
+        .catch((error) => {
+            return error.response.data.message;
+        })
 }
+
+
+
+
 
 export type DtProducto = {
     idProducto: string,
@@ -34,13 +43,28 @@ export type DtProducto = {
     descripcion: string,
     precio: number,
     permiteEnvio: boolean,
-    comentarios: 
+    comentarios: Comentario[], //Revisar cuando se haga el tema de los comentarios
     nombreVendedor: string,
     calificacion: number,
     imagenDePerfil: string,
-
+    localesParaRetiro?: Direccion[]
 }
 
+export type Direccion = {
+    id: number,
+    calle: string,
+    numero: string,
+    departamento: string,
+    notas: string
+}
+
+export type Comentario = {
+    id: string,
+    comentario: string,
+    fecha: Date, //No se
+    nombreAutor: string,
+    respuestas?: Comentario[]
+}
 
 export type DtFiltros = {
     recibirInfoEventoActivo?: boolean,

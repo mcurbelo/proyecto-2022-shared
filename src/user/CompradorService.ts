@@ -12,17 +12,38 @@ export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[]
     imagenes.forEach((imagen: File) => {
         data.append("imagenes", imagen);
     })
-    return axios.post(`http://${Auth.endpoint}api/compradores/solicitudVendedor`, data, {
+    return axios.post(`http://${Auth.endpoint}/api/compradores/solicitudVendedor`, data, {
         headers: {
-            "Content-Type": "multipart/form-data",
-            "Authorization" : `Bearer ${token}`
+            "Content-Type": "multipart/form-data"
         },
     }).then((response) => {
-        return response.data;
+        return response.status;
     })
         .catch((error) => {
-            return error;
+            return error.response.data.message;
         })
+}
+export const nuevaCompra = (datos: DtCompra): Promise<String> => {
+    return axios.post(`http://${Auth.endpoint}/api/compras`, datos, {
+    }).then((response) => {
+        return response.status;
+    })
+        .catch((error) => {
+            return error.response.data.message;
+        })
+}
+
+type DtCompra={
+    idcomprador: string,
+    correoComprador: string,
+    idVendedor: string,
+    idProducto: string,
+    cantidad: number,
+    codigoCanje: string,
+    idTarjeta: string,
+    esParEnvio: boolean,
+    idDireccionEnvio?:number,
+    idDireccionLocal?:number
 }
 
 type Dtsolicitud = {

@@ -9,5 +9,8 @@ exports.CategoriaService = require("./user/CategoriaService");
 exports.CompartidoUsuario = require("./user/CompartidoUsuarios");
 exports.CompradorService = require("./user/CompradorService");
 exports.ProductoService = require("./user/ProductoService");
+exports.Auth = exports.CardService = exports.UserService = void 0;
+exports.UserService = require("./user/UserService");
+exports.CardService = require("./cards/CardsService");
 var Auth_1 = require("./Auth");
 Object.defineProperty(exports, "Auth", { enumerable: true, get: function () { return Auth_1.Endpoint; } });

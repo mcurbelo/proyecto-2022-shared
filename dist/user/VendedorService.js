@@ -13,146 +13,139 @@ var altaProducto = function (datosProducto, imagenes, token) {
     imagenes.forEach(function (imagen) {
         data.append("imagenes", imagen);
     });
-    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/productos"), data, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-            "Authorization": "Bearer ".concat(token)
-        },
-    }).then(function (response) {
-        return response.data;
+    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/productos"), data).then(function (response) {
+        return response.statusText;
     })
         .catch(function (error) {
-        return error;
+        return error.response.data.message;
     });
 };
 exports.altaProducto = altaProducto;
-var cambiarEstadoProducto = function (idUsuario, idProducto, nuevoEstado, token) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/").concat(idUsuario, "/productos/").concat(idProducto, "/estado?nuevoEstado=").concat(nuevoEstado), {
-        headers: {
-            "Authorization": "Bearer ".concat(token)
-        },
-    }).then(function (response) {
-        return response.data;
+var cambiarEstadoProducto = function (idUsuario, token, idProducto, nuevoEstado) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/productos/").concat(idProducto, "/estado?nuevoEstado=").concat(nuevoEstado)).then(function (response) {
+        return response.status;
     })
         .catch(function (error) {
-        return error;
+        return error.response.data.message;
     });
 };
 exports.cambiarEstadoProducto = cambiarEstadoProducto;
 var listarMisProductos = function (idUsuario, token, pageNo, pageSize, sortBy, sortDir, filtros) {
-    var consulta;
+    var _a;
+    var searchParams = new URLSearchParams();
     if (pageNo != "")
-        consulta = "pageNo=" + pageNo;
+        searchParams.append("pageNo", pageNo);
     if (pageSize != "")
-        consulta = consulta + "&pageSize=" + pageSize;
+        searchParams.append("pageSize", pageSize);
     if (sortBy != "")
-        consulta = consulta + "&sortBy=" + sortBy;
+        searchParams.append("sortBy", sortBy);
     if (sortDir != "")
-        consulta = consulta + "&sortDir=" + sortDir;
-    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/").concat(idUsuario, "/productos?").concat(consulta), {
-        headers: {
-            "Authorization": "Bearer ".concat(token),
-            'Content-Type': 'application/json'
-        }, params: {
-            filtros: filtros
-        }
-    }).then(function (response) {
+        searchParams.append("sortDir", sortDir);
+    if (filtros.categorias != undefined && ((_a = filtros.categorias) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+        filtros.categorias.forEach(function (categoria) { return searchParams.append("categorias", categoria); });
+    }
+    if (filtros.estadoProducto != undefined)
+        searchParams.append("estado", filtros.estadoProducto.toString());
+    if (filtros.fecha != undefined)
+        searchParams.append("fecha", filtros.fecha);
+    if (filtros.nombre != undefined)
+        searchParams.append("nombre", filtros.nombre);
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/productos?").concat(searchParams.toString())).then(function (response) {
         return response.data;
     })
         .catch(function (error) {
-        return error;
+        return error.response.data.message;
+        ;
     });
 };
 exports.listarMisProductos = listarMisProductos;
 var listarMisVentas = function (idUsuario, token, pageNo, pageSize, sortBy, sortDir, filtros) {
-    var consulta;
+    var searchParams = new URLSearchParams();
     if (pageNo != "")
-        consulta = "pageNo=" + pageNo;
+        searchParams.append("pageNo", pageNo);
     if (pageSize != "")
-        consulta = consulta + "&pageSize=" + pageSize;
+        searchParams.append("pageSize", pageSize);
     if (sortBy != "")
-        consulta = consulta + "&sortBy=" + sortBy;
+        searchParams.append("sortBy", sortBy);
     if (sortDir != "")
-        consulta = consulta + "&sortDir=" + sortDir;
-    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/").concat(idUsuario, "/ventas?").concat(consulta), {
-        headers: {
-            "Authorization": "Bearer ".concat(token),
-            'Content-Type': 'application/json'
-        }, params: {
-            filtros: filtros
-        }
-    }).then(function (response) {
+        searchParams.append("sortDir", sortDir);
+    if (filtros.EstadoCompra != undefined)
+        searchParams.append("estado", filtros.EstadoCompra.toString());
+    if (filtros.fecha != undefined)
+        searchParams.append("fecha", filtros.fecha);
+    if (filtros.nombre != undefined)
+        searchParams.append("nombre", filtros.nombre);
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas?").concat(searchParams.toString())).then(function (response) {
         return response.data;
     })
         .catch(function (error) {
-        return error;
+        return error.response.data.message;
+        ;
     });
 };
 exports.listarMisVentas = listarMisVentas;
 var gestionarReclamo = function (idUsuario, token, idVenta, idReclamo, accion) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/").concat(idUsuario, "/ventas/").concat(idVenta, "/reclamos/").concat(idReclamo, "?accion=").concat(accion), {
-        headers: {
-            "Authorization": "Bearer ".concat(token),
-            'Content-Type': 'application/json'
-        },
-    }).then(function (response) {
-        return response.data;
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/reclamos/").concat(idReclamo, "?accion=").concat(accion)).then(function (response) {
+        return response.statusText;
     })
         .catch(function (error) {
-        return error;
+        return error.response.data.message;
     });
 };
 exports.gestionarReclamo = gestionarReclamo;
 var listarReclamosRecibidos = function (idUsuario, token, pageNo, pageSize, sortBy, sortDir, filtros) {
-    var consulta;
+    var searchParams = new URLSearchParams();
     if (pageNo != "")
-        consulta = "pageNo=" + pageNo;
+        searchParams.append("pageNo", pageNo);
     if (pageSize != "")
-        consulta = consulta + "&pageSize=" + pageSize;
+        searchParams.append("pageSize", pageSize);
     if (sortBy != "")
-        consulta = consulta + "&sortBy=" + sortBy;
+        searchParams.append("sortBy", sortBy);
     if (sortDir != "")
-        consulta = consulta + "&sortDir=" + sortDir;
-    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/").concat(idUsuario, "/ventas/reclamos?").concat(consulta), {
-        headers: {
-            "Authorization": "Bearer ".concat(token),
-            'Content-Type': 'application/json'
-        },
-        params: {
-            filtros: filtros
-        }
-    }).then(function (response) {
+        searchParams.append("sortDir", sortDir);
+    if (filtros.resolucion != undefined)
+        searchParams.append("estado", filtros.resolucion.toString());
+    if (filtros.tipo != undefined)
+        searchParams.append("estado", filtros.tipo.toString());
+    if (filtros.fecha != undefined)
+        searchParams.append("fecha", filtros.fecha);
+    if (filtros.nombreProducto != undefined)
+        searchParams.append("nombre", filtros.nombreProducto);
+    if (filtros.nombreUsuario != undefined)
+        searchParams.append("nombre", filtros.nombreUsuario);
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedor/").concat(idUsuario, "/ventas/reclamos?").concat(searchParams.toString())).then(function (response) {
         return response.data;
     })
         .catch(function (error) {
-        return error;
+        return error.response.data.message;
+        ;
     });
 };
 exports.listarReclamosRecibidos = listarReclamosRecibidos;
 var TipoResolucion;
 (function (TipoResolucion) {
-    TipoResolucion[TipoResolucion["Devolucion"] = 0] = "Devolucion";
-    TipoResolucion[TipoResolucion["PorChat"] = 1] = "PorChat";
-    TipoResolucion[TipoResolucion["NoResuelto"] = 2] = "NoResuelto";
+    TipoResolucion["Devolucion"] = "Devolucion";
+    TipoResolucion["PorChat"] = "PorChat";
+    TipoResolucion["NoResuelto"] = "PorChat";
 })(TipoResolucion = exports.TipoResolucion || (exports.TipoResolucion = {}));
 var TipoReclamo;
 (function (TipoReclamo) {
-    TipoReclamo[TipoReclamo["DesperfectoProducto"] = 0] = "DesperfectoProducto";
-    TipoReclamo[TipoReclamo["RepticionIncoveniente"] = 1] = "RepticionIncoveniente";
-    TipoReclamo[TipoReclamo["ProductoNoRecibido"] = 2] = "ProductoNoRecibido";
-    TipoReclamo[TipoReclamo["ProducoErroneo"] = 3] = "ProducoErroneo";
-    TipoReclamo[TipoReclamo["Otro"] = 4] = "Otro";
+    TipoReclamo["DesperfectoProducto"] = "DesperfectoProducto";
+    TipoReclamo["RepticionIncoveniente"] = "RepticionIncoveniente";
+    TipoReclamo["ProductoNoRecibido"] = "ProductoNoRecibido";
+    TipoReclamo["ProducoErroneo"] = "ProducoErroneo";
+    TipoReclamo["Otro"] = "Otro";
 })(TipoReclamo = exports.TipoReclamo || (exports.TipoReclamo = {}));
 var EstadoProducto;
 (function (EstadoProducto) {
-    EstadoProducto[EstadoProducto["Activo"] = 0] = "Activo";
-    EstadoProducto[EstadoProducto["Pausado"] = 1] = "Pausado";
-    EstadoProducto[EstadoProducto["BloqueadoADM"] = 2] = "BloqueadoADM";
+    EstadoProducto["Activo"] = "Activo";
+    EstadoProducto["Pausado"] = "Pausado";
+    EstadoProducto["BloqueadoADM"] = "BloqueadoADM";
 })(EstadoProducto = exports.EstadoProducto || (exports.EstadoProducto = {}));
 var EstadoCompra;
 (function (EstadoCompra) {
-    EstadoCompra[EstadoCompra["Cancelada"] = 0] = "Cancelada";
-    EstadoCompra[EstadoCompra["Completada"] = 1] = "Completada";
-    EstadoCompra[EstadoCompra["Confirmada"] = 2] = "Confirmada";
-    EstadoCompra[EstadoCompra["EsperandoConfirmacion"] = 3] = "EsperandoConfirmacion";
+    EstadoCompra["Cancelada"] = "Cancelada";
+    EstadoCompra["Completada"] = "Completada";
+    EstadoCompra["Confirmada"] = "Confirmada";
+    EstadoCompra["EsperandoConfirmacion"] = "EsperandoConfirmacion";
 })(EstadoCompra = exports.EstadoCompra || (exports.EstadoCompra = {}));

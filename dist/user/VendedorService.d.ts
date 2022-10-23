@@ -1,9 +1,9 @@
 export declare const altaProducto: (datosProducto: DtAltaProducto, imagenes: File[], token: String) => Promise<String>;
-export declare const cambiarEstadoProducto: (idUsuario: String, idProducto: String, nuevoEstado: EstadoProducto, token: String) => Promise<String>;
-export declare const listarMisProductos: (idUsuario: String, token: String, pageNo: String, pageSize: String, sortBy: String, sortDir: String, filtros: DtFiltrosMisProductos) => Promise<listados>;
-export declare const listarMisVentas: (idUsuario: String, token: String, pageNo: String, pageSize: String, sortBy: String, sortDir: String, filtros: DtFiltrosVentas) => Promise<listados>;
+export declare const cambiarEstadoProducto: (idUsuario: String, token: String, idProducto: String, nuevoEstado: EstadoProducto) => Promise<String>;
+export declare const listarMisProductos: (idUsuario: String, token: String, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltrosMisProductos) => Promise<listados>;
+export declare const listarMisVentas: (idUsuario: String, token: String, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltrosVentas) => Promise<listados>;
 export declare const gestionarReclamo: (idUsuario: String, token: String, idVenta: String, idReclamo: String, accion: TipoResolucion) => Promise<String>;
-export declare const listarReclamosRecibidos: (idUsuario: String, token: String, pageNo: String, pageSize: String, sortBy: String, sortDir: String, filtros: DtFiltrosVentas) => Promise<listados>;
+export declare const listarReclamosRecibidos: (idUsuario: String, token: String, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltoReclamo) => Promise<listados>;
 export declare type DtAltaProducto = {
     emailVendedor: string;
     nombreProducto: string;
@@ -17,22 +17,22 @@ export declare type DtAltaProducto = {
     esSolicitud: boolean;
 };
 export declare type DtFiltrosMisProductos = {
-    fecha?: String;
-    nombre?: String;
-    categorias?: [String];
+    fecha?: string;
+    nombre?: string;
+    categorias?: string[];
     estadoProducto?: EstadoProducto;
 };
 export declare type DtFiltoReclamo = {
-    fecha?: Date;
-    nombreProducto?: String;
-    nombreUsuario?: String;
+    fecha?: string;
+    nombreProducto?: string;
+    nombreUsuario?: string;
     tipo?: TipoReclamo;
     resolucion?: TipoResolucion;
 };
 export declare type DtFiltrosVentas = {
-    fecha?: Date;
-    nombre?: String;
-    categorias?: [String];
+    fecha?: string;
+    nombre?: string;
+    categorias?: string[];
     EstadoCompra?: EstadoCompra;
 };
 export declare type DtMiProducto = {
@@ -73,8 +73,8 @@ export declare type DtReclamo = {
     tipo: TipoReclamo;
     estado: TipoResolucion;
     fechaRealizado: Date;
-    autor: String;
-    idReclamo: String;
+    autor: string;
+    idReclamo: string;
 };
 export declare type listados = {
     productos?: DtMiProducto;
@@ -85,25 +85,25 @@ export declare type listados = {
     totalPages: Number;
 };
 export declare enum TipoResolucion {
-    Devolucion = 0,
-    PorChat = 1,
-    NoResuelto = 2
+    Devolucion = "Devolucion",
+    PorChat = "PorChat",
+    NoResuelto = "PorChat"
 }
 export declare enum TipoReclamo {
-    DesperfectoProducto = 0,
-    RepticionIncoveniente = 1,
-    ProductoNoRecibido = 2,
-    ProducoErroneo = 3,
-    Otro = 4
+    DesperfectoProducto = "DesperfectoProducto",
+    RepticionIncoveniente = "RepticionIncoveniente",
+    ProductoNoRecibido = "ProductoNoRecibido",
+    ProducoErroneo = "ProducoErroneo",
+    Otro = "Otro"
 }
 export declare enum EstadoProducto {
-    Activo = 0,
-    Pausado = 1,
-    BloqueadoADM = 2
+    Activo = "Activo",
+    Pausado = "Pausado",
+    BloqueadoADM = "BloqueadoADM"
 }
 export declare enum EstadoCompra {
-    Cancelada = 0,
-    Completada = 1,
-    Confirmada = 2,
-    EsperandoConfirmacion = 3
+    Cancelada = "Cancelada",
+    Completada = "Completada",
+    Confirmada = "Confirmada",
+    EsperandoConfirmacion = "EsperandoConfirmacion"
 }

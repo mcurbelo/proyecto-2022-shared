@@ -14,7 +14,7 @@ var Endpoint = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
-    Endpoint._endpoint = "localhost:8080";
+    Endpoint._endpoint = "";
     return Endpoint;
 }());
 exports.Endpoint = Endpoint;

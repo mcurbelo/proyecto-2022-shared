@@ -39,6 +39,24 @@ export const registrarUsuario = (datos: RegistrarUsuarioRequest) : Promise<Inici
     })
 }
 
+export const recuperarContrasena = (correo: string): Promise<String> => {
+  return axios.put(`http://${Auth.endpoint}/api/auth/recuperarContrasena?correo=${correo}`).then((response) => {
+      return response.data;
+  })
+      .catch((error) => {
+          return error.response.data.message;
+      })
+}
+
+export const reiniciarContrasena = (tokenReset: string, nuevaContrasena: string): Promise<String> => {
+  return axios.put(`http://${Auth.endpoint}/api/auth/reiniciarContrasena?token=${tokenReset}&contrasena${nuevaContrasena}`).then((response) => {
+      return response.data;
+  })
+      .catch((error) => {
+          return error.response.data.message;
+      })
+}
+
 export const obtenerInformacion = (uuid: string) : Promise<InfoUsuarioResponse> => {
   return axios.get(`http://${Auth.endpoint}/api/usuarios/`+ uuid +`/infoUsuario`).then((response) => {
     return {

@@ -1,5 +1,5 @@
 export class Endpoint {
-  private static _endpoint: string = "";
+  private static _endpoint: string = "localhost:8080";
 
   static get endpoint(): string {
       return this._endpoint;

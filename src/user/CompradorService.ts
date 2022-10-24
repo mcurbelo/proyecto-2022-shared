@@ -35,8 +35,8 @@ export const nuevaDireccion = (token: string, datos: DtDireccion): Promise<Strin
 }
 
 
-export const nuevaCompra = (token: string, datos: DtCompra): Promise<String> => {
-    return axios.post(`http://${Auth.endpoint}/api/compras`, datos, {
+export const nuevaCompra = (idUsuario: string, token: string, datos: DtCompra): Promise<String> => {
+    return axios.post(`http://${Auth.endpoint}/api/compradores/${idUsuario}/compras`, datos, {
     }).then((response) => {
         return response.status;
     })
@@ -106,8 +106,6 @@ export const marcarReclamoResuelto = (idUsuario: string, token: string, idCompra
 }
 
 type DtCompra = {
-    idcomprador: string,
-    correoComprador: string,
     idVendedor: string,
     idProducto: string,
     cantidad: number,

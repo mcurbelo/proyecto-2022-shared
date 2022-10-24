@@ -4,7 +4,6 @@ export declare const recuperarContrasena: (correo: string) => Promise<String>;
 export declare const reiniciarContrasena: (tokenReset: string, nuevaContrasena: string) => Promise<String>;
 export declare const obtenerInformacion: (uuid: string) => Promise<InfoUsuarioResponse>;
 export declare const updateUser: (datos: UpdateInfo) => Promise<UpdateResponse>;
-
 declare type RegistrarUsuarioRequest = {
     apellido: string;
     correo: string;

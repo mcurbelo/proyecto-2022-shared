@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.reiniciarContrasena = exports.recuperarContrasena = exports.registrarUsuario = exports.iniciarSesion = void 0;
-exports.updateUser = exports.obtenerInformacion = exports.registrarUsuario = exports.iniciarSesion = void 0;
+exports.updateUser = exports.obtenerInformacion = exports.reiniciarContrasena = exports.recuperarContrasena = exports.registrarUsuario = exports.iniciarSesion = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
 var iniciarSesion = function (email, password) {
@@ -42,7 +41,6 @@ var registrarUsuario = function (datos) {
     });
 };
 exports.registrarUsuario = registrarUsuario;
-
 var recuperarContrasena = function (correo) {
     return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/auth/recuperarContrasena?correo=").concat(correo)).then(function (response) {
         return response.data;
@@ -61,7 +59,6 @@ var reiniciarContrasena = function (tokenReset, nuevaContrasena) {
     });
 };
 exports.reiniciarContrasena = reiniciarContrasena;
-
 var obtenerInformacion = function (uuid) {
     return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/usuarios/") + uuid + "/infoUsuario").then(function (response) {
         return {

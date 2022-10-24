@@ -93,6 +93,7 @@ export declare type listados = {
     ventas?: DtCompraSlimVendedor;
     reclamos?: DtReclamo;
     productos?: DtProductoSlim;
+    compras?: DtCompraSlimComprador;
     currentPage: Number;
     totalItems: Number;
     totalPages: Number;

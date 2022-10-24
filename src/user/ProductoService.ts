@@ -15,7 +15,8 @@ export const listarProductos = (pageNo: string, pageSize: string, sortBy: string
     if (filtros.idEventoPromocional != undefined) searchParams.append("idEventoPromocional", filtros.idEventoPromocional);
     if (filtros.recibirInfoEventoActivo) searchParams.append("infoEventoActivo", "true");
     return axios.get(`http://${Auth.endpoint}/api/productos`).then((response) => {
-        return response.data;
+        return response.data
+
     })
         .catch((error) => {
             return error.response.data.message;

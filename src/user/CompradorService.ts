@@ -2,6 +2,12 @@ import axios from "axios"
 import { DtAltaProducto, DtFiltoReclamo, EstadoCompra, listados, TipoReclamo } from "./VendedorService"
 import { Auth } from ".."
 
+let token = localStorage.getItem('token');
+
+const config = {
+    headers: { Authorization: `Bearer ${token}` }
+};
+
 export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[], token: String): Promise<String> => {
     const json = JSON.stringify(solicitud);
     const blob = new Blob([json], {
@@ -24,15 +30,20 @@ export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[]
         })
 }
 
-export const nuevaDireccion = (token: string, datos: DtDireccion): Promise<String> => {
-    return axios.post(`http://${Auth.endpoint}/api/compradores/agregarDireccion`, datos, {
-    }).then((response) => {
-        return response.status;
-    })
-        .catch((error) => {
-            return error.response.data.message;
+export const agregarDireccion = (direccion: DtDireccion): Promise<{success: any}> => {
+    return axios.post(`http://${Auth.endpoint}/api/compradores/agregarDireccion`, {
+            calle: direccion.calle,
+            numero: direccion.numero,
+            departamento: direccion.departamento,
+            notas: direccion.notas,
+            esLocal: direccion.esLocal
+          }, config).then((response) => {
+            return response.status;
+        }).catch((error) => {
+            return error.response.data.status;
         })
-}
+    }
+    
 
 
 export const nuevaCompra = (idUsuario: string, token: string, datos: DtCompra): Promise<String> => {

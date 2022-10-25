@@ -1,8 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.marcarReclamoResuelto = exports.nuevoReclamo = exports.reclamosHechos = exports.listarCompras = exports.nuevaCompra = exports.nuevaDireccion = exports.enviarSolicitudVendedor = void 0;
+exports.marcarReclamoResuelto = exports.nuevoReclamo = exports.reclamosHechos = exports.listarCompras = exports.nuevaCompra = exports.agregarDireccion = exports.enviarSolicitudVendedor = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
+var token = localStorage.getItem('token');
+var config = {
+    headers: { Authorization: "Bearer ".concat(token) }
+};
 var enviarSolicitudVendedor = function (solicitud, imagenes, token) {
     var json = JSON.stringify(solicitud);
     var blob = new Blob([json], {
@@ -25,17 +29,22 @@ var enviarSolicitudVendedor = function (solicitud, imagenes, token) {
     });
 };
 exports.enviarSolicitudVendedor = enviarSolicitudVendedor;
-var nuevaDireccion = function (token, datos) {
-    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/compradores/agregarDireccion"), datos, {}).then(function (response) {
+var agregarDireccion = function (direccion) {
+    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/compradores/agregarDireccion"), {
+        calle: direccion.calle,
+        numero: direccion.numero,
+        departamento: direccion.departamento,
+        notas: direccion.notas,
+        esLocal: direccion.esLocal
+    }, config).then(function (response) {
         return response.status;
-    })
-        .catch(function (error) {
-        return error.response.data.message;
+    }).catch(function (error) {
+        return error.response.data.status;
     });
 };
-exports.nuevaDireccion = nuevaDireccion;
-var nuevaCompra = function (token, datos) {
-    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/compras"), datos, {}).then(function (response) {
+exports.agregarDireccion = agregarDireccion;
+var nuevaCompra = function (idUsuario, token, datos) {
+    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/compradores/").concat(idUsuario, "/compras"), datos, {}).then(function (response) {
         return response.status;
     })
         .catch(function (error) {

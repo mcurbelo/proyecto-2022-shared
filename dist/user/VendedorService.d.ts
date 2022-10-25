@@ -89,14 +89,14 @@ export declare type DtProductoSlim = {
     stock: number;
 };
 export declare type listados = {
-    misProductos?: DtMiProducto;
-    ventas?: DtCompraSlimVendedor;
-    reclamos?: DtReclamo;
-    productos?: DtProductoSlim;
-    compras?: DtCompraSlimComprador;
-    currentPage: Number;
-    totalItems: Number;
-    totalPages: Number;
+    misProductos?: DtMiProducto[];
+    ventas?: DtCompraSlimVendedor[];
+    reclamos?: DtReclamo[];
+    productos?: DtProductoSlim[];
+    compras?: DtCompraSlimComprador[];
+    currentPage: number;
+    totalItems: number;
+    totalPages: number;
 };
 export declare enum TipoResolucion {
     Devolucion = "Devolucion",

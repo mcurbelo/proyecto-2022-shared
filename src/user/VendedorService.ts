@@ -199,14 +199,14 @@ export type DtProductoSlim ={
 }
 
 export type listados = {
-    misProductos?: DtMiProducto,
-    ventas?: DtCompraSlimVendedor,
-    reclamos?: DtReclamo,
-    productos?: DtProductoSlim,
-    compras?: DtCompraSlimComprador,
-    currentPage: Number,
-    totalItems: Number,
-    totalPages: Number
+    misProductos?: DtMiProducto[],
+    ventas?: DtCompraSlimVendedor[],
+    reclamos?: DtReclamo[],
+    productos?: DtProductoSlim[],
+    compras?: DtCompraSlimComprador[],
+    currentPage: number,
+    totalItems: number,
+    totalPages: number
 }
 
 export enum TipoResolucion {

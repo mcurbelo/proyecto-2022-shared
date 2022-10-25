@@ -23,7 +23,7 @@ var listarProductos = function (pageNo, pageSize, sortBy, sortDir, filtros) {
         searchParams.append("idEventoPromocional", filtros.idEventoPromocional);
     if (filtros.recibirInfoEventoActivo)
         searchParams.append("infoEventoActivo", "true");
-    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/productos")).then(function (response) {
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/productos?").concat(searchParams)).then(function (response) {
         return response.data;
     })
         .catch(function (error) {

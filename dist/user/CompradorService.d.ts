@@ -1,8 +1,12 @@
 import { DtAltaProducto, DtFiltoReclamo, EstadoCompra, listados, TipoReclamo } from "./VendedorService";
 export declare const enviarSolicitudVendedor: (solicitud: Dtsolicitud, imagenes: File[], token: String) => Promise<String>;
-export declare const agregarDireccion: (direccion: DtDireccion) => Promise<{
+export declare const agregarDireccion: (token: string, direccion: DtDireccion) => Promise<{
     success: any;
 }>;
+export declare const editarDireccion: (token: string, direccion: DtDireccion) => Promise<{
+    status: number;
+}>;
+export declare const obtenerDirecciones: (token: string) => Promise<[DtDireccion]>;
 export declare const nuevaCompra: (idUsuario: string, token: string, datos: DtCompra) => Promise<String>;
 export declare const listarCompras: (idUsuario: string, token: string, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltrosCompras) => Promise<listados>;
 export declare const reclamosHechos: (idUsuario: string, token: string, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltoReclamo) => Promise<listados>;
@@ -32,11 +36,24 @@ declare type Dtsolicitud = {
     idDireccion?: number;
 };
 declare type DtDireccion = {
+    id?: string;
     calle: string;
     numero: string;
     departamento: string;
+    localidad: string;
     notas: string;
     esLocal: boolean;
+    locales?: [
+        {
+            id: string;
+            calle: string;
+            numero: string;
+            departamento: string;
+            localidad: string;
+            notas?: string;
+            esLocal: boolean;
+        }
+    ];
 };
 declare type DtFiltrosCompras = {
     fecha?: string;

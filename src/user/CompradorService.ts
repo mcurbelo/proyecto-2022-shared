@@ -2,11 +2,7 @@ import axios from "axios"
 import { DtAltaProducto, DtFiltoReclamo, EstadoCompra, listados, TipoReclamo } from "./VendedorService"
 import { Auth } from ".."
 
-let token = localStorage.getItem('token');
 
-const config = {
-    headers: { Authorization: `Bearer ${token}` }
-};
 
 export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[], token: String): Promise<String> => {
     const json = JSON.stringify(solicitud);
@@ -30,11 +26,16 @@ export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[]
         })
 }
 
-export const agregarDireccion = (direccion: DtDireccion): Promise<{success: any}> => {
+export const agregarDireccion = (token:string, direccion: DtDireccion): Promise<{success: any}> => {
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+
     return axios.post(`http://${Auth.endpoint}/api/compradores/agregarDireccion`, {
             calle: direccion.calle,
             numero: direccion.numero,
             departamento: direccion.departamento,
+            localidad: direccion.localidad,
             notas: direccion.notas,
             esLocal: direccion.esLocal
           }, config).then((response) => {
@@ -43,7 +44,43 @@ export const agregarDireccion = (direccion: DtDireccion): Promise<{success: any}
             return error.response.data.status;
         })
     }
+
+
+    export const editarDireccion = (token:string, direccion: DtDireccion): Promise<{status: number}> => {
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
     
+        return axios.patch(`http://${Auth.endpoint}/api/compradores/Direcciones`, {
+                id: direccion.id,
+                calle: direccion.calle,
+                numero: direccion.numero,
+                departamento: direccion.departamento,
+                localidad: direccion.localidad,
+                notas: direccion.notas,
+                esLocal: direccion.esLocal
+              }, config).then((response) => {
+                return {
+                    status: response.status
+                }
+            }).catch((error) => {
+                return {
+                    status: error.response.data.status
+                }
+            })
+        }
+    
+export const obtenerDirecciones = (token:string): Promise<[DtDireccion]> => {
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };    
+
+    return axios.get(`http://${Auth.endpoint}/api/compradores/Direcciones`, config).then((response) => {
+            return response.data;
+        }).catch((error) => {
+            return error.response.data.status;
+        })
+    }
 
 
 export const nuevaCompra = (idUsuario: string, token: string, datos: DtCompra): Promise<String> => {
@@ -143,11 +180,22 @@ type Dtsolicitud = {
 
 
 type DtDireccion = {
+    id?: string,
     calle: string,
     numero: string,
     departamento: string,
+    localidad: string,
     notas: string,
     esLocal: boolean
+    locales?: [{
+        id: string,
+        calle: string,
+        numero: string,
+        departamento: string,
+        localidad:string,
+        notas?: string,
+        esLocal: boolean
+    }]
 }
 
 

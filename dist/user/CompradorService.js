@@ -1,12 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.marcarReclamoResuelto = exports.nuevoReclamo = exports.reclamosHechos = exports.listarCompras = exports.nuevaCompra = exports.agregarDireccion = exports.enviarSolicitudVendedor = void 0;
+exports.marcarReclamoResuelto = exports.nuevoReclamo = exports.reclamosHechos = exports.listarCompras = exports.nuevaCompra = exports.obtenerDirecciones = exports.editarDireccion = exports.agregarDireccion = exports.enviarSolicitudVendedor = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
-var token = localStorage.getItem('token');
-var config = {
-    headers: { Authorization: "Bearer ".concat(token) }
-};
 var enviarSolicitudVendedor = function (solicitud, imagenes, token) {
     var json = JSON.stringify(solicitud);
     var blob = new Blob([json], {
@@ -29,11 +25,15 @@ var enviarSolicitudVendedor = function (solicitud, imagenes, token) {
     });
 };
 exports.enviarSolicitudVendedor = enviarSolicitudVendedor;
-var agregarDireccion = function (direccion) {
+var agregarDireccion = function (token, direccion) {
+    var config = {
+        headers: { Authorization: "Bearer ".concat(token) }
+    };
     return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/compradores/agregarDireccion"), {
         calle: direccion.calle,
         numero: direccion.numero,
         departamento: direccion.departamento,
+        localidad: direccion.localidad,
         notas: direccion.notas,
         esLocal: direccion.esLocal
     }, config).then(function (response) {
@@ -43,6 +43,40 @@ var agregarDireccion = function (direccion) {
     });
 };
 exports.agregarDireccion = agregarDireccion;
+var editarDireccion = function (token, direccion) {
+    var config = {
+        headers: { Authorization: "Bearer ".concat(token) }
+    };
+    return axios_1.default.patch("http://".concat(__1.Auth.endpoint, "/api/compradores/Direcciones"), {
+        id: direccion.id,
+        calle: direccion.calle,
+        numero: direccion.numero,
+        departamento: direccion.departamento,
+        localidad: direccion.localidad,
+        notas: direccion.notas,
+        esLocal: direccion.esLocal
+    }, config).then(function (response) {
+        return {
+            status: response.status
+        };
+    }).catch(function (error) {
+        return {
+            status: error.response.data.status
+        };
+    });
+};
+exports.editarDireccion = editarDireccion;
+var obtenerDirecciones = function (token) {
+    var config = {
+        headers: { Authorization: "Bearer ".concat(token) }
+    };
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/compradores/Direcciones"), config).then(function (response) {
+        return response.data;
+    }).catch(function (error) {
+        return error.response.data.status;
+    });
+};
+exports.obtenerDirecciones = obtenerDirecciones;
 var nuevaCompra = function (idUsuario, token, datos) {
     return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/compradores/").concat(idUsuario, "/compras"), datos, {}).then(function (response) {
         return response.status;

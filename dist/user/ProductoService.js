@@ -27,7 +27,10 @@ var listarProductos = function (pageNo, pageSize, sortBy, sortDir, filtros) {
         return response.data;
     })
         .catch(function (error) {
-        return error.response.data.message;
+        if (!error.response)
+            return "Error de conexion";
+        else
+            return error.response.data.message;
     });
 };
 exports.listarProductos = listarProductos;

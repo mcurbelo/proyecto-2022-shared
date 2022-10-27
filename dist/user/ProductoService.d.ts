@@ -32,6 +32,6 @@ export declare type Comentario = {
 export declare type DtFiltros = {
     recibirInfoEventoActivo?: boolean;
     nombre?: string;
-    categorias?: string[];
+    categorias: string[];
     idEventoPromocional?: string;
 };

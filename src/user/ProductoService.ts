@@ -19,7 +19,10 @@ export const listarProductos = (pageNo: string, pageSize: string, sortBy: string
 
     })
         .catch((error) => {
-            return error.response.data.message;
+            if (!error.response)
+                return "Error de conexion"
+            else
+                return error.response.data.message;
         })
 }
 
@@ -70,6 +73,6 @@ export type Comentario = {
 export type DtFiltros = {
     recibirInfoEventoActivo?: boolean,
     nombre?: string,
-    categorias?: string[],
+    categorias: string[],
     idEventoPromocional?: string
 }

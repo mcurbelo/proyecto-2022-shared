@@ -87,6 +87,7 @@ export declare type DtProductoSlim = {
     imagen: string;
     precio: number;
     stock: number;
+    permiteEnvio: boolean;
 };
 export declare type listados = {
     misProductos?: DtMiProducto[];

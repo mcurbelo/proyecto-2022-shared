@@ -1,9 +1,9 @@
 import axios from "axios"
 import { Auth } from ".."
 
-export const listarProductos = (): Promise<DtCategoria[]> => {
+export const listarCategorias = (): Promise<DtCategoria[]> => {
     return axios.get(`http://${Auth.endpoint}/api/categorias`).then((response) => {
-        return response.data;
+        return response.data.Categorias;
     })
         .catch((error) => {
             return error.response.data.message;

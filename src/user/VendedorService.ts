@@ -20,9 +20,9 @@ export const altaProducto = (datosProducto: DtAltaProducto, imagenes: File[], to
         })
 }
 
-export const cambiarEstadoProducto = (idUsuario: String, token: String, idProducto: String, nuevoEstado: EstadoProducto, ): Promise<String> => {
+export const cambiarEstadoProducto = (idUsuario: String, token: String, idProducto: String, nuevoEstado: EstadoProducto,): Promise<String> => {
     return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/productos/${idProducto}/estado?nuevoEstado=${nuevoEstado}`).then((response) => {
-         return response.status;
+        return response.status;
     })
         .catch((error) => {
             return error.response.data.message;
@@ -75,7 +75,7 @@ export const gestionarReclamo = (idUsuario: String, token: String, idVenta: Stri
         })
 }
 
-export const cambiarEstadoVenta = (idUsuario: String, token: String, idVenta: String, accion: EstadoCompra, info:DtConfirmarCompra ): Promise<String> => {
+export const cambiarEstadoVenta = (idUsuario: String, token: String, idVenta: String, accion: EstadoCompra, info: DtConfirmarCompra): Promise<String> => {
     return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?accion=${accion}`, info).then((response) => {
         return response.status;
     })
@@ -103,7 +103,7 @@ export const listarReclamosRecibidos = (idUsuario: String, token: String, pageNo
         })
 }
 
-export type DtConfirmarCompra  ={
+export type DtConfirmarCompra = {
     fechayHoraRetiro?: string,
     fechayHoraEntrega?: string
 }
@@ -190,23 +190,24 @@ export type DtReclamo = {
 }
 
 
-export type DtProductoSlim ={
-    idProducto:string,
-    nombre:string,
-    imagen:string,
+export type DtProductoSlim = {
+    idProducto: string,
+    nombre: string,
+    imagen: string,
     precio: number,
-    stock:number
+    stock: number
+    permiteEnvio: boolean
 }
 
 export type listados = {
-    misProductos?: DtMiProducto,
-    ventas?: DtCompraSlimVendedor,
-    reclamos?: DtReclamo,
-    productos?: DtProductoSlim,
-    compras?: DtCompraSlimComprador,
-    currentPage: Number,
-    totalItems: Number,
-    totalPages: Number
+    misProductos?: DtMiProducto[],
+    ventas?: DtCompraSlimVendedor[],
+    reclamos?: DtReclamo[],
+    productos?: DtProductoSlim[],
+    compras?: DtCompraSlimComprador[],
+    currentPage: number,
+    totalItems: number,
+    totalPages: number
 }
 
 export enum TipoResolucion {

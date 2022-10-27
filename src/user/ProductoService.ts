@@ -14,18 +14,21 @@ export const listarProductos = (pageNo: string, pageSize: string, sortBy: string
     if (filtros.nombre != undefined) searchParams.append("nombre", filtros.nombre);
     if (filtros.idEventoPromocional != undefined) searchParams.append("idEventoPromocional", filtros.idEventoPromocional);
     if (filtros.recibirInfoEventoActivo) searchParams.append("infoEventoActivo", "true");
-    return axios.get(`http://${Auth.endpoint}/api/productos`).then((response) => {
+    return axios.get(`http://${Auth.endpoint}/api/productos?${searchParams}`).then((response) => {
         return response.data
 
     })
         .catch((error) => {
-            return error.response.data.message;
+            if (!error.response)
+                return "Error de conexion"
+            else
+                return error.response.data.message;
         })
 }
 
-export const infoProducto = (idProducto: string): Promise<DtProductoSlim> => {
+export const infoProducto = (idProducto: string): Promise<DtProducto> => {
     return axios.get(`http://${Auth.endpoint}/api/productos/${idProducto}`).then((response) => {
-        return response.status;
+        return response.data;
     })
         .catch((error) => {
             return error.response.data.message;
@@ -49,6 +52,8 @@ export type DtProducto = {
     calificacion: number,
     imagenDePerfil: string,
     localesParaRetiro?: Direccion[]
+    stock: number
+    garantia: number
 }
 
 export type Direccion = {
@@ -70,6 +75,6 @@ export type Comentario = {
 export type DtFiltros = {
     recibirInfoEventoActivo?: boolean,
     nombre?: string,
-    categorias?: string[],
+    categorias: string[],
     idEventoPromocional?: string
 }

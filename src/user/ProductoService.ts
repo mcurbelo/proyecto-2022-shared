@@ -26,9 +26,9 @@ export const listarProductos = (pageNo: string, pageSize: string, sortBy: string
         })
 }
 
-export const infoProducto = (idProducto: string): Promise<DtProductoSlim> => {
+export const infoProducto = (idProducto: string): Promise<DtProducto> => {
     return axios.get(`http://${Auth.endpoint}/api/productos/${idProducto}`).then((response) => {
-        return response.status;
+        return response.data;
     })
         .catch((error) => {
             return error.response.data.message;
@@ -52,6 +52,8 @@ export type DtProducto = {
     calificacion: number,
     imagenDePerfil: string,
     localesParaRetiro?: Direccion[]
+    stock: number
+    garantia: number
 }
 
 export type Direccion = {

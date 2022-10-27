@@ -36,7 +36,7 @@ var listarProductos = function (pageNo, pageSize, sortBy, sortDir, filtros) {
 exports.listarProductos = listarProductos;
 var infoProducto = function (idProducto) {
     return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/productos/").concat(idProducto)).then(function (response) {
-        return response.status;
+        return response.data;
     })
         .catch(function (error) {
         return error.response.data.message;

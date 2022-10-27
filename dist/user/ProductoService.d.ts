@@ -1,6 +1,6 @@
-import { DtProductoSlim, listados } from "./VendedorService";
+import { listados } from "./VendedorService";
 export declare const listarProductos: (pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltros) => Promise<listados>;
-export declare const infoProducto: (idProducto: string) => Promise<DtProductoSlim>;
+export declare const infoProducto: (idProducto: string) => Promise<DtProducto>;
 export declare type DtProducto = {
     idProducto: string;
     idVendedor: string;
@@ -14,6 +14,8 @@ export declare type DtProducto = {
     calificacion: number;
     imagenDePerfil: string;
     localesParaRetiro?: Direccion[];
+    stock: number;
+    garantia: number;
 };
 export declare type Direccion = {
     id: number;

@@ -179,23 +179,14 @@ type Dtsolicitud = {
 }
 
 
-type DtDireccion = {
-    id?: string,
+export type DtDireccion = {
+    id: string,
     calle: string,
-    numero: string,
+    numero: number,
     departamento: string,
     localidad: string,
     notas: string,
     esLocal: boolean
-    locales?: [{
-        id: string,
-        calle: string,
-        numero: string,
-        departamento: string,
-        localidad:string,
-        notas?: string,
-        esLocal: boolean
-    }]
 }
 
 

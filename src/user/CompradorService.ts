@@ -26,61 +26,61 @@ export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[]
         })
 }
 
-export const agregarDireccion = (token:string, direccion: DtDireccion): Promise<{success: any}> => {
+export const agregarDireccion = (token: string, direccion: DtDireccion): Promise<{ success: any }> => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
 
     return axios.post(`http://${Auth.endpoint}/api/compradores/agregarDireccion`, {
-            calle: direccion.calle,
-            numero: direccion.numero,
-            departamento: direccion.departamento,
-            localidad: direccion.localidad,
-            notas: direccion.notas,
-            esLocal: direccion.esLocal
-          }, config).then((response) => {
-            return response.status;
-        }).catch((error) => {
-            return error.response.data.status;
-        })
-    }
+        calle: direccion.calle,
+        numero: direccion.numero,
+        departamento: direccion.departamento,
+        localidad: direccion.localidad,
+        notas: direccion.notas,
+        esLocal: direccion.esLocal
+    }, config).then((response) => {
+        return response.status;
+    }).catch((error) => {
+        return error.response.data.status;
+    })
+}
 
 
-    export const editarDireccion = (token:string, direccion: DtDireccion): Promise<{status: number}> => {
-        const config = {
-            headers: { Authorization: `Bearer ${token}` }
-        };
-    
-        return axios.patch(`http://${Auth.endpoint}/api/compradores/Direcciones`, {
-                id: direccion.id,
-                calle: direccion.calle,
-                numero: direccion.numero,
-                departamento: direccion.departamento,
-                localidad: direccion.localidad,
-                notas: direccion.notas,
-                esLocal: direccion.esLocal
-              }, config).then((response) => {
-                return {
-                    status: response.status
-                }
-            }).catch((error) => {
-                return {
-                    status: error.response.data.status
-                }
-            })
-        }
-    
-export const obtenerDirecciones = (token:string): Promise<[DtDireccion]> => {
+export const editarDireccion = (token: string, direccion: DtDireccion): Promise<{ status: number }> => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
-    };    
+    };
+
+    return axios.patch(`http://${Auth.endpoint}/api/compradores/Direcciones`, {
+        id: direccion.id,
+        calle: direccion.calle,
+        numero: direccion.numero,
+        departamento: direccion.departamento,
+        localidad: direccion.localidad,
+        notas: direccion.notas,
+        esLocal: direccion.esLocal
+    }, config).then((response) => {
+        return {
+            status: response.status
+        }
+    }).catch((error) => {
+        return {
+            status: error.response.data.status
+        }
+    })
+}
+
+export const obtenerDirecciones = (token: string): Promise<[DtDireccion]> => {
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
 
     return axios.get(`http://${Auth.endpoint}/api/compradores/Direcciones`, config).then((response) => {
-            return response.data;
-        }).catch((error) => {
-            return error.response.data.status;
-        })
-    }
+        return response.data;
+    }).catch((error) => {
+        return error.response.data.status;
+    })
+}
 
 
 export const nuevaCompra = (idUsuario: string, token: string, datos: DtCompra): Promise<String> => {
@@ -153,13 +153,14 @@ export const marcarReclamoResuelto = (idUsuario: string, token: string, idCompra
         })
 }
 
-type DtCompra = {
+
+export type DtCompra = {
     idVendedor: string,
     idProducto: string,
     cantidad: number,
-    codigoCanje: string,
+    codigoCanje?: string,
     idTarjeta: string,
-    esParEnvio: boolean,
+    esParaEnvio: boolean,
     idDireccionEnvio?: number,
     idDireccionLocal?: number
 }

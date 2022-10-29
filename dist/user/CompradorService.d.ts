@@ -12,13 +12,13 @@ export declare const listarCompras: (idUsuario: string, token: string, pageNo: s
 export declare const reclamosHechos: (idUsuario: string, token: string, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltoReclamo) => Promise<listados>;
 export declare const nuevoReclamo: (idUsuario: string, token: string, idCompra: string, datos: DtAltaReclamo) => Promise<String>;
 export declare const marcarReclamoResuelto: (idUsuario: string, token: string, idCompra: string, idReclamo: string) => Promise<String>;
-declare type DtCompra = {
+export declare type DtCompra = {
     idVendedor: string;
     idProducto: string;
     cantidad: number;
-    codigoCanje: string;
+    codigoCanje?: string;
     idTarjeta: string;
-    esParEnvio: boolean;
+    esParaEnvio: boolean;
     idDireccionEnvio?: number;
     idDireccionLocal?: number;
 };
@@ -35,25 +35,14 @@ declare type Dtsolicitud = {
     };
     idDireccion?: number;
 };
-declare type DtDireccion = {
-    id?: string;
+export declare type DtDireccion = {
+    id: string;
     calle: string;
-    numero: string;
+    numero: number;
     departamento: string;
     localidad: string;
     notas: string;
     esLocal: boolean;
-    locales?: [
-        {
-            id: string;
-            calle: string;
-            numero: string;
-            departamento: string;
-            localidad: string;
-            notas?: string;
-            esLocal: boolean;
-        }
-    ];
 };
 declare type DtFiltrosCompras = {
     fecha?: string;

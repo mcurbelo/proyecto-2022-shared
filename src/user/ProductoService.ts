@@ -51,7 +51,7 @@ export type DtProducto = {
     nombreVendedor: string,
     calificacion: number,
     imagenDePerfil: string,
-    localesParaRetiro?: Direccion[]
+    localesParaRetiro: Direccion[]
     stock: number
     garantia: number
 }
@@ -61,6 +61,7 @@ export type Direccion = {
     calle: string,
     numero: string,
     departamento: string,
+    localidad: string,
     notas: string
 }
 

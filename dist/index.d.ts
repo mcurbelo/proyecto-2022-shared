@@ -6,4 +6,5 @@ export * as CategoriaService from "./user/CategoriaService";
 export * as CompartidoUsuario from "./user/CompartidoUsuarios";
 export * as CompradorService from "./user/CompradorService";
 export * as ProductoService from "./user/ProductoService";
+export * as DtDireccion from "./user/CompradorService";
 export { Endpoint as Auth } from "./Auth";

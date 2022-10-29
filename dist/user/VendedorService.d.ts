@@ -41,21 +41,21 @@ export declare type DtFiltrosVentas = {
     EstadoCompra?: EstadoCompra;
 };
 export declare type DtMiProducto = {
-    idProducto: String;
-    nombre: String;
-    imagenes: String;
+    idProducto: string;
+    nombre: string;
+    imagenes: string;
     fechaInicio: Date;
     fechaFin: Date;
     categorias: [String];
-    precio: Number;
-    stock: Number;
+    precio: number;
+    stock: number;
     estadoProducto: EstadoProducto;
 };
 export declare type DtCompraSlimVendedor = {
-    idCompra: String;
-    idComprador: String;
-    nombreComprador: String;
-    nombreProducto: String;
+    idCompra: string;
+    idComprador: string;
+    nombreComprador: string;
+    nombreProducto: string;
     cantidad: number;
     fecha: Date;
     estadoCompra: EstadoCompra;
@@ -63,10 +63,10 @@ export declare type DtCompraSlimVendedor = {
     montoUnitario: number;
 };
 export declare type DtCompraSlimComprador = {
-    idCompra: String;
-    idVendedor: String;
-    nombreVendedor: String;
-    nombreProducto: String;
+    idCompra: string;
+    idVendedor: string;
+    nombreVendedor: string;
+    nombreProducto: string;
     cantidad: number;
     fecha: Date;
     estadoCompra: EstadoCompra;

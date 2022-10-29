@@ -13,7 +13,7 @@ export declare type DtProducto = {
     nombreVendedor: string;
     calificacion: number;
     imagenDePerfil: string;
-    localesParaRetiro?: Direccion[];
+    localesParaRetiro: Direccion[];
     stock: number;
     garantia: number;
 };
@@ -22,6 +22,7 @@ export declare type Direccion = {
     calle: string;
     numero: string;
     departamento: string;
+    localidad: string;
     notas: string;
 };
 export declare type Comentario = {

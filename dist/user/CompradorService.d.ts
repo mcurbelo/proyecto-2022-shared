@@ -6,7 +6,7 @@ export declare const agregarDireccion: (token: string, direccion: DtDireccion) =
 export declare const editarDireccion: (token: string, direccion: DtDireccion) => Promise<{
     status: number;
 }>;
-export declare const obtenerDirecciones: (token: string) => Promise<[DtDireccion]>;
+export declare const obtenerDirecciones: (token: string) => Promise<DtDireccion[]>;
 export declare const nuevaCompra: (idUsuario: string, token: string, datos: DtCompra) => Promise<String>;
 export declare const listarCompras: (idUsuario: string, token: string, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltrosCompras) => Promise<listados>;
 export declare const reclamosHechos: (idUsuario: string, token: string, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltoReclamo) => Promise<listados>;
@@ -27,16 +27,10 @@ declare type Dtsolicitud = {
     rut?: string;
     telefonoEmpresa?: string;
     producto: DtAltaProducto;
-    local?: {
-        calle: string;
-        numero: string;
-        departamento: string;
-        notas: string;
-    };
-    idDireccion?: number;
+    idDireccion: string;
 };
 export declare type DtDireccion = {
-    id: string;
+    id?: string;
     calle: string;
     numero: number;
     departamento: string;

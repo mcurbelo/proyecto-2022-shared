@@ -3,7 +3,7 @@ import { Auth } from ".."
 
 export const listarCategorias = (): Promise<DtCategoria[]> => {
     return axios.get(`http://${Auth.endpoint}/api/categorias`).then((response) => {
-        return response.data.Categorias;
+        return response.data
     })
         .catch((error) => {
             return error.response.data.message;

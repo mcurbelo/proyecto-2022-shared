@@ -5,7 +5,7 @@ var axios_1 = require("axios");
 var __1 = require("..");
 var listarCategorias = function () {
     return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/categorias")).then(function (response) {
-        return response.data.Categorias;
+        return response.data;
     })
         .catch(function (error) {
         return error.response.data.message;

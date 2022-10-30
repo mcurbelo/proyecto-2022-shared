@@ -5,6 +5,7 @@ import { Auth } from ".."
 
 
 export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[], token: String): Promise<String> => {
+    console.log(solicitud, imagenes, token)
     const json = JSON.stringify(solicitud);
     const blob = new Blob([json], {
         type: 'application/json'
@@ -14,9 +15,11 @@ export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[]
     imagenes.forEach((imagen: File) => {
         data.append("imagenes", imagen);
     })
+    console.log(JSON.stringify(data))
     return axios.post(`http://${Auth.endpoint}/api/compradores/solicitudVendedor`, data, {
         headers: {
-            "Content-Type": "multipart/form-data"
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`
         },
     }).then((response) => {
         return response.status;
@@ -27,6 +30,7 @@ export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[]
 }
 
 export const agregarDireccion = (token: string, direccion: DtDireccion): Promise<{ success: any }> => {
+    console.log("AGREGANDO DIRECCIOOOOOON")
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
@@ -69,8 +73,8 @@ export const editarDireccion = (token: string, direccion: DtDireccion): Promise<
         }
     })
 }
-
-export const obtenerDirecciones = (token: string): Promise<[DtDireccion]> => {
+    
+export const obtenerDirecciones = (token:string): Promise<DtDireccion[]> => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
@@ -170,18 +174,12 @@ type Dtsolicitud = {
     rut?: string
     telefonoEmpresa?: string
     producto: DtAltaProducto,
-    local?: {
-        calle: string
-        numero: string
-        departamento: string
-        notas: string
-    }
-    idDireccion?: number
+    idDireccion: string
 }
 
 
 export type DtDireccion = {
-    id: string,
+    id?: string,
     calle: string,
     numero: number,
     departamento: string,

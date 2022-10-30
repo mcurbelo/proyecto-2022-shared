@@ -86,7 +86,7 @@ export const obtenerDirecciones = (token: string): Promise<[DtDireccion]> => {
 export const nuevaCompra = (idUsuario: string, token: string, datos: DtCompra): Promise<String> => {
     return axios.post(`http://${Auth.endpoint}/api/compradores/${idUsuario}/compras`, datos, {
     }).then((response) => {
-        return response.status;
+        return response.status.toString();
     })
         .catch((error) => {
             return error.response.data.message;

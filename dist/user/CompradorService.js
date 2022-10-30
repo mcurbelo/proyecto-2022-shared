@@ -79,7 +79,7 @@ var obtenerDirecciones = function (token) {
 exports.obtenerDirecciones = obtenerDirecciones;
 var nuevaCompra = function (idUsuario, token, datos) {
     return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/compradores/").concat(idUsuario, "/compras"), datos, {}).then(function (response) {
-        return response.status;
+        return response.status.toString();
     })
         .catch(function (error) {
         return error.response.data.message;

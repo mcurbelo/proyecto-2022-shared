@@ -18,7 +18,6 @@ export declare type DtAltaProducto = {
     diasGarantia: number;
     permiteEnvio: boolean;
     categorias: string[];
-    esSolicitud: boolean;
 };
 export declare type DtFiltrosMisProductos = {
     fecha?: string;

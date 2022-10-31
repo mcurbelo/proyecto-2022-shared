@@ -177,7 +177,9 @@ export type DtCompraSlimComprador = {
     fecha: Date,
     estadoCompra: EstadoCompra,
     montoTotal: number,
-    montoUnitario: number
+    montoUnitario: number,
+    imagenURL: string,
+    esEnvio: boolean
 }
 
 export type DtReclamo = {
@@ -223,6 +225,9 @@ export enum EstadoProducto {
 }
 
 export enum EstadoCompra {
-    Cancelada = "Cancelada", Completada = "Completada", Confirmada = "Confirmada", EsperandoConfirmacion = "EsperandoConfirmacion"
+    Cancelada = "Cancelada",
+    Completada = "Completada",
+    Confirmada = "Confirmada",
+    EsperandoConfirmacion = "EsperandoConfirmacion"
 }
 

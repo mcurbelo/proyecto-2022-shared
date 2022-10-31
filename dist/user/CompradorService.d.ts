@@ -44,7 +44,7 @@ export declare type DtDireccion = {
     notas: string;
     esLocal: boolean;
 };
-declare type DtFiltrosCompras = {
+export declare type DtFiltrosCompras = {
     fecha?: string;
     nombreVendedor?: string;
     nombreProducto?: string;

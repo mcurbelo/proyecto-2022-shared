@@ -72,6 +72,8 @@ export declare type DtCompraSlimComprador = {
     estadoCompra: EstadoCompra;
     montoTotal: number;
     montoUnitario: number;
+    imagenURL: string;
+    esEnvio: boolean;
 };
 export declare type DtReclamo = {
     datosCompra: DtCompraSlimComprador;

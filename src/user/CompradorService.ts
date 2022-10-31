@@ -191,7 +191,7 @@ export type DtDireccion = {
 }
 
 
-type DtFiltrosCompras = {
+export type DtFiltrosCompras = {
     fecha?: string,
     nombreVendedor?: string,
     nombreProducto?: string,

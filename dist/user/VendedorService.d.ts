@@ -10,7 +10,6 @@ export declare type DtConfirmarCompra = {
     fechayHoraEntrega?: string;
 };
 export declare type DtAltaProducto = {
-    emailVendedor: string;
     nombreProducto: string;
     stock: number;
     descripcion: string;
@@ -18,8 +17,7 @@ export declare type DtAltaProducto = {
     precio: number;
     diasGarantia: number;
     permiteEnvio: boolean;
-    categorias: [String];
-    esSolicitud: boolean;
+    categorias: string[];
 };
 export declare type DtFiltrosMisProductos = {
     fecha?: string;

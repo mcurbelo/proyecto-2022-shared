@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios"
 import { Auth } from ".."
+import { DtCategoria } from "./CategoriaService";
 
 export const altaProducto = (datosProducto: DtAltaProducto, imagenes: File[], token: String): Promise<String> => {
     const json = JSON.stringify(datosProducto);
@@ -110,7 +111,6 @@ export type DtConfirmarCompra = {
 
 
 export type DtAltaProducto = {
-    emailVendedor: string
     nombreProducto: string
     stock: number
     descripcion: string
@@ -118,8 +118,7 @@ export type DtAltaProducto = {
     precio: number
     diasGarantia: number
     permiteEnvio: boolean
-    categorias: [String]
-    esSolicitud: boolean
+    categorias: string[]
 }
 
 export type DtFiltrosMisProductos = {

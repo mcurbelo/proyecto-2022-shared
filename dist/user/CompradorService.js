@@ -4,6 +4,7 @@ exports.marcarReclamoResuelto = exports.nuevoReclamo = exports.reclamosHechos = 
 var axios_1 = require("axios");
 var __1 = require("..");
 var enviarSolicitudVendedor = function (solicitud, imagenes, token) {
+    console.log(solicitud, imagenes, token);
     var json = JSON.stringify(solicitud);
     var blob = new Blob([json], {
         type: 'application/json'
@@ -13,9 +14,11 @@ var enviarSolicitudVendedor = function (solicitud, imagenes, token) {
     imagenes.forEach(function (imagen) {
         data.append("imagenes", imagen);
     });
+    console.log(JSON.stringify(data));
     return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/compradores/solicitudVendedor"), data, {
         headers: {
-            "Content-Type": "multipart/form-data"
+            "Content-Type": "multipart/form-data",
+            Authorization: "Bearer ".concat(token)
         },
     }).then(function (response) {
         return response.status;
@@ -26,6 +29,7 @@ var enviarSolicitudVendedor = function (solicitud, imagenes, token) {
 };
 exports.enviarSolicitudVendedor = enviarSolicitudVendedor;
 var agregarDireccion = function (token, direccion) {
+    console.log("AGREGANDO DIRECCIOOOOOON");
     var config = {
         headers: { Authorization: "Bearer ".concat(token) }
     };

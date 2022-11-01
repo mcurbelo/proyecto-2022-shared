@@ -140,7 +140,7 @@ export const reclamosHechos = (idUsuario: string, token: string, pageNo: string,
 export const nuevoReclamo = (idUsuario: string, token: string, idCompra: string, datos: DtAltaReclamo): Promise<String> => {
     return axios.post(`http://${Auth.endpoint}/api/compradores/${idUsuario}/compras/${idCompra}/reclamos`, datos, {
     }).then((response) => {
-        return response.status;
+        return response.status.toString();
     })
         .catch((error) => {
             return error.response.data.message;
@@ -150,7 +150,7 @@ export const nuevoReclamo = (idUsuario: string, token: string, idCompra: string,
 export const marcarReclamoResuelto = (idUsuario: string, token: string, idCompra: string, idReclamo: string): Promise<String> => {
     return axios.put(`http://${Auth.endpoint}/api/compradores/${idUsuario}/compras/${idCompra}/reclamos/${idReclamo}`, {
     }).then((response) => {
-        return response.status;
+        return response.status.toString();
     })
         .catch((error) => {
             return error.response.data.message;
@@ -196,7 +196,7 @@ export type DtFiltrosCompras = {
     estado?: EstadoCompra
 }
 
-type DtAltaReclamo = {
+export type DtAltaReclamo = {
     descripcion: string,
     tipo: TipoReclamo,
 }

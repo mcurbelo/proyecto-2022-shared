@@ -72,6 +72,9 @@ export declare type DtCompraSlimComprador = {
     montoUnitario: number;
     imagenURL: string;
     esEnvio: boolean;
+    puedeCompletar: boolean;
+    puedeCalificar: boolean;
+    puedeReclamar: boolean;
 };
 export declare type DtReclamo = {
     datosCompra: DtCompraSlimComprador;

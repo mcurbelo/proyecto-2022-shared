@@ -178,7 +178,10 @@ export type DtCompraSlimComprador = {
     montoTotal: number,
     montoUnitario: number,
     imagenURL: string,
-    esEnvio: boolean
+    esEnvio: boolean,
+    puedeCompletar: boolean,
+    puedeCalificar: boolean,
+    puedeReclamar: boolean
 }
 
 export type DtReclamo = {

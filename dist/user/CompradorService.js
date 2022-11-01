@@ -146,7 +146,7 @@ var reclamosHechos = function (idUsuario, token, pageNo, pageSize, sortBy, sortD
 exports.reclamosHechos = reclamosHechos;
 var nuevoReclamo = function (idUsuario, token, idCompra, datos) {
     return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/compradores/").concat(idUsuario, "/compras/").concat(idCompra, "/reclamos"), datos, {}).then(function (response) {
-        return response.status;
+        return response.status.toString();
     })
         .catch(function (error) {
         return error.response.data.message;
@@ -155,7 +155,7 @@ var nuevoReclamo = function (idUsuario, token, idCompra, datos) {
 exports.nuevoReclamo = nuevoReclamo;
 var marcarReclamoResuelto = function (idUsuario, token, idCompra, idReclamo) {
     return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/compradores/").concat(idUsuario, "/compras/").concat(idCompra, "/reclamos/").concat(idReclamo), {}).then(function (response) {
-        return response.status;
+        return response.status.toString();
     })
         .catch(function (error) {
         return error.response.data.message;

@@ -44,7 +44,7 @@ export declare type DtFiltrosCompras = {
     nombreProducto?: string;
     estado?: EstadoCompra;
 };
-declare type DtAltaReclamo = {
+export declare type DtAltaReclamo = {
     descripcion: string;
     tipo: TipoReclamo;
 };

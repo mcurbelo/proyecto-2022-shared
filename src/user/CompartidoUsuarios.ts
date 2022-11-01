@@ -22,9 +22,9 @@ export const calificar = (idCompra: string, token: string,datos: DtCalificacion 
 }
 
 
-type DtCalificacion={
+export type DtCalificacion={
     puntuacion: number,
     comentario: string,
-    autro: string,
+    autor: string,
 }
 

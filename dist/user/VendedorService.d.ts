@@ -75,6 +75,7 @@ export declare type DtCompraSlimComprador = {
     puedeCompletar: boolean;
     puedeCalificar: boolean;
     puedeReclamar: boolean;
+    fechaEntrega?: Date;
 };
 export declare type DtReclamo = {
     datosCompra: DtCompraSlimComprador;

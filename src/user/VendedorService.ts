@@ -182,6 +182,7 @@ export type DtCompraSlimComprador = {
     puedeCompletar: boolean,
     puedeCalificar: boolean,
     puedeReclamar: boolean
+    fechaEntrega?: Date
 }
 
 export type DtReclamo = {

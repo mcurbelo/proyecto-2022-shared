@@ -13,11 +13,11 @@ var altaProducto = function (datosProducto, imagenes, token) {
     imagenes.forEach(function (imagen) {
         data.append("imagenes", imagen);
     });
-    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/productos"), data).then(function (response) {
-        return response.status;
-    })
-        .catch(function (error) {
-        return error.response.data.message;
+    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/productos"), data, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: "Bearer ".concat(token)
+        }
     });
 };
 exports.altaProducto = altaProducto;

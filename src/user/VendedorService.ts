@@ -13,12 +13,12 @@ export const altaProducto = (datosProducto: DtAltaProducto, imagenes: File[], to
         data.append("imagenes", imagen);
     })
 
-    return axios.post(`http://${Auth.endpoint}/api/productos`, data).then((response) => {
-        return response.status;
+    return axios.post(`http://${Auth.endpoint}/api/productos`, data, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`
+        }
     })
-        .catch((error) => {
-            return error.response.data.message;
-        })
 }
 
 export const cambiarEstadoProducto = (idUsuario: String, token: String, idProducto: String, nuevoEstado: EstadoProducto,): Promise<String> => {

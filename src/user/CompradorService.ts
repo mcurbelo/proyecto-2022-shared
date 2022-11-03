@@ -5,7 +5,6 @@ import { Auth } from ".."
 
 
 export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[], token: String): Promise<String> => {
-    console.log(solicitud, imagenes, token)
     const json = JSON.stringify(solicitud);
     const blob = new Blob([json], {
         type: 'application/json'
@@ -15,18 +14,12 @@ export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[]
     imagenes.forEach((imagen: File) => {
         data.append("imagenes", imagen);
     })
-    console.log(JSON.stringify(data))
     return axios.post(`http://${Auth.endpoint}/api/compradores/solicitudVendedor`, data, {
         headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`
         },
-    }).then((response) => {
-        return response.status;
     })
-        .catch((error) => {
-            return error.response.data.message;
-        })
 }
 
 export const agregarDireccion = (token: string, direccion: DtDireccion): Promise<{ success: any }> => {

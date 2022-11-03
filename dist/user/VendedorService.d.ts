@@ -4,6 +4,7 @@ export declare const listarMisProductos: (idUsuario: String, token: String, page
 export declare const listarMisVentas: (idUsuario: String, token: String, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltrosVentas) => Promise<listados>;
 export declare const gestionarReclamo: (idUsuario: String, token: String, idVenta: String, idReclamo: String, accion: TipoResolucion) => Promise<String>;
 export declare const cambiarEstadoVenta: (idUsuario: String, token: String, idVenta: String, accion: EstadoCompra, info: DtConfirmarCompra) => Promise<String>;
+export declare const completarVentaRetiro: (idUsuario: String, token: String, idVenta: String) => Promise<String>;
 export declare const listarReclamosRecibidos: (idUsuario: String, token: String, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltoReclamo) => Promise<listados>;
 export declare type DtConfirmarCompra = {
     fechayHoraRetiro?: string;
@@ -35,8 +36,7 @@ export declare type DtFiltoReclamo = {
 export declare type DtFiltrosVentas = {
     fecha?: string;
     nombre?: string;
-    categorias?: string[];
-    EstadoCompra?: EstadoCompra;
+    estado?: EstadoCompra;
 };
 export declare type DtMiProducto = {
     idProducto: string;
@@ -59,6 +59,11 @@ export declare type DtCompraSlimVendedor = {
     estadoCompra: EstadoCompra;
     montoTotal: number;
     montoUnitario: number;
+    imagenURL: string;
+    fechaEntrega: Date;
+    puedeCalificar: boolean;
+    puedeCompletar: boolean;
+    esEnvio: boolean;
 };
 export declare type DtCompraSlimComprador = {
     idCompra: string;

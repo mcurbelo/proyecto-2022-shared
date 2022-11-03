@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EstadoCompra = exports.EstadoProducto = exports.TipoReclamo = exports.TipoResolucion = exports.listarReclamosRecibidos = exports.cambiarEstadoVenta = exports.gestionarReclamo = exports.listarMisVentas = exports.listarMisProductos = exports.cambiarEstadoProducto = exports.altaProducto = void 0;
+exports.EstadoCompra = exports.EstadoProducto = exports.TipoReclamo = exports.TipoResolucion = exports.listarReclamosRecibidos = exports.completarVentaRetiro = exports.cambiarEstadoVenta = exports.gestionarReclamo = exports.listarMisVentas = exports.listarMisProductos = exports.cambiarEstadoProducto = exports.altaProducto = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
 var altaProducto = function (datosProducto, imagenes, token) {
@@ -69,8 +69,6 @@ var listarMisVentas = function (idUsuario, token, pageNo, pageSize, sortBy, sort
         searchParams.append("sortBy", sortBy);
     if (sortDir != "")
         searchParams.append("sortDir", sortDir);
-    if (filtros.EstadoCompra != undefined)
-        searchParams.append("estado", filtros.EstadoCompra.toString());
     if (filtros.fecha != undefined)
         searchParams.append("fecha", filtros.fecha);
     if (filtros.nombre != undefined)
@@ -102,6 +100,15 @@ var cambiarEstadoVenta = function (idUsuario, token, idVenta, accion, info) {
     });
 };
 exports.cambiarEstadoVenta = cambiarEstadoVenta;
+var completarVentaRetiro = function (idUsuario, token, idVenta) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/estado?accion=Completada")).then(function (response) {
+        return response.status;
+    })
+        .catch(function (error) {
+        return error.response.data.message;
+    });
+};
+exports.completarVentaRetiro = completarVentaRetiro;
 var listarReclamosRecibidos = function (idUsuario, token, pageNo, pageSize, sortBy, sortDir, filtros) {
     var searchParams = new URLSearchParams();
     if (pageNo != "")

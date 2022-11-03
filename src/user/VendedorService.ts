@@ -56,7 +56,6 @@ export const listarMisVentas = (idUsuario: String, token: String, pageNo: string
     if (pageSize != "") searchParams.append("pageSize", pageSize);
     if (sortBy != "") searchParams.append("sortBy", sortBy);
     if (sortDir != "") searchParams.append("sortDir", sortDir);
-    if (filtros.EstadoCompra != undefined) searchParams.append("estado", filtros.EstadoCompra.toString());
     if (filtros.fecha != undefined) searchParams.append("fecha", filtros.fecha);
     if (filtros.nombre != undefined) searchParams.append("nombre", filtros.nombre);
     return axios.get(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas?${searchParams.toString()}`).then((response) => {
@@ -78,6 +77,15 @@ export const gestionarReclamo = (idUsuario: String, token: String, idVenta: Stri
 
 export const cambiarEstadoVenta = (idUsuario: String, token: String, idVenta: String, accion: EstadoCompra, info: DtConfirmarCompra): Promise<String> => {
     return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?accion=${accion}`, info).then((response) => {
+        return response.status;
+    })
+        .catch((error) => {
+            return error.response.data.message;
+        })
+}
+
+export const completarVentaRetiro = (idUsuario: String, token: String, idVenta: String): Promise<String> => {
+    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?accion=Completada`).then((response) => {
         return response.status;
     })
         .catch((error) => {
@@ -139,8 +147,7 @@ export type DtFiltoReclamo = {
 export type DtFiltrosVentas = {
     fecha?: string,
     nombre?: string,
-    categorias?: string[],
-    EstadoCompra?: EstadoCompra
+    estado?: EstadoCompra
 }
 
 export type DtMiProducto = {
@@ -164,7 +171,12 @@ export type DtCompraSlimVendedor = {
     fecha: Date,
     estadoCompra: EstadoCompra,
     montoTotal: number,
-    montoUnitario: number
+    montoUnitario: number,
+    imagenURL: string,
+    fechaEntrega: Date,
+    puedeCalificar: boolean,
+    puedeCompletar: boolean
+    esEnvio: boolean
 }
 
 export type DtCompraSlimComprador = {

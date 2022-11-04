@@ -22,7 +22,7 @@ export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[]
     })
 }
 
-export const agregarDireccion = (token: string, direccion: DtDireccion): Promise<{ success: any }> => {
+export const agregarDireccion = (token: string, direccion: DtDireccion): Promise<{ success: boolean }> => {
     console.log("AGREGANDO DIRECCIOOOOOON")
     const config = {
         headers: { Authorization: `Bearer ${token}` }
@@ -36,9 +36,9 @@ export const agregarDireccion = (token: string, direccion: DtDireccion): Promise
         notas: direccion.notas,
         esLocal: direccion.esLocal
     }, config).then((response) => {
-        return response.status;
+        return {success: true};
     }).catch((error) => {
-        return error.response.data.status;
+        return {success: false};
     })
 }
 

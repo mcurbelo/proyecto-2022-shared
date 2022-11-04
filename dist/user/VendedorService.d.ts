@@ -61,7 +61,7 @@ export declare type DtCompraSlimVendedor = {
     montoTotal: number;
     montoUnitario: number;
     imagenURL: string;
-    fechaEntrega: Date;
+    fechaEntrega?: string;
     puedeCalificar: boolean;
     puedeCompletar: boolean;
     esEnvio: boolean;
@@ -84,6 +84,7 @@ export declare type DtCompraSlimComprador = {
     puedeCalificar: boolean;
     puedeReclamar: boolean;
     fechaEntrega?: Date;
+    direccionEntrega: string;
 };
 export declare type DtReclamo = {
     datosCompra: DtCompraSlimComprador;

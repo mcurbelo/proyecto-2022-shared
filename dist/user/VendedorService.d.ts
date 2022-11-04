@@ -9,6 +9,7 @@ export declare const listarReclamosRecibidos: (idUsuario: String, token: String,
 export declare type DtConfirmarCompra = {
     fechayHoraRetiro?: string;
     fechayHoraEntrega?: string;
+    motivo?: string;
 };
 export declare type DtAltaProducto = {
     nombreProducto: string;
@@ -50,7 +51,7 @@ export declare type DtMiProducto = {
     estadoProducto: EstadoProducto;
 };
 export declare type DtCompraSlimVendedor = {
-    idCompra: string;
+    idVenta: string;
     idComprador: string;
     nombreComprador: string;
     nombreProducto: string;
@@ -64,6 +65,8 @@ export declare type DtCompraSlimVendedor = {
     puedeCalificar: boolean;
     puedeCompletar: boolean;
     esEnvio: boolean;
+    direccionEntrega: string;
+    calificacionComprador: number;
 };
 export declare type DtCompraSlimComprador = {
     idCompra: string;

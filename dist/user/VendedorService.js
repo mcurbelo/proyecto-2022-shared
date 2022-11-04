@@ -73,6 +73,8 @@ var listarMisVentas = function (idUsuario, token, pageNo, pageSize, sortBy, sort
         searchParams.append("fecha", filtros.fecha);
     if (filtros.nombre != undefined)
         searchParams.append("nombre", filtros.nombre);
+    if (filtros.estado != undefined)
+        searchParams.append("estado", filtros.estado.toString());
     return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas?").concat(searchParams.toString())).then(function (response) {
         return response.data;
     })
@@ -92,7 +94,7 @@ var gestionarReclamo = function (idUsuario, token, idVenta, idReclamo, accion) {
 };
 exports.gestionarReclamo = gestionarReclamo;
 var cambiarEstadoVenta = function (idUsuario, token, idVenta, accion, info) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/estado?accion=").concat(accion), info).then(function (response) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/estado?nuevoEstado=").concat(accion), info).then(function (response) {
         return response.status;
     })
         .catch(function (error) {
@@ -101,7 +103,7 @@ var cambiarEstadoVenta = function (idUsuario, token, idVenta, accion, info) {
 };
 exports.cambiarEstadoVenta = cambiarEstadoVenta;
 var completarVentaRetiro = function (idUsuario, token, idVenta) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/estado?accion=Completada")).then(function (response) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/estado?nuevoEstado=Completada")).then(function (response) {
         return response.status;
     })
         .catch(function (error) {

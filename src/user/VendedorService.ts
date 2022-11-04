@@ -58,6 +58,7 @@ export const listarMisVentas = (idUsuario: String, token: String, pageNo: string
     if (sortDir != "") searchParams.append("sortDir", sortDir);
     if (filtros.fecha != undefined) searchParams.append("fecha", filtros.fecha);
     if (filtros.nombre != undefined) searchParams.append("nombre", filtros.nombre);
+    if (filtros.estado != undefined) searchParams.append("estado", filtros.estado.toString());
     return axios.get(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas?${searchParams.toString()}`).then((response) => {
         return response.data;
     })
@@ -76,7 +77,7 @@ export const gestionarReclamo = (idUsuario: String, token: String, idVenta: Stri
 }
 
 export const cambiarEstadoVenta = (idUsuario: String, token: String, idVenta: String, accion: EstadoCompra, info: DtConfirmarCompra): Promise<String> => {
-    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?accion=${accion}`, info).then((response) => {
+    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?nuevoEstado=${accion}`, info).then((response) => {
         return response.status;
     })
         .catch((error) => {
@@ -85,7 +86,7 @@ export const cambiarEstadoVenta = (idUsuario: String, token: String, idVenta: St
 }
 
 export const completarVentaRetiro = (idUsuario: String, token: String, idVenta: String): Promise<String> => {
-    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?accion=Completada`).then((response) => {
+    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?nuevoEstado=Completada`).then((response) => {
         return response.status;
     })
         .catch((error) => {
@@ -114,7 +115,8 @@ export const listarReclamosRecibidos = (idUsuario: String, token: String, pageNo
 
 export type DtConfirmarCompra = {
     fechayHoraRetiro?: string,
-    fechayHoraEntrega?: string
+    fechayHoraEntrega?: string,
+    motivo?: string
 }
 
 
@@ -163,7 +165,7 @@ export type DtMiProducto = {
 }
 
 export type DtCompraSlimVendedor = {
-    idCompra: string,
+    idVenta: string,
     idComprador: string,
     nombreComprador: string,
     nombreProducto: string,
@@ -176,7 +178,9 @@ export type DtCompraSlimVendedor = {
     fechaEntrega: Date,
     puedeCalificar: boolean,
     puedeCompletar: boolean
-    esEnvio: boolean
+    esEnvio: boolean,
+    direccionEntrega: string,
+    calificacionComprador: number
 }
 
 export type DtCompraSlimComprador = {

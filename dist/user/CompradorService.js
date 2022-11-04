@@ -34,9 +34,9 @@ var agregarDireccion = function (token, direccion) {
         notas: direccion.notas,
         esLocal: direccion.esLocal
     }, config).then(function (response) {
-        return response.status;
+        return { success: true };
     }).catch(function (error) {
-        return error.response.data.status;
+        return { success: false };
     });
 };
 exports.agregarDireccion = agregarDireccion;

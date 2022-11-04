@@ -12,7 +12,7 @@ export const completarEnvio = (idCompra: string, token: string): Promise<String>
 }
 
 
-export const calificar = (idCompra: string, token: string,datos: DtCalificacion ): Promise<String> => {
+export const calificar = (idCompra: string, token: string, datos: DtCalificacion): Promise<String> => {
     return axios.post(`http://${Auth.endpoint}/api/compras/calificaciones/${idCompra}`, datos).then((response) => {
         return response.status.toString();
     })
@@ -22,7 +22,7 @@ export const calificar = (idCompra: string, token: string,datos: DtCalificacion 
 }
 
 
-export type DtCalificacion={
+export type DtCalificacion = {
     puntuacion: number,
     comentario: string,
     autor: string,

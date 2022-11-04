@@ -1,7 +1,7 @@
 import { DtAltaProducto, DtFiltoReclamo, EstadoCompra, listados, TipoReclamo } from "./VendedorService";
 export declare const enviarSolicitudVendedor: (solicitud: Dtsolicitud, imagenes: File[], token: String) => Promise<String>;
 export declare const agregarDireccion: (token: string, direccion: DtDireccion) => Promise<{
-    success: any;
+    success: boolean;
 }>;
 export declare const editarDireccion: (token: string, direccion: DtDireccion) => Promise<{
     status: number;

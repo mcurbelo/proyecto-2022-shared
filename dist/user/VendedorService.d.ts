@@ -87,12 +87,13 @@ export declare type DtCompraSlimComprador = {
     direccionEntrega: string;
 };
 export declare type DtReclamo = {
-    datosCompra: DtCompraSlimComprador;
+    datosCompra: DtInfoCompra;
     tipo: TipoReclamo;
     estado: TipoResolucion;
     fechaRealizado: Date;
     autor: string;
     idReclamo: string;
+    descripcion: string;
 };
 export declare type DtProductoSlim = {
     idProducto: string;
@@ -112,10 +113,27 @@ export declare type listados = {
     totalItems: number;
     totalPages: number;
 };
+export declare type DtInfoCompra = {
+    idCompra: string;
+    idVendedor: string;
+    nombreVendedor: string;
+    nombreProducto: string;
+    cantidad: number;
+    fecha: Date;
+    estadoCompra: EstadoCompra;
+    montoTotal: number;
+    montoUnitario: number;
+    fechaEntrega: string;
+    direccionEntrega: string;
+    esEnvio: boolean;
+    avatarVendedor: string;
+    avatarComprador: string;
+    imagenProducto: string;
+};
 export declare enum TipoResolucion {
     Devolucion = "Devolucion",
     PorChat = "PorChat",
-    NoResuelto = "PorChat"
+    NoResuelto = "NoResuelto"
 }
 export declare enum TipoReclamo {
     DesperfectoProducto = "DesperfectoProducto",

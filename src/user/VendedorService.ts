@@ -86,7 +86,7 @@ export const cambiarEstadoVenta = (idUsuario: String, token: String, idVenta: St
 }
 
 export const completarVentaRetiro = (idUsuario: String, token: String, idVenta: String): Promise<String> => {
-    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?nuevoEstado=Completada`).then((response) => {
+    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?nuevoEstado=Completada`,{}).then((response) => {
         return response.status;
     })
         .catch((error) => {
@@ -100,12 +100,12 @@ export const listarReclamosRecibidos = (idUsuario: String, token: String, pageNo
     if (pageSize != "") searchParams.append("pageSize", pageSize);
     if (sortBy != "") searchParams.append("sortBy", sortBy);
     if (sortDir != "") searchParams.append("sortDir", sortDir);
-    if (filtros.resolucion != undefined) searchParams.append("estado", filtros.resolucion.toString());
-    if (filtros.tipo != undefined) searchParams.append("estado", filtros.tipo.toString());
+    if (filtros.resolucion != undefined) searchParams.append("resolucion", filtros.resolucion.toString());
+    if (filtros.tipo != undefined) searchParams.append("tipo", filtros.tipo.toString());
     if (filtros.fecha != undefined) searchParams.append("fecha", filtros.fecha);
-    if (filtros.nombreProducto != undefined) searchParams.append("nombre", filtros.nombreProducto);
-    if (filtros.nombreUsuario != undefined) searchParams.append("nombre", filtros.nombreUsuario);
-    return axios.get(`http://${Auth.endpoint}/api/vendedor/${idUsuario}/ventas/reclamos?${searchParams.toString()}`).then((response) => {
+    if (filtros.nombreProducto != undefined) searchParams.append("nombreProducto", filtros.nombreProducto);
+    if (filtros.nombreUsuario != undefined) searchParams.append("nombreUsuario", filtros.nombreUsuario);
+    return axios.get(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/reclamos?${searchParams.toString()}`).then((response) => {
         return response.data;
     })
         .catch((error) => {
@@ -203,12 +203,13 @@ export type DtCompraSlimComprador = {
 }
 
 export type DtReclamo = {
-    datosCompra: DtCompraSlimComprador,
+    datosCompra: DtInfoCompra,
     tipo: TipoReclamo,
     estado: TipoResolucion,
     fechaRealizado: Date,
     autor: string
     idReclamo: string;
+    descripcion: string
 }
 
 
@@ -232,8 +233,27 @@ export type listados = {
     totalPages: number
 }
 
+
+export type DtInfoCompra = {
+    idCompra: string,
+    idVendedor: string,
+    nombreVendedor: string,
+    nombreProducto: string,
+    cantidad: number,
+    fecha: Date,
+    estadoCompra: EstadoCompra,
+    montoTotal: number,
+    montoUnitario: number,
+    fechaEntrega: string,
+    direccionEntrega: string,
+    esEnvio: boolean,
+    avatarVendedor: string,
+    avatarComprador: string,
+    imagenProducto: string
+}
+
 export enum TipoResolucion {
-    Devolucion = "Devolucion", PorChat = "PorChat", NoResuelto = "PorChat"
+    Devolucion = "Devolucion", PorChat = "PorChat", NoResuelto = "NoResuelto"
 }
 
 export enum TipoReclamo {

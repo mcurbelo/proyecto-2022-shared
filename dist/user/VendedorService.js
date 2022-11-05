@@ -103,7 +103,7 @@ var cambiarEstadoVenta = function (idUsuario, token, idVenta, accion, info) {
 };
 exports.cambiarEstadoVenta = cambiarEstadoVenta;
 var completarVentaRetiro = function (idUsuario, token, idVenta) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/estado?nuevoEstado=Completada")).then(function (response) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/estado?nuevoEstado=Completada"), {}).then(function (response) {
         return response.status;
     })
         .catch(function (error) {
@@ -122,16 +122,16 @@ var listarReclamosRecibidos = function (idUsuario, token, pageNo, pageSize, sort
     if (sortDir != "")
         searchParams.append("sortDir", sortDir);
     if (filtros.resolucion != undefined)
-        searchParams.append("estado", filtros.resolucion.toString());
+        searchParams.append("resolucion", filtros.resolucion.toString());
     if (filtros.tipo != undefined)
-        searchParams.append("estado", filtros.tipo.toString());
+        searchParams.append("tipo", filtros.tipo.toString());
     if (filtros.fecha != undefined)
         searchParams.append("fecha", filtros.fecha);
     if (filtros.nombreProducto != undefined)
-        searchParams.append("nombre", filtros.nombreProducto);
+        searchParams.append("nombreProducto", filtros.nombreProducto);
     if (filtros.nombreUsuario != undefined)
-        searchParams.append("nombre", filtros.nombreUsuario);
-    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedor/").concat(idUsuario, "/ventas/reclamos?").concat(searchParams.toString())).then(function (response) {
+        searchParams.append("nombreUsuario", filtros.nombreUsuario);
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/reclamos?").concat(searchParams.toString())).then(function (response) {
         return response.data;
     })
         .catch(function (error) {
@@ -144,7 +144,7 @@ var TipoResolucion;
 (function (TipoResolucion) {
     TipoResolucion["Devolucion"] = "Devolucion";
     TipoResolucion["PorChat"] = "PorChat";
-    TipoResolucion["NoResuelto"] = "PorChat";
+    TipoResolucion["NoResuelto"] = "NoResuelto";
 })(TipoResolucion = exports.TipoResolucion || (exports.TipoResolucion = {}));
 var TipoReclamo;
 (function (TipoReclamo) {

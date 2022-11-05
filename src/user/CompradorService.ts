@@ -116,11 +116,11 @@ export const reclamosHechos = (idUsuario: string, token: string, pageNo: string,
     if (pageSize != "") searchParams.append("pageSize", pageSize);
     if (sortBy != "") searchParams.append("sortBy", sortBy);
     if (sortDir != "") searchParams.append("sortDir", sortDir);
-    if (filtros.resolucion != undefined) searchParams.append("estado", filtros.resolucion.toString());
-    if (filtros.tipo != undefined) searchParams.append("estado", filtros.tipo.toString());
+    if (filtros.resolucion != undefined) searchParams.append("resolucion", filtros.resolucion.toString());
+    if (filtros.tipo != undefined) searchParams.append("tipo", filtros.tipo.toString());
     if (filtros.fecha != undefined) searchParams.append("fecha", filtros.fecha);
-    if (filtros.nombreProducto != undefined) searchParams.append("nombre", filtros.nombreProducto);
-    if (filtros.nombreUsuario != undefined) searchParams.append("nombre", filtros.nombreUsuario);
+    if (filtros.nombreProducto != undefined) searchParams.append("nombreProducto", filtros.nombreProducto);
+    if (filtros.nombreUsuario != undefined) searchParams.append("nombreUsuario", filtros.nombreUsuario);
     return axios.get(`http://${Auth.endpoint}/api/compradores/${idUsuario}/compras/reclamos?${searchParams.toString()}`, {
     }).then((response) => {
         return response.data;

@@ -120,15 +120,15 @@ var reclamosHechos = function (idUsuario, token, pageNo, pageSize, sortBy, sortD
     if (sortDir != "")
         searchParams.append("sortDir", sortDir);
     if (filtros.resolucion != undefined)
-        searchParams.append("estado", filtros.resolucion.toString());
+        searchParams.append("resolucion", filtros.resolucion.toString());
     if (filtros.tipo != undefined)
-        searchParams.append("estado", filtros.tipo.toString());
+        searchParams.append("tipo", filtros.tipo.toString());
     if (filtros.fecha != undefined)
         searchParams.append("fecha", filtros.fecha);
     if (filtros.nombreProducto != undefined)
-        searchParams.append("nombre", filtros.nombreProducto);
+        searchParams.append("nombreProducto", filtros.nombreProducto);
     if (filtros.nombreUsuario != undefined)
-        searchParams.append("nombre", filtros.nombreUsuario);
+        searchParams.append("nombreUsuario", filtros.nombreUsuario);
     return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/compradores/").concat(idUsuario, "/compras/reclamos?").concat(searchParams.toString()), {}).then(function (response) {
         return response.data;
     })

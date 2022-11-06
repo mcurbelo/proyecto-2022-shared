@@ -85,6 +85,7 @@ export declare type DtCompraSlimComprador = {
     puedeReclamar: boolean;
     fechaEntrega?: Date;
     direccionEntrega: string;
+    garantiaActiva: boolean;
 };
 export declare type DtReclamo = {
     datosCompra: DtInfoCompra;

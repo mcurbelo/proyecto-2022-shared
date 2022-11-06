@@ -36,9 +36,9 @@ export const agregarDireccion = (token: string, direccion: DtDireccion): Promise
         notas: direccion.notas,
         esLocal: direccion.esLocal
     }, config).then((response) => {
-        return {success: true};
+        return { success: true };
     }).catch((error) => {
-        return {success: false};
+        return { success: false };
     })
 }
 
@@ -66,8 +66,8 @@ export const editarDireccion = (token: string, direccion: DtDireccion): Promise<
         }
     })
 }
-    
-export const obtenerDirecciones = (token:string): Promise<DtDireccion[]> => {
+
+export const obtenerDirecciones = (token: string): Promise<DtDireccion[]> => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };

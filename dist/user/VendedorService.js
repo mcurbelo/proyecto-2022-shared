@@ -55,7 +55,6 @@ var listarMisProductos = function (idUsuario, token, pageNo, pageSize, sortBy, s
     })
         .catch(function (error) {
         return error.response.data.message;
-        ;
     });
 };
 exports.listarMisProductos = listarMisProductos;

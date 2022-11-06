@@ -110,6 +110,7 @@ export declare type listados = {
     reclamos?: DtReclamo[];
     productos?: DtProductoSlim[];
     compras?: DtCompraSlimComprador[];
+    usuarios?: DtUsuarioSlim[];
     currentPage: number;
     totalItems: number;
     totalPages: number;
@@ -130,6 +131,13 @@ export declare type DtInfoCompra = {
     avatarVendedor: string;
     avatarComprador: string;
     imagenProducto: string;
+};
+export declare type DtUsuarioSlim = {
+    id: string;
+    correo: string;
+    nombre: string;
+    apellido: string;
+    estadoUsuario: string;
 };
 export declare enum TipoResolucion {
     Devolucion = "Devolucion",

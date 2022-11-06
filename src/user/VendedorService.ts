@@ -46,7 +46,7 @@ export const listarMisProductos = (idUsuario: String, token: String, pageNo: str
         return response.data;
     })
         .catch((error) => {
-            return error.response.data.message;;
+            return error.response.data.message;
         })
 }
 
@@ -229,6 +229,7 @@ export type listados = {
     reclamos?: DtReclamo[],
     productos?: DtProductoSlim[],
     compras?: DtCompraSlimComprador[],
+    usuarios?: DtUsuarioSlim[],
     currentPage: number,
     totalItems: number,
     totalPages: number
@@ -251,6 +252,14 @@ export type DtInfoCompra = {
     avatarVendedor: string,
     avatarComprador: string,
     imagenProducto: string
+}
+
+export type DtUsuarioSlim = {
+    id: string,
+    correo: string,
+    nombre: string,
+    apellido: string,
+    estadoUsuario: string
 }
 
 export enum TipoResolucion {

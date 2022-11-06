@@ -86,7 +86,7 @@ export const cambiarEstadoVenta = (idUsuario: String, token: String, idVenta: St
 }
 
 export const completarVentaRetiro = (idUsuario: String, token: String, idVenta: String): Promise<String> => {
-    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?nuevoEstado=Completada`,{}).then((response) => {
+    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?nuevoEstado=Completada`, {}).then((response) => {
         return response.status;
     })
         .catch((error) => {
@@ -199,7 +199,7 @@ export type DtCompraSlimComprador = {
     puedeCalificar: boolean,
     puedeReclamar: boolean
     fechaEntrega?: Date
-    direccionEntrega:string
+    direccionEntrega: string
 }
 
 export type DtReclamo = {
@@ -268,6 +268,7 @@ export enum EstadoCompra {
     Cancelada = "Cancelada",
     Completada = "Completada",
     Confirmada = "Confirmada",
-    EsperandoConfirmacion = "EsperandoConfirmacion"
+    EsperandoConfirmacion = "EsperandoConfirmacion",
+    Devolucion = "Devolucion"
 }
 

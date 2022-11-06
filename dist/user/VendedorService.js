@@ -166,4 +166,5 @@ var EstadoCompra;
     EstadoCompra["Completada"] = "Completada";
     EstadoCompra["Confirmada"] = "Confirmada";
     EstadoCompra["EsperandoConfirmacion"] = "EsperandoConfirmacion";
+    EstadoCompra["Devolucion"] = "Devolucion";
 })(EstadoCompra = exports.EstadoCompra || (exports.EstadoCompra = {}));

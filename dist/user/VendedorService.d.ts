@@ -151,5 +151,6 @@ export declare enum EstadoCompra {
     Cancelada = "Cancelada",
     Completada = "Completada",
     Confirmada = "Confirmada",
-    EsperandoConfirmacion = "EsperandoConfirmacion"
+    EsperandoConfirmacion = "EsperandoConfirmacion",
+    Devolucion = "Devolucion"
 }

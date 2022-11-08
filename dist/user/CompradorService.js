@@ -22,7 +22,6 @@ var enviarSolicitudVendedor = function (solicitud, imagenes, token) {
 };
 exports.enviarSolicitudVendedor = enviarSolicitudVendedor;
 var agregarDireccion = function (token, direccion) {
-    console.log("AGREGANDO DIRECCIOOOOOON");
     var config = {
         headers: { Authorization: "Bearer ".concat(token) }
     };

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { Auth } from ".."
 
-export const iniciarSesion = (email: string, password: string) : Promise<IniciarSesionResponse> => {
+export const iniciarSesion = (email: string, password: string): Promise<IniciarSesionResponse> => {
   return axios.post(`http://${Auth.endpoint}/api/auth/iniciarSesion`, {
     correo: email,
     password: password
@@ -12,15 +12,15 @@ export const iniciarSesion = (email: string, password: string) : Promise<Iniciar
       uuid: (response.data.uuid)
     }
   })
-  .catch((error) => {
-    return {success: false}
-  })
+    .catch((error) => {
+      return { success: false }
+    })
 }
 
-export const registrarUsuario = (datos: RegistrarUsuarioRequest) : Promise<IniciarSesionResponse> => {
+export const registrarUsuario = (datos: RegistrarUsuarioRequest): Promise<IniciarSesionResponse> => {
   return axios.post(`http://${Auth.endpoint}/api/auth/registrarse`, datos)
     .then((response) => {
-      if(response.data.success) {
+      if (response.data.success) {
         return {
           success: true,
           token: (response.data.token as string),
@@ -32,33 +32,33 @@ export const registrarUsuario = (datos: RegistrarUsuarioRequest) : Promise<Inici
           error: (response.data.errorMessage as string)
         }
       }
-      
+
     })
     .catch((error) => {
-      return {success: false}
+      return { success: false }
     })
 }
 
 export const recuperarContrasena = (correo: string): Promise<String> => {
   return axios.put(`http://${Auth.endpoint}/api/auth/recuperarContrasena?correo=${correo}`).then((response) => {
-      return response.data;
+    return response.data;
   })
-      .catch((error) => {
-          return error.response.data.message;
-      })
+    .catch((error) => {
+      return error.response.data.message;
+    })
 }
 
 export const reiniciarContrasena = (tokenReset: string, nuevaContrasena: string): Promise<String> => {
   return axios.put(`http://${Auth.endpoint}/api/auth/reiniciarContrasena?token=${tokenReset}&contrasena${nuevaContrasena}`).then((response) => {
-      return response.data;
+    return response.data;
   })
-      .catch((error) => {
-          return error.response.data.message;
-      })
+    .catch((error) => {
+      return error.response.data.message;
+    })
 }
 
-export const obtenerInformacion = (uuid: string) : Promise<InfoUsuarioResponse> => {
-  return axios.get(`http://${Auth.endpoint}/api/usuarios/`+ uuid +`/infoUsuario`).then((response) => {
+export const obtenerInformacion = (token: string, uuid: string): Promise<InfoUsuarioResponse> => {
+  return axios.get(`http://${Auth.endpoint}/api/usuarios/` + uuid + `/infoUsuario`).then((response) => {
     return {
       nombre: response.data.nombre,
       apellido: response.data.apellido,
@@ -69,14 +69,18 @@ export const obtenerInformacion = (uuid: string) : Promise<InfoUsuarioResponse> 
       calificacion: response.data.calificacion
     }
   })
-  .catch((error) => {
-    return {success: false}
-  })
+    .catch((error) => {
+      if (error.response.status == 500) {
+        return "Error en el servidor";
+      } else {
+        return error.response.data.message
+      }
+    })
 }
 
 
-export const updateUser = (datos: UpdateInfo) : Promise<UpdateResponse> => {
-  return axios.put(`http://${Auth.endpoint}/api/usuarios/`+ datos.uuid +`/infoBasica`, 
+export const updateUser = (token: string, datos: UpdateInfo): Promise<UpdateResponse> => {
+  return axios.put(`http://${Auth.endpoint}/api/usuarios/` + datos.uuid + `/infoBasica`,
     {
       "apellido": datos.apellido,
       "correo": datos.correo,
@@ -85,17 +89,120 @@ export const updateUser = (datos: UpdateInfo) : Promise<UpdateResponse> => {
       "imagen": {
         "data": datos.imagen.data
       }
-  })
-  .then((response) => {
-    return {
-      success: true
-    }
-  })
-  .catch((error) => {
-    return {success: false}
-  })
+    })
+    .then((response) => {
+      return {
+        success: true
+      }
+    })
+    .catch((error) => {
+      if (error.response.status.toString() === "500") {
+        return {
+          success: false,
+          message: "Error en el servidor"
+        }
+      } else {
+        return {
+          success: false,
+          message: error.response.data.message
+        }
+      }
+    })
+}
+
+export const updateDatosEmpresa = (token: string, idUsuario: string, datos: UpdateInfoEmpresa): Promise<UpdateResponse> => {
+  return axios.put(`http://${Auth.endpoint}/api/usuarios/${idUsuario}/perfil`, datos)
+    .then((response) => {
+      return {
+        success: true
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      if (error.response.status.toString() !== "409") {
+        return {
+          success: false,
+          message: "Error en el servidor"
+        }
+      } else {
+        return {
+          success: false,
+          message: error.response.data.message
+        }
+      }
+    })
+}
+
+export const updateContrasena = (token: string, idUsuario: string, datos: DtCambioContrasena): Promise<UpdateResponse> => {
+  return axios.put(`http://${Auth.endpoint}/api/usuarios/${idUsuario}/perfil`, datos)
+    .then((response) => {
+      return {
+        success: true
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      if (error.response.status.toString() !== "409") {
+        return {
+          success: false,
+          message: "Error en el servidor"
+        }
+      } else {
+        return {
+          success: false,
+          message: error.response.data.message
+        }
+      }
+    })
+}
 
 
+export const updateImagen = (token: string, idUsuario: string, imagen: File): Promise<UpdateResponse> => {
+  const data = new FormData();
+  data.append("imagen", imagen);
+  return axios.put(`http://${Auth.endpoint}/api/usuarios/${idUsuario}/perfil/imagen`, data)
+    .then((response) => {
+      return {
+        success: true
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      if (error.response.status.toString() !== "409") {
+        return {
+          success: false,
+          message: "Error en el servidor"
+        }
+      } else {
+        return {
+          success: false,
+          message: error.response.data.message
+        }
+      }
+    })
+}
+
+export const eliminarCuenta = (token: string, idUsuario: string): Promise<UpdateResponse> => {
+  return axios.delete(`http://${Auth.endpoint}/api/usuarios/${idUsuario}`)
+    .then((response) => {
+      return {
+        success: true
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      if (error.response.status.toString() !== "409") {
+        return {
+          success: false,
+          message: "Error en el servidor"
+        }
+      } else {
+        return {
+          success: false,
+          message: error.response.data.message
+        }
+      }
+    })
 }
 
 
@@ -132,15 +239,25 @@ type UpdateResponse = {
 }
 
 type UpdateInfo = {
-    uuid: string,
-    correo?: string,
+  uuid: string,
+  correo?: string,
+  nombre?: string,
+  apellido?: string,
+  telefono?: string,
+  imagen: {
+    data: string,
     nombre?: string,
-    apellido?: string,
-    telefono?: string,
-    imagen: {
-      data: string,
-      nombre?: string,
-      tamaño?: 0,
-      formato?: string
-    }
+    tamaño?: 0,
+    formato?: string
+  }
+}
+
+export type UpdateInfoEmpresa = {
+  nombreEmpresa?: string,
+  telefonoEmpresa?: string
+}
+
+export type DtCambioContrasena = {
+  contrasenaVieja: string,
+  contrasenaNueva: string
 }

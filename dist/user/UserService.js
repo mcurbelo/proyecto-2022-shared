@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUser = exports.obtenerInformacion = exports.reiniciarContrasena = exports.recuperarContrasena = exports.registrarUsuario = exports.iniciarSesion = void 0;
+exports.eliminarCuenta = exports.updateImagen = exports.updateContrasena = exports.updateDatosEmpresa = exports.updateUser = exports.obtenerInformacion = exports.reiniciarContrasena = exports.recuperarContrasena = exports.registrarUsuario = exports.iniciarSesion = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
 var iniciarSesion = function (email, password) {
@@ -59,7 +59,7 @@ var reiniciarContrasena = function (tokenReset, nuevaContrasena) {
     });
 };
 exports.reiniciarContrasena = reiniciarContrasena;
-var obtenerInformacion = function (uuid) {
+var obtenerInformacion = function (token, uuid) {
     return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/usuarios/") + uuid + "/infoUsuario").then(function (response) {
         return {
             nombre: response.data.nombre,
@@ -72,11 +72,16 @@ var obtenerInformacion = function (uuid) {
         };
     })
         .catch(function (error) {
-        return { success: false };
+        if (error.response.status == 500) {
+            return "Error en el servidor";
+        }
+        else {
+            return error.response.data.message;
+        }
     });
 };
 exports.obtenerInformacion = obtenerInformacion;
-var updateUser = function (datos) {
+var updateUser = function (token, datos) {
     return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/usuarios/") + datos.uuid + "/infoBasica", {
         "apellido": datos.apellido,
         "correo": datos.correo,
@@ -92,7 +97,116 @@ var updateUser = function (datos) {
         };
     })
         .catch(function (error) {
-        return { success: false };
+        if (error.response.status.toString() === "500") {
+            return {
+                success: false,
+                message: "Error en el servidor"
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: error.response.data.message
+            };
+        }
     });
 };
 exports.updateUser = updateUser;
+var updateDatosEmpresa = function (token, idUsuario, datos) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/usuarios/").concat(idUsuario, "/perfil"), datos)
+        .then(function (response) {
+        return {
+            success: true
+        };
+    })
+        .catch(function (error) {
+        console.log(error);
+        if (error.response.status.toString() !== "409") {
+            return {
+                success: false,
+                message: "Error en el servidor"
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: error.response.data.message
+            };
+        }
+    });
+};
+exports.updateDatosEmpresa = updateDatosEmpresa;
+var updateContrasena = function (token, idUsuario, datos) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/usuarios/").concat(idUsuario, "/perfil"), datos)
+        .then(function (response) {
+        return {
+            success: true
+        };
+    })
+        .catch(function (error) {
+        console.log(error);
+        if (error.response.status.toString() !== "409") {
+            return {
+                success: false,
+                message: "Error en el servidor"
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: error.response.data.message
+            };
+        }
+    });
+};
+exports.updateContrasena = updateContrasena;
+var updateImagen = function (token, idUsuario, imagen) {
+    var data = new FormData();
+    data.append("imagen", imagen);
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/usuarios/").concat(idUsuario, "/perfil/imagen"), data)
+        .then(function (response) {
+        return {
+            success: true
+        };
+    })
+        .catch(function (error) {
+        console.log(error);
+        if (error.response.status.toString() !== "409") {
+            return {
+                success: false,
+                message: "Error en el servidor"
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: error.response.data.message
+            };
+        }
+    });
+};
+exports.updateImagen = updateImagen;
+var eliminarCuenta = function (token, idUsuario) {
+    return axios_1.default.delete("http://".concat(__1.Auth.endpoint, "/api/usuarios/").concat(idUsuario))
+        .then(function (response) {
+        return {
+            success: true
+        };
+    })
+        .catch(function (error) {
+        console.log(error);
+        if (error.response.status.toString() !== "409") {
+            return {
+                success: false,
+                message: "Error en el servidor"
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: error.response.data.message
+            };
+        }
+    });
+};
+exports.eliminarCuenta = eliminarCuenta;

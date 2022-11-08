@@ -23,7 +23,6 @@ export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[]
 }
 
 export const agregarDireccion = (token: string, direccion: DtDireccion): Promise<{ success: boolean }> => {
-    console.log("AGREGANDO DIRECCIOOOOOON")
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };

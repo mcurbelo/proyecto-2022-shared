@@ -42,13 +42,13 @@ export declare type DtFiltrosVentas = {
 export declare type DtMiProducto = {
     idProducto: string;
     nombre: string;
-    imagenes: string;
-    fechaInicio: Date;
-    fechaFin: Date;
-    categorias: [String];
+    imagenes: string[];
+    fechaInicio: string;
+    fechaFin: string;
+    categorias: string[];
     precio: number;
     stock: number;
-    estadoProducto: EstadoProducto;
+    estado: EstadoProducto;
 };
 export declare type DtCompraSlimVendedor = {
     idVenta: string;

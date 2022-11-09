@@ -155,13 +155,13 @@ export type DtFiltrosVentas = {
 export type DtMiProducto = {
     idProducto: string,
     nombre: string,
-    imagenes: string,
-    fechaInicio: Date,
-    fechaFin: Date,
-    categorias: [String],
+    imagenes: string[],
+    fechaInicio: string,
+    fechaFin: string,
+    categorias: string[],
     precio: number,
     stock: number,
-    estadoProducto: EstadoProducto
+    estado: EstadoProducto
 }
 
 export type DtCompraSlimVendedor = {

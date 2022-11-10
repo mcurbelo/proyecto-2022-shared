@@ -31,6 +31,10 @@ var nuevoAdministrador = function (token, datos) {
 };
 exports.nuevoAdministrador = nuevoAdministrador;
 var listadoUsuarios = function (token, pageNo, pageSize, sortBy, sortDir, filtros) {
+    if (pageNo === void 0) { pageNo = ""; }
+    if (pageSize === void 0) { pageSize = ""; }
+    if (sortBy === void 0) { sortBy = ""; }
+    if (sortDir === void 0) { sortDir = ""; }
     var searchParams = new URLSearchParams();
     if (pageNo != "")
         searchParams.append("pageNo", pageNo);
@@ -40,21 +44,25 @@ var listadoUsuarios = function (token, pageNo, pageSize, sortBy, sortDir, filtro
         searchParams.append("sortBy", sortBy);
     if (sortDir != "")
         searchParams.append("sortDir", sortDir);
-    if (filtros.nombre != undefined)
+    if ((filtros === null || filtros === void 0 ? void 0 : filtros.nombre) != undefined)
         searchParams.append("nombre", filtros.nombre);
-    if (filtros.apellido != undefined)
+    if ((filtros === null || filtros === void 0 ? void 0 : filtros.apellido) != undefined)
         searchParams.append("apellido", filtros.apellido);
-    if (filtros.correo != undefined)
+    if ((filtros === null || filtros === void 0 ? void 0 : filtros.correo) != undefined)
         searchParams.append("correo", filtros.correo);
-    if (filtros.estado != undefined)
+    if ((filtros === null || filtros === void 0 ? void 0 : filtros.estado) != undefined)
         searchParams.append("estado", filtros.estado.toString());
-    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/usuarios")).then(function (response) {
-        return response.data;
-    })
-        .catch(function (error) {
-        return error.response.data.message;
-        ;
-    });
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/usuarios?").concat(searchParams.toString()), {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) { return response.data; });
+    // .then((response) => {
+    //     return response.data;
+    // })
+    //     .catch((error) => {
+    //         return error.response.data.message;;
+    //     })
 };
 exports.listadoUsuarios = listadoUsuarios;
 var EstadoUsuario;

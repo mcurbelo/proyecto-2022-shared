@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.marcarReclamoResuelto = exports.nuevoReclamo = exports.reclamosHechos = exports.listarCompras = exports.nuevaCompra = exports.obtenerDirecciones = exports.editarDireccion = exports.agregarDireccion = exports.enviarSolicitudVendedor = void 0;
+exports.iniciarChat = exports.obtenerChat = exports.marcarReclamoResuelto = exports.nuevoReclamo = exports.reclamosHechos = exports.listarCompras = exports.nuevaCompra = exports.obtenerDirecciones = exports.editarDireccion = exports.agregarDireccion = exports.enviarSolicitudVendedor = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
 var enviarSolicitudVendedor = function (solicitud, imagenes, token) {
@@ -154,3 +154,15 @@ var marcarReclamoResuelto = function (idUsuario, token, idCompra, idReclamo) {
     });
 };
 exports.marcarReclamoResuelto = marcarReclamoResuelto;
+var obtenerChat = function (idcompra) {
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/compras/chat/").concat(idcompra)).then(function (response) {
+        return response.data;
+    }).catch(function (error) { });
+};
+exports.obtenerChat = obtenerChat;
+var iniciarChat = function (idcompra, idchat) {
+    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/compras/iniciarChat"), { idCompra: idcompra, idChat: idchat }).then(function (response) {
+        return response.data;
+    }).catch(function (error) { });
+};
+exports.iniciarChat = iniciarChat;

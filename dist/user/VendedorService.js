@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EstadoCompra = exports.EstadoProducto = exports.TipoReclamo = exports.TipoResolucion = exports.listarReclamosRecibidos = exports.completarVentaRetiro = exports.cambiarEstadoVenta = exports.gestionarReclamo = exports.listarMisVentas = exports.listarMisProductos = exports.cambiarEstadoProducto = exports.altaProducto = void 0;
+exports.EstadoCompra = exports.EstadoProducto = exports.TipoReclamo = exports.TipoResolucion = exports.modificarProducto = exports.listarReclamosRecibidos = exports.completarVentaRetiro = exports.cambiarEstadoVenta = exports.gestionarReclamo = exports.listarMisVentas = exports.listarMisProductos = exports.cambiarEstadoProducto = exports.altaProducto = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
 var altaProducto = function (datosProducto, imagenes, token) {
@@ -139,6 +139,39 @@ var listarReclamosRecibidos = function (idUsuario, token, pageNo, pageSize, sort
     });
 };
 exports.listarReclamosRecibidos = listarReclamosRecibidos;
+var modificarProducto = function (idUsuario, token, idProducto, datos, imagenes) {
+    var json = JSON.stringify(datos);
+    var blob = new Blob([json], {
+        type: 'application/json'
+    });
+    var data = new FormData();
+    data.append("datos", blob);
+    imagenes.forEach(function (imagen) {
+        data.append("imagenes", imagen);
+    });
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/productos/").concat(idProducto), data)
+        .then(function (response) {
+        return {
+            success: true
+        };
+    })
+        .catch(function (error) {
+        console.log(error);
+        if (error.response.status.toString() !== "409") {
+            return {
+                success: false,
+                message: "Error en el servidor"
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: error.response.data.message
+            };
+        }
+    });
+};
+exports.modificarProducto = modificarProducto;
 var TipoResolucion;
 (function (TipoResolucion) {
     TipoResolucion["Devolucion"] = "Devolucion";

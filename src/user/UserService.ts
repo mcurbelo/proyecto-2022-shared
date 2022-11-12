@@ -233,7 +233,7 @@ type IniciarSesionResponse = {
   error?: string;
 }
 
-type UpdateResponse = {
+export type UpdateResponse = {
   success: boolean;
   message?: string;
 }

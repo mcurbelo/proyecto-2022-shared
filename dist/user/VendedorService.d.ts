@@ -1,3 +1,4 @@
+import { UpdateResponse } from "./UserService";
 export declare const altaProducto: (datosProducto: DtAltaProducto, imagenes: File[], token: String) => Promise<String>;
 export declare const cambiarEstadoProducto: (idUsuario: String, token: String, idProducto: String, nuevoEstado: EstadoProducto) => Promise<String>;
 export declare const listarMisProductos: (idUsuario: String, token: String, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltrosMisProductos) => Promise<listados>;
@@ -6,6 +7,7 @@ export declare const gestionarReclamo: (idUsuario: String, token: String, idVent
 export declare const cambiarEstadoVenta: (idUsuario: String, token: String, idVenta: String, accion: EstadoCompra, info: DtConfirmarCompra) => Promise<String>;
 export declare const completarVentaRetiro: (idUsuario: String, token: String, idVenta: String) => Promise<String>;
 export declare const listarReclamosRecibidos: (idUsuario: String, token: String, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltoReclamo) => Promise<listados>;
+export declare const modificarProducto: (idUsuario: String, token: String, idProducto: string, datos: DtModificarProducto, imagenes: File[]) => Promise<UpdateResponse>;
 export declare type DtConfirmarCompra = {
     fechayHoraRetiro?: string;
     fechayHoraEntrega?: string;
@@ -49,6 +51,8 @@ export declare type DtMiProducto = {
     precio: number;
     stock: number;
     estado: EstadoProducto;
+    descripcion: string;
+    permiteEnvio: boolean;
 };
 export declare type DtCompraSlimVendedor = {
     idVenta: string;
@@ -138,6 +142,14 @@ export declare type DtUsuarioSlim = {
     nombre: string;
     apellido: string;
     estadoUsuario: string;
+};
+export declare type DtModificarProducto = {
+    descripcion?: string;
+    fechaFin?: string;
+    precio?: number;
+    stock?: number;
+    imagenesQuitar?: number[];
+    permiteEnvio?: boolean;
 };
 export declare enum TipoResolucion {
     Devolucion = "Devolucion",

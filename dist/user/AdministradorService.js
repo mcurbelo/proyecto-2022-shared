@@ -57,12 +57,6 @@ var listadoUsuarios = function (token, pageNo, pageSize, sortBy, sortDir, filtro
             authorization: "Bearer ".concat(token)
         }
     }).then(function (response) { return response.data; });
-    // .then((response) => {
-    //     return response.data;
-    // })
-    //     .catch((error) => {
-    //         return error.response.data.message;;
-    //     })
 };
 exports.listadoUsuarios = listadoUsuarios;
 var EstadoUsuario;

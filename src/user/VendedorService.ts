@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios"
 import { Auth } from ".."
 import { DtCategoria } from "./CategoriaService";
+import { UpdateResponse } from "./UserService";
 
 export const altaProducto = (datosProducto: DtAltaProducto, imagenes: File[], token: String): Promise<String> => {
     const json = JSON.stringify(datosProducto);
@@ -113,6 +114,39 @@ export const listarReclamosRecibidos = (idUsuario: String, token: String, pageNo
         })
 }
 
+export const modificarProducto = (idUsuario: String, token: String, idProducto: string, datos: DtModificarProducto, imagenes: File[]): Promise<UpdateResponse> => {
+    const json = JSON.stringify(datos);
+    const blob = new Blob([json], {
+        type: 'application/json'
+    });
+    const data = new FormData();
+    data.append("datos", blob);
+    imagenes.forEach((imagen: File) => {
+        data.append("imagenes", imagen);
+    })
+
+    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/productos/${idProducto}`, data)
+        .then((response) => {
+            return {
+                success: true
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            if (error.response.status.toString() !== "409") {
+                return {
+                    success: false,
+                    message: "Error en el servidor"
+                }
+            } else {
+                return {
+                    success: false,
+                    message: error.response.data.message
+                }
+            }
+        })
+}
+
 export type DtConfirmarCompra = {
     fechayHoraRetiro?: string,
     fechayHoraEntrega?: string,
@@ -161,7 +195,9 @@ export type DtMiProducto = {
     categorias: string[],
     precio: number,
     stock: number,
-    estado: EstadoProducto
+    estado: EstadoProducto,
+    descripcion: string,
+    permiteEnvio: boolean
 }
 
 export type DtCompraSlimVendedor = {
@@ -260,6 +296,15 @@ export type DtUsuarioSlim = {
     nombre: string,
     apellido: string,
     estadoUsuario: string
+}
+
+export type DtModificarProducto = {
+    descripcion?: string,
+    fechaFin?: string,
+    precio?: number,
+    stock?: number,
+    imagenesQuitar?: number[],
+    permiteEnvio?: boolean
 }
 
 export enum TipoResolucion {

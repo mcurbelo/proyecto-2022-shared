@@ -32,7 +32,7 @@ declare type IniciarSesionResponse = {
     uuid?: string;
     error?: string;
 };
-declare type UpdateResponse = {
+export declare type UpdateResponse = {
     success: boolean;
     message?: string;
 };

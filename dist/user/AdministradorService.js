@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EstadoUsuario = exports.listadoUsuarios = exports.nuevoAdministrador = exports.revisarSolicitudNuevoVendedor = exports.cambiarEstadoUsuario = void 0;
+exports.EstadoUsuario = exports.listadoSolicitudes = exports.listadoUsuarios = exports.nuevoAdministrador = exports.revisarSolicitudNuevoVendedor = exports.cambiarEstadoUsuario = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
 var cambiarEstadoUsuario = function (idUsuario, token, motivo, nuevoEstado) {
@@ -59,6 +59,23 @@ var listadoUsuarios = function (token, pageNo, pageSize, sortBy, sortDir, filtro
     }).then(function (response) { return response.data; });
 };
 exports.listadoUsuarios = listadoUsuarios;
+var listadoSolicitudes = function (token, pageNo, pageSize, sortBy, sortDir) {
+    var searchParams = new URLSearchParams();
+    if (pageNo != "")
+        searchParams.append("pageNo", pageNo);
+    if (pageSize != "")
+        searchParams.append("pageSize", pageSize);
+    if (sortBy != "")
+        searchParams.append("sortBy", sortBy);
+    if (sortDir != "")
+        searchParams.append("sortDir", sortDir);
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/administradores/solicitudes?").concat(searchParams.toString()), {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) { return response.data; });
+};
+exports.listadoSolicitudes = listadoSolicitudes;
 var EstadoUsuario;
 (function (EstadoUsuario) {
     EstadoUsuario["Activo"] = "Activo";

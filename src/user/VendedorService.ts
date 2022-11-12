@@ -187,6 +187,7 @@ export type DtFiltrosVentas = {
 }
 
 export type DtMiProducto = {
+    id: number,
     idProducto: string,
     nombre: string,
     imagenes: string[],
@@ -266,9 +267,10 @@ export type listados = {
     productos?: DtProductoSlim[],
     compras?: DtCompraSlimComprador[],
     usuarios?: DtUsuarioSlim[],
+    solicitudes?: DtSolicitudPendiente[],
     currentPage: number,
     totalItems: number,
-    totalPages: number
+    totalPages: number,
 }
 
 
@@ -305,6 +307,19 @@ export type DtModificarProducto = {
     stock?: number,
     imagenesQuitar?: number[],
     permiteEnvio?: boolean
+}
+
+export type DtSolicitudPendiente = {
+    producto: DtMiProducto,
+    nombreApellido: string,
+    calificacion: number,
+    imagenPerfil: string,
+    correo: string,
+    telefono?: string,
+    nombreEmpresa?: string,
+    telefonoEmpresa?: string,
+    rut?: string,
+    direccionLocal: string
 }
 
 export enum TipoResolucion {

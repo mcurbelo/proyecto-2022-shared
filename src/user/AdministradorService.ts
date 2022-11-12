@@ -54,7 +54,24 @@ export const listadoUsuarios = (
     }).then(response => response.data)
 }
 
-
+export const listadoSolicitudes = (
+    token: string,
+    pageNo: string,
+    pageSize: string,
+    sortBy: string,
+    sortDir: string,
+): Promise<listados> => {
+    const searchParams = new URLSearchParams();
+    if (pageNo != "") searchParams.append("pageNo", pageNo);
+    if (pageSize != "") searchParams.append("pageSize", pageSize);
+    if (sortBy != "") searchParams.append("sortBy", sortBy);
+    if (sortDir != "") searchParams.append("sortDir", sortDir);
+    return axios.get(`http://${Auth.endpoint}/api/administradores/solicitudes?${searchParams.toString()}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then(response => response.data)
+}
 
 export type DtMotivo = {
     motivo: string,

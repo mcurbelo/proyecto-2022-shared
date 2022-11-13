@@ -132,7 +132,6 @@ export const modificarProducto = (idUsuario: String, token: String, idProducto: 
             }
         })
         .catch((error) => {
-            console.log(error);
             if (error.response.status.toString() !== "409") {
                 return {
                     success: false,
@@ -198,7 +197,8 @@ export type DtMiProducto = {
     stock: number,
     estado: EstadoProducto,
     descripcion: string,
-    permiteEnvio: boolean
+    permiteEnvio: boolean,
+    garantia: number
 }
 
 export type DtCompraSlimVendedor = {
@@ -319,7 +319,8 @@ export type DtSolicitudPendiente = {
     nombreEmpresa?: string,
     telefonoEmpresa?: string,
     rut?: string,
-    direccionLocal: string
+    direccionLocal: string,
+    idSolicitante: string
 }
 
 export enum TipoResolucion {

@@ -54,6 +54,7 @@ export declare type DtMiProducto = {
     estado: EstadoProducto;
     descripcion: string;
     permiteEnvio: boolean;
+    garantia: number;
 };
 export declare type DtCompraSlimVendedor = {
     idVenta: string;
@@ -164,6 +165,7 @@ export declare type DtSolicitudPendiente = {
     telefonoEmpresa?: string;
     rut?: string;
     direccionLocal: string;
+    idSolicitante: string;
 };
 export declare enum TipoResolucion {
     Devolucion = "Devolucion",

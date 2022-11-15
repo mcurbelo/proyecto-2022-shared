@@ -156,7 +156,6 @@ var modificarProducto = function (idUsuario, token, idProducto, datos, imagenes)
         };
     })
         .catch(function (error) {
-        console.log(error);
         if (error.response.status.toString() !== "409") {
             return {
                 success: false,

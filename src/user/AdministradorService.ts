@@ -11,9 +11,9 @@ export const cambiarEstadoUsuario = (idUsuario: string, token: string, motivo: D
         })
 }
 
-export const revisarSolicitudNuevoVendedor = (idUsuario: string, token: string, aceptar: Boolean, motivo?: DtMotivo): Promise<String> => {
+export const revisarSolicitudNuevoVendedor = (idUsuario: string, token: string, aceptar: Boolean, motivo: DtMotivo): Promise<String> => {
     return axios.put(`http://${Auth.endpoint}/api/administradores/usuarios/${idUsuario}/solicitudes?aceptar=${aceptar}`, motivo).then((response) => {
-        return response.status.toString();
+        return response.status;
     })
         .catch((error) => {
             return error.response.data.message;

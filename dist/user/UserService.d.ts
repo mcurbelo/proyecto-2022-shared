@@ -1,4 +1,4 @@
-export declare const iniciarSesion: (email: string, password: string) => Promise<IniciarSesionResponse>;
+export declare const iniciarSesion: (email: string, password: string, tokenWeb?: string | undefined, tokenMobile?: string | undefined) => Promise<IniciarSesionResponse>;
 export declare const registrarUsuario: (datos: RegistrarUsuarioRequest) => Promise<IniciarSesionResponse>;
 export declare const recuperarContrasena: (correo: string) => Promise<String>;
 export declare const reiniciarContrasena: (tokenReset: string, nuevaContrasena: string) => Promise<String>;
@@ -22,8 +22,13 @@ declare type InfoUsuarioResponse = {
     correo?: string;
     nombre?: string;
     telefono?: string;
-    imagen?: string;
-    datosVendedor?: any;
+    imagen?: {
+        data: string;
+        nombre: string;
+        tamano: number;
+        formato: string;
+    };
+    datosVendedor?: DtDatosVendedor;
     calificacion?: number;
 };
 declare type IniciarSesionResponse = {
@@ -31,6 +36,7 @@ declare type IniciarSesionResponse = {
     token?: string;
     uuid?: string;
     error?: string;
+    rol?: Rol;
 };
 export declare type UpdateResponse = {
     success: boolean;
@@ -49,6 +55,13 @@ declare type UpdateInfo = {
         formato?: string;
     };
 };
+export declare type DtDatosVendedor = {
+    nombreEmpresa: string;
+    rut: string;
+    telefonoEmpresa: string;
+    estadoSolicitud: EstadoSolicitud;
+    calificacion: number;
+};
 export declare type UpdateInfoEmpresa = {
     nombreEmpresa?: string;
     telefonoEmpresa?: string;
@@ -57,4 +70,13 @@ export declare type DtCambioContrasena = {
     contrasenaVieja: string;
     contrasenaNueva: string;
 };
+export declare enum EstadoSolicitud {
+    Aceptado = "Aceptado",
+    Pendiente = "Pendiente",
+    NoSolicitada = "NoSolicitada"
+}
+export declare enum Rol {
+    Usuario = "Usuario",
+    ADM = "ADM"
+}
 export {};

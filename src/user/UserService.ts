@@ -1,15 +1,18 @@
 import axios from "axios"
 import { Auth } from ".."
 
-export const iniciarSesion = (email: string, password: string): Promise<IniciarSesionResponse> => {
+export const iniciarSesion = (email: string, password: string, tokenWeb?: string, tokenMobile?: string): Promise<IniciarSesionResponse> => {
   return axios.post(`http://${Auth.endpoint}/api/auth/iniciarSesion`, {
     correo: email,
-    password: password
+    password: password,
+    tokenWeb: tokenWeb,
+    tokenMobile: tokenMobile
   }).then((response) => {
     return {
       success: true,
       token: (response.data['jwt-token'] as string),
-      uuid: (response.data.uuid)
+      uuid: (response.data.uuid),
+      rol: (response.data.rol)
     }
   })
     .catch((error) => {
@@ -24,7 +27,8 @@ export const registrarUsuario = (datos: RegistrarUsuarioRequest): Promise<Inicia
         return {
           success: true,
           token: (response.data.token as string),
-          uuid: (response.data.uuid as string)
+          uuid: (response.data.uuid as string),
+          rol: (response.data.rol as Rol)
         }
       } else {
         return {
@@ -59,15 +63,7 @@ export const reiniciarContrasena = (tokenReset: string, nuevaContrasena: string)
 
 export const obtenerInformacion = (token: string, uuid: string): Promise<InfoUsuarioResponse> => {
   return axios.get(`http://${Auth.endpoint}/api/usuarios/` + uuid + `/infoUsuario`).then((response) => {
-    return {
-      nombre: response.data.nombre,
-      apellido: response.data.apellido,
-      correo: response.data.correo,
-      telefono: response.data.telefono,
-      imagen: response.data.imagen.data,
-      datosVendedor: response.data.datosVendedor,
-      calificacion: response.data.calificacion
-    }
+    return response.data
   })
     .catch((error) => {
       if (error.response.status == 500) {
@@ -118,7 +114,6 @@ export const updateDatosEmpresa = (token: string, idUsuario: string, datos: Upda
       }
     })
     .catch((error) => {
-      console.log(error);
       if (error.response.status.toString() !== "409") {
         return {
           success: false,
@@ -141,7 +136,6 @@ export const updateContrasena = (token: string, idUsuario: string, datos: DtCamb
       }
     })
     .catch((error) => {
-      console.log(error);
       if (error.response.status.toString() !== "409") {
         return {
           success: false,
@@ -167,7 +161,6 @@ export const updateImagen = (token: string, idUsuario: string, imagen: File): Pr
       }
     })
     .catch((error) => {
-      console.log(error);
       if (error.response.status.toString() !== "409") {
         return {
           success: false,
@@ -190,7 +183,6 @@ export const eliminarCuenta = (token: string, idUsuario: string): Promise<Update
       }
     })
     .catch((error) => {
-      console.log(error);
       if (error.response.status.toString() !== "409") {
         return {
           success: false,
@@ -221,8 +213,13 @@ type InfoUsuarioResponse = {
   correo?: string;
   nombre?: string;
   telefono?: string;
-  imagen?: string;
-  datosVendedor?: any;
+  imagen?: {
+    data: string,
+    nombre: string,
+    tamano: number,
+    formato: string
+  };
+  datosVendedor?: DtDatosVendedor;
   calificacion?: number;
 }
 
@@ -231,6 +228,7 @@ type IniciarSesionResponse = {
   token?: string;
   uuid?: string;
   error?: string;
+  rol?: Rol;
 }
 
 export type UpdateResponse = {
@@ -252,6 +250,14 @@ type UpdateInfo = {
   }
 }
 
+export type DtDatosVendedor = {
+  nombreEmpresa: string,
+  rut: string,
+  telefonoEmpresa: string,
+  estadoSolicitud: EstadoSolicitud;
+  calificacion: number,
+}
+
 export type UpdateInfoEmpresa = {
   nombreEmpresa?: string,
   telefonoEmpresa?: string
@@ -260,4 +266,12 @@ export type UpdateInfoEmpresa = {
 export type DtCambioContrasena = {
   contrasenaVieja: string,
   contrasenaNueva: string
+}
+
+export enum EstadoSolicitud {
+  Aceptado = "Aceptado", Pendiente = "Pendiente", NoSolicitada = "NoSolicitada"
+}
+
+export enum Rol {
+  Usuario = "Usuario", ADM = "ADM"
 }

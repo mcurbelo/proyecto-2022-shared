@@ -1,17 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.eliminarCuenta = exports.updateImagen = exports.updateContrasena = exports.updateDatosEmpresa = exports.updateUser = exports.obtenerInformacion = exports.reiniciarContrasena = exports.recuperarContrasena = exports.registrarUsuario = exports.iniciarSesion = void 0;
+exports.Rol = exports.EstadoSolicitud = exports.eliminarCuenta = exports.updateImagen = exports.updateContrasena = exports.updateDatosEmpresa = exports.updateUser = exports.obtenerInformacion = exports.reiniciarContrasena = exports.recuperarContrasena = exports.registrarUsuario = exports.iniciarSesion = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
-var iniciarSesion = function (email, password) {
+var iniciarSesion = function (email, password, tokenWeb, tokenMobile) {
     return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/auth/iniciarSesion"), {
         correo: email,
-        password: password
+        password: password,
+        tokenWeb: tokenWeb,
+        tokenMobile: tokenMobile
     }).then(function (response) {
         return {
             success: true,
             token: response.data['jwt-token'],
-            uuid: (response.data.uuid)
+            uuid: (response.data.uuid),
+            rol: (response.data.rol)
         };
     })
         .catch(function (error) {
@@ -26,7 +29,8 @@ var registrarUsuario = function (datos) {
             return {
                 success: true,
                 token: response.data.token,
-                uuid: response.data.uuid
+                uuid: response.data.uuid,
+                rol: response.data.rol
             };
         }
         else {
@@ -61,15 +65,7 @@ var reiniciarContrasena = function (tokenReset, nuevaContrasena) {
 exports.reiniciarContrasena = reiniciarContrasena;
 var obtenerInformacion = function (token, uuid) {
     return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/usuarios/") + uuid + "/infoUsuario").then(function (response) {
-        return {
-            nombre: response.data.nombre,
-            apellido: response.data.apellido,
-            correo: response.data.correo,
-            telefono: response.data.telefono,
-            imagen: response.data.imagen.data,
-            datosVendedor: response.data.datosVendedor,
-            calificacion: response.data.calificacion
-        };
+        return response.data;
     })
         .catch(function (error) {
         if (error.response.status == 500) {
@@ -120,7 +116,6 @@ var updateDatosEmpresa = function (token, idUsuario, datos) {
         };
     })
         .catch(function (error) {
-        console.log(error);
         if (error.response.status.toString() !== "409") {
             return {
                 success: false,
@@ -144,7 +139,6 @@ var updateContrasena = function (token, idUsuario, datos) {
         };
     })
         .catch(function (error) {
-        console.log(error);
         if (error.response.status.toString() !== "409") {
             return {
                 success: false,
@@ -170,7 +164,6 @@ var updateImagen = function (token, idUsuario, imagen) {
         };
     })
         .catch(function (error) {
-        console.log(error);
         if (error.response.status.toString() !== "409") {
             return {
                 success: false,
@@ -194,7 +187,6 @@ var eliminarCuenta = function (token, idUsuario) {
         };
     })
         .catch(function (error) {
-        console.log(error);
         if (error.response.status.toString() !== "409") {
             return {
                 success: false,
@@ -210,3 +202,14 @@ var eliminarCuenta = function (token, idUsuario) {
     });
 };
 exports.eliminarCuenta = eliminarCuenta;
+var EstadoSolicitud;
+(function (EstadoSolicitud) {
+    EstadoSolicitud["Aceptado"] = "Aceptado";
+    EstadoSolicitud["Pendiente"] = "Pendiente";
+    EstadoSolicitud["NoSolicitada"] = "NoSolicitada";
+})(EstadoSolicitud = exports.EstadoSolicitud || (exports.EstadoSolicitud = {}));
+var Rol;
+(function (Rol) {
+    Rol["Usuario"] = "Usuario";
+    Rol["ADM"] = "ADM";
+})(Rol = exports.Rol || (exports.Rol = {}));

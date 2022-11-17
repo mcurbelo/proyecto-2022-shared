@@ -150,15 +150,15 @@ export const marcarReclamoResuelto = (idUsuario: string, token: string, idCompra
 }
 
 export const obtenerChat = (idcompra: string): Promise<String> => {
-    return axios.get(`http://${Auth.endpoint}/api/compras/chat/${idcompra}`).then((response) =>{
+    return axios.get(`http://${Auth.endpoint}/api/compras/chat/${idcompra}`).then((response) => {
         return response.data;
-    }).catch((error)=>{});
+    }).catch((error) => { });
 }
 
 export const iniciarChat = (idcompra: string, idchat: string): Promise<String> => {
-    return axios.post(`http://${Auth.endpoint}/api/compras/iniciarChat`, {idCompra: idcompra, idChat: idchat}).then((response) =>{
+    return axios.post(`http://${Auth.endpoint}/api/compras/iniciarChat`, { idCompra: idcompra, idChat: idchat }).then((response) => {
         return response.data;
-    }).catch((error)=>{});
+    }).catch((error) => { });
 }
 
 
@@ -174,8 +174,8 @@ export type DtCompra = {
 }
 
 type DtChat = {
-    idCompra?:string, 
-    idChat?:string
+    idCompra?: string,
+    idChat?: string
 }
 type Dtsolicitud = {
     nombreEmpresa?: string

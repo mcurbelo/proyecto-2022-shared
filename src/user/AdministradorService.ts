@@ -88,8 +88,8 @@ export type DtAltaAdm = {
 }
 
 export type DtFiltrosUsuario = {
-    nombre: string,
-    apellido: string,
-    correo: string,
-    estado: EstadoUsuario
+    nombre?: string,
+    apellido?: string,
+    correo?: string,
+    estado?: EstadoUsuario
 }

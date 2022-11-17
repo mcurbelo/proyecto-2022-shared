@@ -14,7 +14,7 @@ var cambiarEstadoUsuario = function (idUsuario, token, motivo, nuevoEstado) {
 exports.cambiarEstadoUsuario = cambiarEstadoUsuario;
 var revisarSolicitudNuevoVendedor = function (idUsuario, token, aceptar, motivo) {
     return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/administradores/usuarios/").concat(idUsuario, "/solicitudes?aceptar=").concat(aceptar), motivo).then(function (response) {
-        return response.status.toString();
+        return response.status;
     })
         .catch(function (error) {
         return error.response.data.message;

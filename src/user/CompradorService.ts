@@ -42,6 +42,23 @@ export const agregarDireccion = (token: string, direccion: DtDireccion): Promise
 }
 
 
+export const borrarDireccion = (token: string, direccion: string): Promise<{ status: number }> => {
+    const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+    return axios.delete(`http://${Auth.endpoint}/api/compradores/Direcciones/${direccion}`, config).then((response) => {
+        return {
+            status: response.status
+        }
+    }).catch((error) => {
+        return {
+            status: error.response.data.status
+        }
+    })
+}
+
+
+
 export const editarDireccion = (token: string, direccion: DtDireccion): Promise<{ status: number }> => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
@@ -187,7 +204,7 @@ type Dtsolicitud = {
 
 
 export type DtDireccion = {
-    id?: string,
+    id: string,
     calle: string,
     numero: number,
     departamento: string,

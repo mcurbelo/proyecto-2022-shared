@@ -3,6 +3,9 @@ export declare const enviarSolicitudVendedor: (solicitud: Dtsolicitud, imagenes:
 export declare const agregarDireccion: (token: string, direccion: DtDireccion) => Promise<{
     success: boolean;
 }>;
+export declare const borrarDireccion: (token: string, direccion: string) => Promise<{
+    status: number;
+}>;
 export declare const editarDireccion: (token: string, direccion: DtDireccion) => Promise<{
     status: number;
 }>;
@@ -32,7 +35,7 @@ declare type Dtsolicitud = {
     idDireccion: string;
 };
 export declare type DtDireccion = {
-    id?: string;
+    id: string;
     calle: string;
     numero: number;
     departamento: string;

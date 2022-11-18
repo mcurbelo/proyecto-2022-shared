@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.iniciarChat = exports.obtenerChat = exports.marcarReclamoResuelto = exports.nuevoReclamo = exports.reclamosHechos = exports.listarCompras = exports.nuevaCompra = exports.obtenerDirecciones = exports.editarDireccion = exports.agregarDireccion = exports.enviarSolicitudVendedor = void 0;
+exports.iniciarChat = exports.obtenerChat = exports.marcarReclamoResuelto = exports.nuevoReclamo = exports.reclamosHechos = exports.listarCompras = exports.nuevaCompra = exports.obtenerDirecciones = exports.editarDireccion = exports.borrarDireccion = exports.agregarDireccion = exports.enviarSolicitudVendedor = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
 var enviarSolicitudVendedor = function (solicitud, imagenes, token) {
@@ -39,6 +39,21 @@ var agregarDireccion = function (token, direccion) {
     });
 };
 exports.agregarDireccion = agregarDireccion;
+var borrarDireccion = function (token, direccion) {
+    var config = {
+        headers: { Authorization: "Bearer ".concat(token) }
+    };
+    return axios_1.default.delete("http://".concat(__1.Auth.endpoint, "/api/compradores/Direcciones/").concat(direccion), config).then(function (response) {
+        return {
+            status: response.status
+        };
+    }).catch(function (error) {
+        return {
+            status: error.response.data.status
+        };
+    });
+};
+exports.borrarDireccion = borrarDireccion;
 var editarDireccion = function (token, direccion) {
     var config = {
         headers: { Authorization: "Bearer ".concat(token) }

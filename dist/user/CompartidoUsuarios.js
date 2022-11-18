@@ -17,6 +17,7 @@ var calificar = function (idCompra, token, datos) {
         return response.status.toString();
     })
         .catch(function (error) {
+        console.log(error);
         return error.response.data.message;
     });
 };

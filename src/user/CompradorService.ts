@@ -46,7 +46,7 @@ export const borrarDireccion = (token: string, direccion: string): Promise<{ sta
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
-    return axios.delete(`http://${Auth.endpoint}/api/compradores/Direcciones/${direccion}`, config).then((response) => {
+    return axios.delete(`http://${Auth.endpoint}/api/compradores/Direccion/${direccion}`, config).then((response) => {
         return {
             status: response.status
         }

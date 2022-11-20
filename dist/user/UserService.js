@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Rol = exports.EstadoSolicitud = exports.eliminarCuenta = exports.updateImagen = exports.updateContrasena = exports.updateDatosEmpresa = exports.updateUser = exports.obtenerInformacion = exports.reiniciarContrasena = exports.recuperarContrasena = exports.registrarUsuario = exports.iniciarSesion = void 0;
+exports.Rol = exports.EstadoSolicitud = exports.eliminarCuenta = exports.updateImagen = exports.updateContrasena = exports.updateDatosEmpresa = exports.updateUser = exports.obtenerInformacion = exports.verificarCodigo = exports.reiniciarContrasena = exports.recuperarContrasena = exports.registrarUsuario = exports.iniciarSesion = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
 var iniciarSesion = function (email, password, tokenWeb, tokenMobile) {
@@ -55,7 +55,7 @@ var recuperarContrasena = function (correo) {
 };
 exports.recuperarContrasena = recuperarContrasena;
 var reiniciarContrasena = function (tokenReset, nuevaContrasena) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/auth/reiniciarContrasena?token=").concat(tokenReset, "&contrasena").concat(nuevaContrasena)).then(function (response) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/auth/reiniciarContrasena?token=").concat(tokenReset), { contrasena: nuevaContrasena }).then(function (response) {
         return response.data;
     })
         .catch(function (error) {
@@ -63,6 +63,14 @@ var reiniciarContrasena = function (tokenReset, nuevaContrasena) {
     });
 };
 exports.reiniciarContrasena = reiniciarContrasena;
+var verificarCodigo = function (tokenReset) {
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/auth/verificarCodigo?codigo=").concat(tokenReset)).then(function (response) {
+        return response.data;
+    }).catch(function (error) {
+        return error.response.data.message;
+    });
+};
+exports.verificarCodigo = verificarCodigo;
 var obtenerInformacion = function (token, uuid) {
     return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/usuarios/") + uuid + "/infoUsuario").then(function (response) {
         return response.data;

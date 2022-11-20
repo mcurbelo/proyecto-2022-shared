@@ -1,7 +1,8 @@
-export declare const iniciarSesion: (email: string, password: string, tokenWeb?: string | undefined, tokenMobile?: string | undefined) => Promise<IniciarSesionResponse>;
+export declare const iniciarSesion: (email: string, password: string, tokenWeb?: string, tokenMobile?: string) => Promise<IniciarSesionResponse>;
 export declare const registrarUsuario: (datos: RegistrarUsuarioRequest) => Promise<IniciarSesionResponse>;
 export declare const recuperarContrasena: (correo: string) => Promise<String>;
 export declare const reiniciarContrasena: (tokenReset: string, nuevaContrasena: string) => Promise<String>;
+export declare const verificarCodigo: (tokenReset: string) => Promise<String>;
 export declare const obtenerInformacion: (token: string, uuid: string) => Promise<InfoUsuarioResponse>;
 export declare const updateUser: (token: string, datos: UpdateInfo) => Promise<UpdateResponse>;
 export declare const updateDatosEmpresa: (token: string, idUsuario: string, datos: UpdateInfoEmpresa) => Promise<UpdateResponse>;

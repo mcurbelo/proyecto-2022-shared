@@ -43,7 +43,7 @@ var borrarDireccion = function (token, direccion) {
     var config = {
         headers: { Authorization: "Bearer ".concat(token) }
     };
-    return axios_1.default.delete("http://".concat(__1.Auth.endpoint, "/api/compradores/Direcciones/").concat(direccion), config).then(function (response) {
+    return axios_1.default.delete("http://".concat(__1.Auth.endpoint, "/api/compradores/Direccion/").concat(direccion), config).then(function (response) {
         return {
             status: response.status
         };

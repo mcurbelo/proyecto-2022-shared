@@ -53,10 +53,18 @@ export const recuperarContrasena = (correo: string): Promise<String> => {
 }
 
 export const reiniciarContrasena = (tokenReset: string, nuevaContrasena: string): Promise<String> => {
-  return axios.put(`http://${Auth.endpoint}/api/auth/reiniciarContrasena?token=${tokenReset}&contrasena${nuevaContrasena}`).then((response) => {
+  return axios.put(`http://${Auth.endpoint}/api/auth/reiniciarContrasena?token=${tokenReset}`, {contrasena: nuevaContrasena}).then((response) => {
     return response.data;
   })
     .catch((error) => {
+      return error.response.data.message;
+    })
+}
+
+export const verificarCodigo = (tokenReset: string) : Promise<String> => {
+  return axios.get(`http://${Auth.endpoint}/api/auth/verificarCodigo?codigo=${tokenReset}`).then((response) => {
+    return response.data;
+  }).catch((error) => {
       return error.response.data.message;
     })
 }

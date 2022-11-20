@@ -14,10 +14,23 @@ var listarCategorias = function () {
 exports.listarCategorias = listarCategorias;
 var agregarCategoria = function (nombre, token) {
     return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/categorias"), nombre).then(function (response) {
-        return response.status;
+        return {
+            success: true
+        };
     })
         .catch(function (error) {
-        return error.response.data.message;
+        if (error.response.status.toString() !== "409") {
+            return {
+                success: false,
+                message: "Error en el servidor"
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: error.response.data.message
+            };
+        }
     });
 };
 exports.agregarCategoria = agregarCategoria;

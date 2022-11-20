@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EstadoCompra = exports.EstadoProducto = exports.TipoReclamo = exports.TipoResolucion = exports.modificarProducto = exports.listarReclamosRecibidos = exports.completarVentaRetiro = exports.cambiarEstadoVenta = exports.gestionarReclamo = exports.listarMisVentas = exports.listarMisProductos = exports.cambiarEstadoProducto = exports.altaProducto = void 0;
+exports.EstVendedor = exports.EstadoCompra = exports.EstadoProducto = exports.TipoReclamo = exports.TipoResolucion = exports.estadisticasVenedor = exports.modificarProducto = exports.listarReclamosRecibidos = exports.completarVentaRetiro = exports.cambiarEstadoVenta = exports.gestionarReclamo = exports.listarMisVentas = exports.listarMisProductos = exports.cambiarEstadoProducto = exports.altaProducto = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
 var altaProducto = function (datosProducto, imagenes, token) {
@@ -171,6 +171,20 @@ var modificarProducto = function (idUsuario, token, idProducto, datos, imagenes)
     });
 };
 exports.modificarProducto = modificarProducto;
+var estadisticasVenedor = function (idUsuario, token, tipo, fechaInicio, fechaFin) {
+    var searchParams = new URLSearchParams();
+    if (fechaInicio != "")
+        searchParams.append("fechaInicio", fechaInicio);
+    if (fechaFin != "")
+        searchParams.append("fechaFin", fechaFin);
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/estadisticas/").concat(tipo, "?").concat(searchParams.toString())).then(function (response) {
+        return response.data;
+    })
+        .catch(function (error) {
+        return error.response.data.message;
+    });
+};
+exports.estadisticasVenedor = estadisticasVenedor;
 var TipoResolucion;
 (function (TipoResolucion) {
     TipoResolucion["Devolucion"] = "Devolucion";
@@ -199,3 +213,10 @@ var EstadoCompra;
     EstadoCompra["EsperandoConfirmacion"] = "EsperandoConfirmacion";
     EstadoCompra["Devolucion"] = "Devolucion";
 })(EstadoCompra = exports.EstadoCompra || (exports.EstadoCompra = {}));
+var EstVendedor;
+(function (EstVendedor) {
+    EstVendedor["Todas"] = "Todas";
+    EstVendedor["Balance"] = "Balance";
+    EstVendedor["Top10ProdVendidos"] = "Top10ProdVendidos";
+    EstVendedor["Top10ProdCalificados"] = "Top10ProdCalificados";
+})(EstVendedor = exports.EstVendedor || (exports.EstVendedor = {}));

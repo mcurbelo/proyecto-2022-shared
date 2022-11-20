@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EstadoUsuario = exports.listadoSolicitudes = exports.listadoUsuarios = exports.nuevoAdministrador = exports.revisarSolicitudNuevoVendedor = exports.cambiarEstadoUsuario = void 0;
+exports.EstAdm = exports.EstadoUsuario = exports.estadisticasAdm = exports.listadoSolicitudes = exports.listadoUsuarios = exports.nuevoAdministrador = exports.revisarSolicitudNuevoVendedor = exports.cambiarEstadoUsuario = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
 var cambiarEstadoUsuario = function (idUsuario, token, motivo, nuevoEstado) {
@@ -76,9 +76,29 @@ var listadoSolicitudes = function (token, pageNo, pageSize, sortBy, sortDir) {
     }).then(function (response) { return response.data; });
 };
 exports.listadoSolicitudes = listadoSolicitudes;
+var estadisticasAdm = function (idUsuario, token, tipo, fechaInicio, fechaFin) {
+    var searchParams = new URLSearchParams();
+    if (fechaInicio != "")
+        searchParams.append("fechaInicio", fechaInicio);
+    if (fechaFin != "")
+        searchParams.append("fechaFin", fechaFin);
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/administradores/estadisticas/").concat(tipo, "?").concat(searchParams.toString())).then(function (response) {
+        return response.data;
+    })
+        .catch(function (error) {
+        return error.response.data.message;
+    });
+};
+exports.estadisticasAdm = estadisticasAdm;
 var EstadoUsuario;
 (function (EstadoUsuario) {
     EstadoUsuario["Activo"] = "Activo";
     EstadoUsuario["Bloqueado"] = "Bloqueado";
     EstadoUsuario["Eliminado"] = "Eliminado";
 })(EstadoUsuario = exports.EstadoUsuario || (exports.EstadoUsuario = {}));
+var EstAdm;
+(function (EstAdm) {
+    EstAdm["Usuarios"] = "Usuarios";
+    EstAdm["Ventas"] = "Ventas";
+    EstAdm["Reclamos"] = "Reclamos";
+})(EstAdm = exports.EstAdm || (exports.EstAdm = {}));

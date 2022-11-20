@@ -73,6 +73,20 @@ export const listadoSolicitudes = (
     }).then(response => response.data)
 }
 
+
+export const estadisticasAdm = (idUsuario: String, token: String, tipo: EstAdm, fechaInicio: string, fechaFin: string): Promise<EstaditicasResponseAdm> => {
+    const searchParams = new URLSearchParams();
+    if (fechaInicio != "") searchParams.append("fechaInicio", fechaInicio)
+    if (fechaFin != "") searchParams.append("fechaFin", fechaFin)
+    return axios.get(`http://${Auth.endpoint}/api/administradores/estadisticas/${tipo}?${searchParams.toString()}`).then((response) => {
+        return response.data;
+    })
+        .catch((error) => {
+            return error.response.data.message;
+        })
+}
+
+
 export type DtMotivo = {
     motivo: string,
 }
@@ -92,4 +106,52 @@ export type DtFiltrosUsuario = {
     apellido?: string,
     correo?: string,
     estado?: EstadoUsuario
+}
+
+export enum EstAdm {
+    Usuarios = "Usuarios",
+    Ventas = "Ventas",
+    Reclamos = "Reclamos"
+}
+
+export type UsuariosEst = {
+    cantidadVendedores: number;
+    cantidadSoloCompradores: number;
+    cantidadActivos: number;
+    cantidadBloqueados: number;
+    cantidadEliminados: number;
+}
+
+export type UsuariosEstAll =  {
+    usuarios: UsuariosEst
+    admins: UsuariosEst
+    total: number
+}
+
+export type VentasEst = {
+    completadas: number,
+    canceladas: number,
+    reembolsadas: number,
+    aceptadas: number,
+    pendientes: number,
+    total: number
+}
+export type ReclamosEst = {
+
+    resueltosChat: number,
+    resueltosDevolucion: number,
+    noResueltos: number,
+    tipoDesperfecto: number,
+    tipoRepeticion: number,
+    tipoProductoNoRecibo: number,
+    tipoProductoErroneo: number,
+    tipoOtro: number,
+    otro: number
+}
+
+
+export type EstaditicasResponseAdm = {
+    ventas?: VentasEst,
+    reclamos?: ReclamosEst,
+    usuarios?: UsuariosEstAll
 }

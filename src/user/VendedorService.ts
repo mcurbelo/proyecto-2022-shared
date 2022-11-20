@@ -146,6 +146,19 @@ export const modificarProducto = (idUsuario: String, token: String, idProducto: 
         })
 }
 
+export const estadisticasVenedor = (idUsuario: String, token: String, tipo: EstVendedor, fechaInicio: string, fechaFin: string): Promise<EstaditicasResponse> => {
+    const searchParams = new URLSearchParams();
+    if (fechaInicio != "") searchParams.append("fechaInicio", fechaInicio)
+    if (fechaFin != "") searchParams.append("fechaFin", fechaFin)
+    return axios.get(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/estadisticas/${tipo}?${searchParams.toString()}`).then((response) => {
+        return response.data;
+    })
+        .catch((error) => {
+            return error.response.data.message;
+        })
+}
+
+
 export type DtConfirmarCompra = {
     fechayHoraRetiro?: string,
     fechayHoraEntrega?: string,
@@ -323,6 +336,34 @@ export type DtSolicitudPendiente = {
     idSolicitante: string
 }
 
+
+export type EstaditicasResponse = {
+    balance?: DtBalance,
+    top10?: DtTopProductosVendidos[],
+    mejoresCalificados?: DtProductosMejoresCalificados[],
+
+}
+
+export type DtBalance = {
+    totalGanado: number,
+    ganadoPorEnvio: number,
+    ganadoPorRetiro: number,
+    cantidadPorEnvio: number,
+    cantidadPorRetiro: number,
+    perdidoPorComision: number
+}
+
+export type DtTopProductosVendidos = {
+    nombre: string,
+    cantidad: number
+}
+
+export type DtProductosMejoresCalificados = {
+    nombre: string,
+    calificacion: number,
+    cantidad: number
+}
+
 export enum TipoResolucion {
     Devolucion = "Devolucion", PorChat = "PorChat", NoResuelto = "NoResuelto"
 }
@@ -341,5 +382,12 @@ export enum EstadoCompra {
     Confirmada = "Confirmada",
     EsperandoConfirmacion = "EsperandoConfirmacion",
     Devolucion = "Devolucion"
+}
+
+export enum EstVendedor {
+    Todas = "Todas",
+    Balance = "Balance",
+    Top10ProdVendidos = "Top10ProdVendidos",
+    Top10ProdCalificados = "Top10ProdCalificados"
 }
 

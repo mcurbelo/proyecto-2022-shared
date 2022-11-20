@@ -8,6 +8,7 @@ export declare const cambiarEstadoVenta: (idUsuario: String, token: String, idVe
 export declare const completarVentaRetiro: (idUsuario: String, token: String, idVenta: String) => Promise<String>;
 export declare const listarReclamosRecibidos: (idUsuario: String, token: String, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltoReclamo) => Promise<listados>;
 export declare const modificarProducto: (idUsuario: String, token: String, idProducto: string, datos: DtModificarProducto, imagenes: File[]) => Promise<UpdateResponse>;
+export declare const estadisticasVenedor: (idUsuario: String, token: String, tipo: EstVendedor, fechaInicio: string, fechaFin: string) => Promise<EstaditicasResponse>;
 export declare type DtConfirmarCompra = {
     fechayHoraRetiro?: string;
     fechayHoraEntrega?: string;
@@ -167,6 +168,28 @@ export declare type DtSolicitudPendiente = {
     direccionLocal: string;
     idSolicitante: string;
 };
+export declare type EstaditicasResponse = {
+    balance?: DtBalance;
+    top10?: DtTopProductosVendidos[];
+    mejoresCalificados?: DtProductosMejoresCalificados[];
+};
+export declare type DtBalance = {
+    totalGanado: number;
+    ganadoPorEnvio: number;
+    ganadoPorRetiro: number;
+    cantidadPorEnvio: number;
+    cantidadPorRetiro: number;
+    perdidoPorComision: number;
+};
+export declare type DtTopProductosVendidos = {
+    nombre: string;
+    cantidad: number;
+};
+export declare type DtProductosMejoresCalificados = {
+    nombre: string;
+    calificacion: number;
+    cantidad: number;
+};
 export declare enum TipoResolucion {
     Devolucion = "Devolucion",
     PorChat = "PorChat",
@@ -190,4 +213,10 @@ export declare enum EstadoCompra {
     Confirmada = "Confirmada",
     EsperandoConfirmacion = "EsperandoConfirmacion",
     Devolucion = "Devolucion"
+}
+export declare enum EstVendedor {
+    Todas = "Todas",
+    Balance = "Balance",
+    Top10ProdVendidos = "Top10ProdVendidos",
+    Top10ProdCalificados = "Top10ProdCalificados"
 }

@@ -4,7 +4,7 @@ export declare const revisarSolicitudNuevoVendedor: (idUsuario: string, token: s
 export declare const nuevoAdministrador: (token: string, datos: DtAltaAdm) => Promise<String>;
 export declare const listadoUsuarios: (token: string, pageNo?: string, pageSize?: string, sortBy?: string, sortDir?: string, filtros?: DtFiltrosUsuario | undefined) => Promise<listados>;
 export declare const listadoSolicitudes: (token: string, pageNo: string, pageSize: string, sortBy: string, sortDir: string) => Promise<listados>;
-export declare const estadisticasAdm: (idUsuario: String, token: String, tipo: EstAdm, fechaInicio: string, fechaFin: string) => Promise<EstaditicasResponseAdm>;
+export declare const estadisticasAdm: (token: String, tipo: EstAdm, fechaInicio: string, fechaFin: string) => Promise<EstaditicasResponseAdm>;
 export declare type DtMotivo = {
     motivo: string;
 };
@@ -40,6 +40,7 @@ export declare type UsuariosEstAll = {
     usuarios: UsuariosEst;
     admins: UsuariosEst;
     total: number;
+    muestra: number;
 };
 export declare type VentasEst = {
     completadas: number;
@@ -48,6 +49,7 @@ export declare type VentasEst = {
     aceptadas: number;
     pendientes: number;
     total: number;
+    muestra: number;
 };
 export declare type ReclamosEst = {
     resueltosChat: number;
@@ -59,6 +61,8 @@ export declare type ReclamosEst = {
     tipoProductoErroneo: number;
     tipoOtro: number;
     otro: number;
+    muestra: number;
+    total: number;
 };
 export declare type EstaditicasResponseAdm = {
     ventas?: VentasEst;

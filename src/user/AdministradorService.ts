@@ -74,7 +74,7 @@ export const listadoSolicitudes = (
 }
 
 
-export const estadisticasAdm = (idUsuario: String, token: String, tipo: EstAdm, fechaInicio: string, fechaFin: string): Promise<EstaditicasResponseAdm> => {
+export const estadisticasAdm = (token: String, tipo: EstAdm, fechaInicio: string, fechaFin: string): Promise<EstaditicasResponseAdm> => {
     const searchParams = new URLSearchParams();
     if (fechaInicio != "") searchParams.append("fechaInicio", fechaInicio)
     if (fechaFin != "") searchParams.append("fechaFin", fechaFin)
@@ -126,6 +126,7 @@ export type UsuariosEstAll =  {
     usuarios: UsuariosEst
     admins: UsuariosEst
     total: number
+    muestra: number
 }
 
 export type VentasEst = {
@@ -135,6 +136,7 @@ export type VentasEst = {
     aceptadas: number,
     pendientes: number,
     total: number
+    muestra: number
 }
 export type ReclamosEst = {
 
@@ -147,6 +149,8 @@ export type ReclamosEst = {
     tipoProductoErroneo: number,
     tipoOtro: number,
     otro: number
+    muestra: number
+    total: number
 }
 
 

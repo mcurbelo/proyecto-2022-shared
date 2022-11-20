@@ -76,7 +76,7 @@ var listadoSolicitudes = function (token, pageNo, pageSize, sortBy, sortDir) {
     }).then(function (response) { return response.data; });
 };
 exports.listadoSolicitudes = listadoSolicitudes;
-var estadisticasAdm = function (idUsuario, token, tipo, fechaInicio, fechaFin) {
+var estadisticasAdm = function (token, tipo, fechaInicio, fechaFin) {
     var searchParams = new URLSearchParams();
     if (fechaInicio != "")
         searchParams.append("fechaInicio", fechaInicio);

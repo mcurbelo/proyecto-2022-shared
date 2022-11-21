@@ -1,6 +1,6 @@
 import axios from "axios"
 import { Auth } from ".."
-import { listados } from "./VendedorService";
+import { EstadoCompra, listados } from "./VendedorService";
 
 export const cambiarEstadoUsuario = (idUsuario: string, token: string, motivo: DtMotivo, nuevoEstado: EstadoUsuario): Promise<String> => {
     return axios.put(`http://${Auth.endpoint}/api/administradores/usuarios/${idUsuario}?operacion=${nuevoEstado}`, motivo).then((response) => {
@@ -87,6 +87,25 @@ export const estadisticasAdm = (token: String, tipo: EstAdm, fechaInicio: string
 }
 
 
+export const infoCompraDeshacer = (token: String, idCompra: string): Promise<InfoCompra> => {
+    return axios.get(`http://${Auth.endpoint}/api/compras/${idCompra}`).then((response) => {
+        return response.data;
+    })
+        .catch((error) => {
+            return error.response.data.message;
+        })
+}
+
+export const deshacerCompra = (token: String, idCompra: string): Promise<string> => {
+    return axios.put(`http://${Auth.endpoint}/api/administradores/reembolsos/${idCompra}`).then((response) => {
+        return response.status.toString();
+    })
+        .catch((error) => {
+            return error.response.data.message;
+        })
+}
+
+
 export type DtMotivo = {
     motivo: string,
 }
@@ -122,7 +141,7 @@ export type UsuariosEst = {
     cantidadEliminados: number;
 }
 
-export type UsuariosEstAll =  {
+export type UsuariosEstAll = {
     usuarios: UsuariosEst
     admins: UsuariosEst
     total: number
@@ -158,4 +177,21 @@ export type EstaditicasResponseAdm = {
     ventas?: VentasEst,
     reclamos?: ReclamosEst,
     usuarios?: UsuariosEstAll
+}
+
+export type InfoCompra = {
+    idCompra: string,
+    nombreComprador: string,
+    nombreVendedor: string,
+    nombreProducto: string,
+    cantidad: number
+    fecha: string,
+    estadoCompra: EstadoCompra,
+    montoTotal: number,
+    montoUnitario: number,
+    esEnvio: boolean,
+    tieneReclamoNoResuelto: boolean,
+    fechaEntrega: string
+    direccionEntrega: string
+    garantiaActiva: boolean
 }

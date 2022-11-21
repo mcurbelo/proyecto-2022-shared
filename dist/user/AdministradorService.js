@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EstAdm = exports.EstadoUsuario = exports.estadisticasAdm = exports.listadoSolicitudes = exports.listadoUsuarios = exports.nuevoAdministrador = exports.revisarSolicitudNuevoVendedor = exports.cambiarEstadoUsuario = void 0;
+exports.EstAdm = exports.EstadoUsuario = exports.deshacerCompra = exports.infoCompraDeshacer = exports.estadisticasAdm = exports.listadoSolicitudes = exports.listadoUsuarios = exports.nuevoAdministrador = exports.revisarSolicitudNuevoVendedor = exports.cambiarEstadoUsuario = void 0;
 var axios_1 = require("axios");
 var __1 = require("..");
 var cambiarEstadoUsuario = function (idUsuario, token, motivo, nuevoEstado) {
@@ -90,6 +90,24 @@ var estadisticasAdm = function (token, tipo, fechaInicio, fechaFin) {
     });
 };
 exports.estadisticasAdm = estadisticasAdm;
+var infoCompraDeshacer = function (token, idCompra) {
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/compras/").concat(idCompra)).then(function (response) {
+        return response.data;
+    })
+        .catch(function (error) {
+        return error.response.data.message;
+    });
+};
+exports.infoCompraDeshacer = infoCompraDeshacer;
+var deshacerCompra = function (token, idCompra) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/administradores/reembolsos/").concat(idCompra)).then(function (response) {
+        return response.status.toString();
+    })
+        .catch(function (error) {
+        return error.response.data.message;
+    });
+};
+exports.deshacerCompra = deshacerCompra;
 var EstadoUsuario;
 (function (EstadoUsuario) {
     EstadoUsuario["Activo"] = "Activo";

@@ -22,7 +22,7 @@ export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[]
     })
 }
 
-export const agregarDireccion = (token: string, direccion: DtDireccion): Promise<{ success: boolean }> => {
+export const agregarDireccion = (token: string, direccion: DtDireccion): Promise<{ success: boolean, message?:string }> => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
@@ -37,7 +37,10 @@ export const agregarDireccion = (token: string, direccion: DtDireccion): Promise
     }, config).then((response) => {
         return { success: true };
     }).catch((error) => {
-        return { success: false };
+        return { success: false,
+            message: error.response.data.message
+                
+        };
     })
 }
 

@@ -16,6 +16,8 @@ declare type RegistrarUsuarioRequest = {
     password: string;
     telefono: string;
     fechaNac: string;
+    tokenWeb?: string;
+    tokenMobile?: string;
 };
 declare type InfoUsuarioResponse = {
     success?: boolean;

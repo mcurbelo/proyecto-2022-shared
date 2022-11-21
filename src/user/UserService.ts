@@ -213,6 +213,8 @@ type RegistrarUsuarioRequest = {
   password: string;
   telefono: string;
   fechaNac: string;
+  tokenWeb?: string;
+  tokenMobile?:string
 }
 
 type InfoUsuarioResponse = {

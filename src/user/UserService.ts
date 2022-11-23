@@ -53,7 +53,7 @@ export const recuperarContrasena = (correo: string): Promise<String> => {
 }
 
 export const reiniciarContrasena = (tokenReset: string, nuevaContrasena: string): Promise<String> => {
-  return axios.put(`http://${Auth.endpoint}/api/auth/reiniciarContrasena?token=${tokenReset}`, {contrasena: nuevaContrasena}).then((response) => {
+  return axios.put(`http://${Auth.endpoint}/api/auth/reiniciarContrasena?token=${tokenReset}`, { contrasena: nuevaContrasena }).then((response) => {
     return response.data;
   })
     .catch((error) => {
@@ -61,12 +61,12 @@ export const reiniciarContrasena = (tokenReset: string, nuevaContrasena: string)
     })
 }
 
-export const verificarCodigo = (tokenReset: string) : Promise<String> => {
+export const verificarCodigo = (tokenReset: string): Promise<String> => {
   return axios.get(`http://${Auth.endpoint}/api/auth/verificarCodigo?codigo=${tokenReset}`).then((response) => {
     return response.data;
   }).catch((error) => {
-      return error.response.data.message;
-    })
+    return error.response.data.message;
+  })
 }
 
 export const obtenerInformacion = (token: string, uuid: string): Promise<InfoUsuarioResponse> => {
@@ -214,7 +214,7 @@ type RegistrarUsuarioRequest = {
   telefono: string;
   fechaNac: string;
   tokenWeb?: string;
-  tokenMobile?:string
+  tokenMobile?: string
 }
 
 type InfoUsuarioResponse = {
@@ -223,6 +223,7 @@ type InfoUsuarioResponse = {
   correo?: string;
   nombre?: string;
   telefono?: string;
+  rol?: Rol,
   imagen?: {
     data: string,
     nombre: string,
@@ -283,5 +284,5 @@ export enum EstadoSolicitud {
 }
 
 export enum Rol {
-  Usuario = "Usuario", ADM = "ADM"
+  Vendedor = "Vendedor", ADM = "ADM", Comprador = "Comprador",
 }

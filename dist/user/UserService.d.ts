@@ -25,6 +25,7 @@ declare type InfoUsuarioResponse = {
     correo?: string;
     nombre?: string;
     telefono?: string;
+    rol?: Rol;
     imagen?: {
         data: string;
         nombre: string;
@@ -79,7 +80,8 @@ export declare enum EstadoSolicitud {
     NoSolicitada = "NoSolicitada"
 }
 export declare enum Rol {
-    Usuario = "Usuario",
-    ADM = "ADM"
+    Vendedor = "Vendedor",
+    ADM = "ADM",
+    Comprador = "Comprador"
 }
 export {};

@@ -218,6 +218,7 @@ var EstadoSolicitud;
 })(EstadoSolicitud = exports.EstadoSolicitud || (exports.EstadoSolicitud = {}));
 var Rol;
 (function (Rol) {
-    Rol["Usuario"] = "Usuario";
+    Rol["Vendedor"] = "Vendedor";
     Rol["ADM"] = "ADM";
+    Rol["Comprador"] = "Comprador";
 })(Rol = exports.Rol || (exports.Rol = {}));

@@ -250,7 +250,8 @@ export type DtCompraSlimComprador = {
     puedeReclamar: boolean
     fechaEntrega?: Date
     direccionEntrega: string,
-    garantiaActiva: boolean
+    garantiaActiva: boolean,
+    tieneChat: boolean
 }
 
 export type DtReclamo = {
@@ -258,9 +259,10 @@ export type DtReclamo = {
     tipo: TipoReclamo,
     estado: TipoResolucion,
     fechaRealizado: Date,
-    autor: string
-    idReclamo: string;
-    descripcion: string
+    autor: string,
+    idReclamo: string,
+    descripcion: string,
+    tieneChat: boolean
 }
 
 

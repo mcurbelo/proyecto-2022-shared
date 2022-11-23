@@ -93,6 +93,7 @@ export declare type DtCompraSlimComprador = {
     fechaEntrega?: Date;
     direccionEntrega: string;
     garantiaActiva: boolean;
+    tieneChat: boolean;
 };
 export declare type DtReclamo = {
     datosCompra: DtInfoCompra;
@@ -102,6 +103,7 @@ export declare type DtReclamo = {
     autor: string;
     idReclamo: string;
     descripcion: string;
+    tieneChat: boolean;
 };
 export declare type DtProductoSlim = {
     idProducto: string;

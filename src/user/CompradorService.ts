@@ -169,18 +169,21 @@ export const marcarReclamoResuelto = (idUsuario: string, token: string, idCompra
         })
 }
 
-export const obtenerChat = (idcompra: string): Promise<String> => {
+export const obtenerChat = (idcompra: string, token: string): Promise<String> => {
     return axios.get(`http://${Auth.endpoint}/api/compras/chat/${idcompra}`).then((response) => {
         return response.data;
     }).catch((error) => { });
 }
 
-export const iniciarChat = (idcompra: string, idchat: string): Promise<String> => {
+export const iniciarChat = (idcompra: string, idchat: string, token:string): Promise<String> => {
     return axios.post(`http://${Auth.endpoint}/api/compras/iniciarChat`, { idCompra: idcompra, idChat: idchat }).then((response) => {
         return response.data;
     }).catch((error) => { });
 }
 
+export const notificarRespuesta = (idCompra:string, idUsuario:string, token:string): Promise<void> => {
+    return axios.put(`http://${Auth.endpoint}/api/compras/chat/${idCompra}/mensajes?idUsuario=${idUsuario}`, )
+}
 
 export type DtCompra = {
     idVendedor: string,

@@ -16,8 +16,9 @@ export declare const listarCompras: (idUsuario: string, token: string, pageNo: s
 export declare const reclamosHechos: (idUsuario: string, token: string, pageNo: string, pageSize: string, sortBy: string, sortDir: string, filtros: DtFiltoReclamo) => Promise<listados>;
 export declare const nuevoReclamo: (idUsuario: string, token: string, idCompra: string, datos: DtAltaReclamo) => Promise<String>;
 export declare const marcarReclamoResuelto: (idUsuario: string, token: string, idCompra: string, idReclamo: string) => Promise<String>;
-export declare const obtenerChat: (idcompra: string) => Promise<String>;
-export declare const iniciarChat: (idcompra: string, idchat: string) => Promise<String>;
+export declare const obtenerChat: (idcompra: string, token: string) => Promise<String>;
+export declare const iniciarChat: (idcompra: string, idchat: string, token: string) => Promise<String>;
+export declare const notificarRespuesta: (idCompra: string, idUsuario: string, token: string) => Promise<void>;
 export declare type DtCompra = {
     idVendedor: string;
     idProducto: string;

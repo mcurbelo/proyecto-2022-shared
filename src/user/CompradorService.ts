@@ -22,7 +22,7 @@ export const enviarSolicitudVendedor = (solicitud: Dtsolicitud, imagenes: File[]
     })
 }
 
-export const agregarDireccion = (token: string, direccion: DtDireccion): Promise<{ success: boolean, message?:string }> => {
+export const agregarDireccion = (token: string, direccion: DtDireccion): Promise<{ success: boolean, message?: string }> => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
@@ -37,19 +37,20 @@ export const agregarDireccion = (token: string, direccion: DtDireccion): Promise
     }, config).then((response) => {
         return { success: true };
     }).catch((error) => {
-        return { success: false,
+        return {
+            success: false,
             message: error.response.data.message
-                
+
         };
     })
 }
 
 
-export const borrarDireccion = (token: string, direccion: string): Promise<{ status: number }> => {
+export const borrarDireccion = (token: string, direccion: string, esLocal: boolean): Promise<{ status: number }> => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
-    return axios.delete(`http://${Auth.endpoint}/api/compradores/Direccion/${direccion}`, config).then((response) => {
+    return axios.delete(`http://${Auth.endpoint}/api/compradores/Direccion/${direccion}?esLocal=${esLocal}`, config).then((response) => {
         return {
             status: response.status
         }
@@ -101,7 +102,11 @@ export const obtenerDirecciones = (token: string): Promise<DtDireccion[]> => {
 
 export const nuevaCompra = (idUsuario: string, token: string, datos: DtCompra): Promise<String> => {
     return axios.post(`http://${Auth.endpoint}/api/compradores/${idUsuario}/compras`, datos, {
-    }).then((response) => {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }
+    ).then((response) => {
         return response.status.toString();
     })
         .catch((error) => {
@@ -120,6 +125,9 @@ export const listarCompras = (idUsuario: string, token: string, pageNo: string, 
     if (filtros.fecha != undefined) searchParams.append("fecha", filtros.fecha);
     if (filtros.estado != undefined) searchParams.append("estado", filtros.estado.toString());
     return axios.get(`http://${Auth.endpoint}/api/compradores/${idUsuario}/compras?${searchParams.toString()}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
     }).then((response) => {
         return response.data;
     })
@@ -141,6 +149,9 @@ export const reclamosHechos = (idUsuario: string, token: string, pageNo: string,
     if (filtros.nombreProducto != undefined) searchParams.append("nombreProducto", filtros.nombreProducto);
     if (filtros.nombreUsuario != undefined) searchParams.append("nombreUsuario", filtros.nombreUsuario);
     return axios.get(`http://${Auth.endpoint}/api/compradores/${idUsuario}/compras/reclamos?${searchParams.toString()}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
     }).then((response) => {
         return response.data;
     })
@@ -151,6 +162,9 @@ export const reclamosHechos = (idUsuario: string, token: string, pageNo: string,
 
 export const nuevoReclamo = (idUsuario: string, token: string, idCompra: string, datos: DtAltaReclamo): Promise<String> => {
     return axios.post(`http://${Auth.endpoint}/api/compradores/${idUsuario}/compras/${idCompra}/reclamos`, datos, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
     }).then((response) => {
         return response.status.toString();
     })
@@ -160,7 +174,10 @@ export const nuevoReclamo = (idUsuario: string, token: string, idCompra: string,
 }
 
 export const marcarReclamoResuelto = (idUsuario: string, token: string, idCompra: string, idReclamo: string): Promise<String> => {
-    return axios.put(`http://${Auth.endpoint}/api/compradores/${idUsuario}/compras/${idCompra}/reclamos/${idReclamo}`, {
+    return axios.put(`http://${Auth.endpoint}/api/compradores/${idUsuario}/compras/${idCompra}/reclamos/${idReclamo}`, {}, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
     }).then((response) => {
         return response.status.toString();
     })
@@ -170,19 +187,31 @@ export const marcarReclamoResuelto = (idUsuario: string, token: string, idCompra
 }
 
 export const obtenerChat = (idcompra: string, token: string): Promise<String> => {
-    return axios.get(`http://${Auth.endpoint}/api/compras/chat/${idcompra}`).then((response) => {
+    return axios.get(`http://${Auth.endpoint}/api/compras/chat/${idcompra}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.data;
     }).catch((error) => { });
 }
 
-export const iniciarChat = (idcompra: string, idchat: string, token:string): Promise<String> => {
-    return axios.post(`http://${Auth.endpoint}/api/compras/iniciarChat`, { idCompra: idcompra, idChat: idchat }).then((response) => {
+export const iniciarChat = (idcompra: string, idchat: string, token: string): Promise<String> => {
+    return axios.post(`http://${Auth.endpoint}/api/compras/iniciarChat`, { idCompra: idcompra, idChat: idchat }, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.data;
     }).catch((error) => { });
 }
 
-export const notificarRespuesta = (idCompra:string, idUsuario:string, token:string): Promise<void> => {
-    return axios.put(`http://${Auth.endpoint}/api/compras/chat/${idCompra}/mensajes?idUsuario=${idUsuario}`, )
+export const notificarRespuesta = (idChat: string, idUsuario: string, token: string): Promise<void> => {
+    return axios.put(`http://${Auth.endpoint}/api/compras/chats/${idChat}/mensajes?idUsuario=${idUsuario}`, {}, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    })
 }
 
 export type DtCompra = {

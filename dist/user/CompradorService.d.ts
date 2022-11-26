@@ -4,7 +4,7 @@ export declare const agregarDireccion: (token: string, direccion: DtDireccion) =
     success: boolean;
     message?: string;
 }>;
-export declare const borrarDireccion: (token: string, direccion: string) => Promise<{
+export declare const borrarDireccion: (token: string, direccion: string, esLocal: boolean) => Promise<{
     status: number;
 }>;
 export declare const editarDireccion: (token: string, direccion: DtDireccion) => Promise<{
@@ -18,7 +18,7 @@ export declare const nuevoReclamo: (idUsuario: string, token: string, idCompra: 
 export declare const marcarReclamoResuelto: (idUsuario: string, token: string, idCompra: string, idReclamo: string) => Promise<String>;
 export declare const obtenerChat: (idcompra: string, token: string) => Promise<String>;
 export declare const iniciarChat: (idcompra: string, idchat: string, token: string) => Promise<String>;
-export declare const notificarRespuesta: (idCompra: string, idUsuario: string, token: string) => Promise<void>;
+export declare const notificarRespuesta: (idChat: string, idUsuario: string, token: string) => Promise<void>;
 export declare type DtCompra = {
     idVendedor: string;
     idProducto: string;

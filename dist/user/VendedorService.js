@@ -50,7 +50,11 @@ var listarMisProductos = function (idUsuario, token, pageNo, pageSize, sortBy, s
         searchParams.append("fecha", filtros.fecha);
     if (filtros.nombre != undefined)
         searchParams.append("nombre", filtros.nombre);
-    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/productos?").concat(searchParams.toString())).then(function (response) {
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/productos?").concat(searchParams.toString()), {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return response.data;
     })
         .catch(function (error) {
@@ -74,7 +78,11 @@ var listarMisVentas = function (idUsuario, token, pageNo, pageSize, sortBy, sort
         searchParams.append("nombre", filtros.nombre);
     if (filtros.estado != undefined)
         searchParams.append("estado", filtros.estado.toString());
-    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas?").concat(searchParams.toString())).then(function (response) {
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas?").concat(searchParams.toString()), {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return response.data;
     })
         .catch(function (error) {
@@ -84,7 +92,11 @@ var listarMisVentas = function (idUsuario, token, pageNo, pageSize, sortBy, sort
 };
 exports.listarMisVentas = listarMisVentas;
 var gestionarReclamo = function (idUsuario, token, idVenta, idReclamo, accion) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/reclamos/").concat(idReclamo, "?accion=").concat(accion)).then(function (response) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/reclamos/").concat(idReclamo, "?accion=").concat(accion), {}, {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return response.status;
     })
         .catch(function (error) {
@@ -93,7 +105,11 @@ var gestionarReclamo = function (idUsuario, token, idVenta, idReclamo, accion) {
 };
 exports.gestionarReclamo = gestionarReclamo;
 var cambiarEstadoVenta = function (idUsuario, token, idVenta, accion, info) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/estado?nuevoEstado=").concat(accion), info).then(function (response) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/estado?nuevoEstado=").concat(accion), info, {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return response.status;
     })
         .catch(function (error) {
@@ -102,7 +118,11 @@ var cambiarEstadoVenta = function (idUsuario, token, idVenta, accion, info) {
 };
 exports.cambiarEstadoVenta = cambiarEstadoVenta;
 var completarVentaRetiro = function (idUsuario, token, idVenta) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/estado?nuevoEstado=Completada"), {}).then(function (response) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/").concat(idVenta, "/estado?nuevoEstado=Completada"), {}, {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return response.status;
     })
         .catch(function (error) {
@@ -130,7 +150,11 @@ var listarReclamosRecibidos = function (idUsuario, token, pageNo, pageSize, sort
         searchParams.append("nombreProducto", filtros.nombreProducto);
     if (filtros.nombreUsuario != undefined)
         searchParams.append("nombreUsuario", filtros.nombreUsuario);
-    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/reclamos?").concat(searchParams.toString())).then(function (response) {
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/ventas/reclamos?").concat(searchParams.toString()), {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return response.data;
     })
         .catch(function (error) {
@@ -149,7 +173,11 @@ var modificarProducto = function (idUsuario, token, idProducto, datos, imagenes)
     imagenes.forEach(function (imagen) {
         data.append("imagenes", imagen);
     });
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/productos/").concat(idProducto), data)
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/productos/").concat(idProducto), data, {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    })
         .then(function (response) {
         return {
             success: true
@@ -177,7 +205,11 @@ var estadisticasVenedor = function (idUsuario, token, tipo, fechaInicio, fechaFi
         searchParams.append("fechaInicio", fechaInicio);
     if (fechaFin != "")
         searchParams.append("fechaFin", fechaFin);
-    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/estadisticas/").concat(tipo, "?").concat(searchParams.toString())).then(function (response) {
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/estadisticas/").concat(tipo, "?").concat(searchParams.toString()), {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return response.data;
     })
         .catch(function (error) {

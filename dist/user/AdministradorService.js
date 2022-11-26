@@ -4,7 +4,11 @@ exports.EstAdm = exports.EstadoUsuario = exports.deshacerCompra = exports.infoCo
 var axios_1 = require("axios");
 var __1 = require("..");
 var cambiarEstadoUsuario = function (idUsuario, token, motivo, nuevoEstado) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/administradores/usuarios/").concat(idUsuario, "?operacion=").concat(nuevoEstado), motivo).then(function (response) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/administradores/usuarios/").concat(idUsuario, "?operacion=").concat(nuevoEstado), motivo, {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return response.status;
     })
         .catch(function (error) {
@@ -13,7 +17,11 @@ var cambiarEstadoUsuario = function (idUsuario, token, motivo, nuevoEstado) {
 };
 exports.cambiarEstadoUsuario = cambiarEstadoUsuario;
 var revisarSolicitudNuevoVendedor = function (idUsuario, token, aceptar, motivo) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/administradores/usuarios/").concat(idUsuario, "/solicitudes?aceptar=").concat(aceptar), motivo).then(function (response) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/administradores/usuarios/").concat(idUsuario, "/solicitudes?aceptar=").concat(aceptar), motivo, {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return response.status.toString();
     })
         .catch(function (error) {
@@ -22,11 +30,28 @@ var revisarSolicitudNuevoVendedor = function (idUsuario, token, aceptar, motivo)
 };
 exports.revisarSolicitudNuevoVendedor = revisarSolicitudNuevoVendedor;
 var nuevoAdministrador = function (token, datos) {
-    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/administradores"), datos).then(function (response) {
-        return response.status;
+    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/administradores"), datos, {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
+        return {
+            success: true
+        };
     })
         .catch(function (error) {
-        return error.response.data.message;
+        if (error.response.status.toString() !== "409") {
+            return {
+                success: false,
+                message: "Error en el servidor"
+            };
+        }
+        else {
+            return {
+                success: false,
+                message: error.response.data.message
+            };
+        }
     });
 };
 exports.nuevoAdministrador = nuevoAdministrador;
@@ -82,7 +107,11 @@ var estadisticasAdm = function (token, tipo, fechaInicio, fechaFin) {
         searchParams.append("fechaInicio", fechaInicio);
     if (fechaFin != "")
         searchParams.append("fechaFin", fechaFin);
-    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/administradores/estadisticas/").concat(tipo, "?").concat(searchParams.toString())).then(function (response) {
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/administradores/estadisticas/").concat(tipo, "?").concat(searchParams.toString()), {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return response.data;
     })
         .catch(function (error) {
@@ -91,7 +120,11 @@ var estadisticasAdm = function (token, tipo, fechaInicio, fechaFin) {
 };
 exports.estadisticasAdm = estadisticasAdm;
 var infoCompraDeshacer = function (token, idCompra) {
-    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/compras/").concat(idCompra)).then(function (response) {
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/compras/").concat(idCompra), {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return response.data;
     })
         .catch(function (error) {
@@ -100,7 +133,11 @@ var infoCompraDeshacer = function (token, idCompra) {
 };
 exports.infoCompraDeshacer = infoCompraDeshacer;
 var deshacerCompra = function (token, idCompra) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/administradores/reembolsos/").concat(idCompra)).then(function (response) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/administradores/reembolsos/").concat(idCompra), {}, {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return response.status.toString();
     })
         .catch(function (error) {

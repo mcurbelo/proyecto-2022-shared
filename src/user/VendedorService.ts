@@ -43,7 +43,11 @@ export const listarMisProductos = (idUsuario: String, token: String, pageNo: str
     if (filtros.estadoProducto != undefined) searchParams.append("estado", filtros.estadoProducto.toString());
     if (filtros.fecha != undefined) searchParams.append("fecha", filtros.fecha);
     if (filtros.nombre != undefined) searchParams.append("nombre", filtros.nombre);
-    return axios.get(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/productos?${searchParams.toString()}`).then((response) => {
+    return axios.get(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/productos?${searchParams.toString()}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.data;
     })
         .catch((error) => {
@@ -60,7 +64,11 @@ export const listarMisVentas = (idUsuario: String, token: String, pageNo: string
     if (filtros.fecha != undefined) searchParams.append("fecha", filtros.fecha);
     if (filtros.nombre != undefined) searchParams.append("nombre", filtros.nombre);
     if (filtros.estado != undefined) searchParams.append("estado", filtros.estado.toString());
-    return axios.get(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas?${searchParams.toString()}`).then((response) => {
+    return axios.get(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas?${searchParams.toString()}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.data;
     })
         .catch((error) => {
@@ -69,7 +77,11 @@ export const listarMisVentas = (idUsuario: String, token: String, pageNo: string
 }
 
 export const gestionarReclamo = (idUsuario: String, token: String, idVenta: String, idReclamo: String, accion: TipoResolucion): Promise<String> => {
-    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/reclamos/${idReclamo}?accion=${accion}`).then((response) => {
+    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/reclamos/${idReclamo}?accion=${accion}`,{}, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.status;
     })
         .catch((error) => {
@@ -78,7 +90,11 @@ export const gestionarReclamo = (idUsuario: String, token: String, idVenta: Stri
 }
 
 export const cambiarEstadoVenta = (idUsuario: String, token: String, idVenta: String, accion: EstadoCompra, info: DtConfirmarCompra): Promise<String> => {
-    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?nuevoEstado=${accion}`, info).then((response) => {
+    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?nuevoEstado=${accion}`, info, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.status;
     })
         .catch((error) => {
@@ -87,7 +103,11 @@ export const cambiarEstadoVenta = (idUsuario: String, token: String, idVenta: St
 }
 
 export const completarVentaRetiro = (idUsuario: String, token: String, idVenta: String): Promise<String> => {
-    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?nuevoEstado=Completada`, {}).then((response) => {
+    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/estado?nuevoEstado=Completada`, {}, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.status;
     })
         .catch((error) => {
@@ -106,7 +126,11 @@ export const listarReclamosRecibidos = (idUsuario: String, token: String, pageNo
     if (filtros.fecha != undefined) searchParams.append("fecha", filtros.fecha);
     if (filtros.nombreProducto != undefined) searchParams.append("nombreProducto", filtros.nombreProducto);
     if (filtros.nombreUsuario != undefined) searchParams.append("nombreUsuario", filtros.nombreUsuario);
-    return axios.get(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/reclamos?${searchParams.toString()}`).then((response) => {
+    return axios.get(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/reclamos?${searchParams.toString()}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.data;
     })
         .catch((error) => {
@@ -125,7 +149,11 @@ export const modificarProducto = (idUsuario: String, token: String, idProducto: 
         data.append("imagenes", imagen);
     })
 
-    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/productos/${idProducto}`, data)
+    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/productos/${idProducto}`, data, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    })
         .then((response) => {
             return {
                 success: true
@@ -150,7 +178,11 @@ export const estadisticasVenedor = (idUsuario: String, token: String, tipo: EstV
     const searchParams = new URLSearchParams();
     if (fechaInicio != "") searchParams.append("fechaInicio", fechaInicio)
     if (fechaFin != "") searchParams.append("fechaFin", fechaFin)
-    return axios.get(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/estadisticas/${tipo}?${searchParams.toString()}`).then((response) => {
+    return axios.get(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/estadisticas/${tipo}?${searchParams.toString()}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.data;
     })
         .catch((error) => {

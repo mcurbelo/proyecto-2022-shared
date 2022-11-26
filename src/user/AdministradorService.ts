@@ -1,9 +1,14 @@
 import axios from "axios"
 import { Auth } from ".."
+import { UpdateResponse } from "./UserService";
 import { EstadoCompra, listados } from "./VendedorService";
 
 export const cambiarEstadoUsuario = (idUsuario: string, token: string, motivo: DtMotivo, nuevoEstado: EstadoUsuario): Promise<String> => {
-    return axios.put(`http://${Auth.endpoint}/api/administradores/usuarios/${idUsuario}?operacion=${nuevoEstado}`, motivo).then((response) => {
+    return axios.put(`http://${Auth.endpoint}/api/administradores/usuarios/${idUsuario}?operacion=${nuevoEstado}`, motivo, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.status;
     })
         .catch((error) => {
@@ -12,7 +17,11 @@ export const cambiarEstadoUsuario = (idUsuario: string, token: string, motivo: D
 }
 
 export const revisarSolicitudNuevoVendedor = (idUsuario: string, token: string, aceptar: Boolean, motivo?: DtMotivo): Promise<String> => {
-    return axios.put(`http://${Auth.endpoint}/api/administradores/usuarios/${idUsuario}/solicitudes?aceptar=${aceptar}`, motivo).then((response) => {
+    return axios.put(`http://${Auth.endpoint}/api/administradores/usuarios/${idUsuario}/solicitudes?aceptar=${aceptar}`, motivo, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.status.toString();
     })
         .catch((error) => {
@@ -21,12 +30,28 @@ export const revisarSolicitudNuevoVendedor = (idUsuario: string, token: string, 
 }
 
 
-export const nuevoAdministrador = (token: string, datos: DtAltaAdm): Promise<String> => {
-    return axios.post(`http://${Auth.endpoint}/api/administradores`, datos).then((response) => {
-        return response.status;
+export const nuevoAdministrador = (token: string, datos: DtAltaAdm): Promise<CreateResponse> => {
+    return axios.post(`http://${Auth.endpoint}/api/administradores`, datos, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
+        return {
+            success: true
+        }
     })
         .catch((error) => {
-            return error.response.data.message;
+            if (error.response.status.toString() !== "409") {
+                return {
+                    success: false,
+                    message: "Error en el servidor"
+                }
+            } else {
+                return {
+                    success: false,
+                    message: error.response.data.message
+                }
+            }
         })
 }
 
@@ -78,7 +103,11 @@ export const estadisticasAdm = (token: String, tipo: EstAdm, fechaInicio: string
     const searchParams = new URLSearchParams();
     if (fechaInicio != "") searchParams.append("fechaInicio", fechaInicio)
     if (fechaFin != "") searchParams.append("fechaFin", fechaFin)
-    return axios.get(`http://${Auth.endpoint}/api/administradores/estadisticas/${tipo}?${searchParams.toString()}`).then((response) => {
+    return axios.get(`http://${Auth.endpoint}/api/administradores/estadisticas/${tipo}?${searchParams.toString()}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.data;
     })
         .catch((error) => {
@@ -88,7 +117,11 @@ export const estadisticasAdm = (token: String, tipo: EstAdm, fechaInicio: string
 
 
 export const infoCompraDeshacer = (token: String, idCompra: string): Promise<InfoCompra> => {
-    return axios.get(`http://${Auth.endpoint}/api/compras/${idCompra}`).then((response) => {
+    return axios.get(`http://${Auth.endpoint}/api/compras/${idCompra}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.data;
     })
         .catch((error) => {
@@ -97,7 +130,11 @@ export const infoCompraDeshacer = (token: String, idCompra: string): Promise<Inf
 }
 
 export const deshacerCompra = (token: String, idCompra: string): Promise<string> => {
-    return axios.put(`http://${Auth.endpoint}/api/administradores/reembolsos/${idCompra}`).then((response) => {
+    return axios.put(`http://${Auth.endpoint}/api/administradores/reembolsos/${idCompra}`, {}, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.status.toString();
     })
         .catch((error) => {
@@ -194,4 +231,9 @@ export type InfoCompra = {
     fechaEntrega: string
     direccionEntrega: string
     garantiaActiva: boolean
+}
+
+export type CreateResponse = {
+    success: boolean;
+    message?: string;
 }

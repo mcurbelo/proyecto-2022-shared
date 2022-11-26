@@ -13,7 +13,11 @@ var listarCategorias = function () {
 };
 exports.listarCategorias = listarCategorias;
 var agregarCategoria = function (nombre, token) {
-    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/categorias"), nombre).then(function (response) {
+    return axios_1.default.post("http://".concat(__1.Auth.endpoint, "/api/categorias"), nombre, {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return {
             success: true
         };

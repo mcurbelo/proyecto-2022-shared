@@ -1,7 +1,7 @@
 import { EstadoCompra, listados } from "./VendedorService";
 export declare const cambiarEstadoUsuario: (idUsuario: string, token: string, motivo: DtMotivo, nuevoEstado: EstadoUsuario) => Promise<String>;
 export declare const revisarSolicitudNuevoVendedor: (idUsuario: string, token: string, aceptar: Boolean, motivo?: DtMotivo | undefined) => Promise<String>;
-export declare const nuevoAdministrador: (token: string, datos: DtAltaAdm) => Promise<String>;
+export declare const nuevoAdministrador: (token: string, datos: DtAltaAdm) => Promise<CreateResponse>;
 export declare const listadoUsuarios: (token: string, pageNo?: string, pageSize?: string, sortBy?: string, sortDir?: string, filtros?: DtFiltrosUsuario | undefined) => Promise<listados>;
 export declare const listadoSolicitudes: (token: string, pageNo: string, pageSize: string, sortBy: string, sortDir: string) => Promise<listados>;
 export declare const estadisticasAdm: (token: String, tipo: EstAdm, fechaInicio: string, fechaFin: string) => Promise<EstaditicasResponseAdm>;
@@ -86,4 +86,8 @@ export declare type InfoCompra = {
     fechaEntrega: string;
     direccionEntrega: string;
     garantiaActiva: boolean;
+};
+export declare type CreateResponse = {
+    success: boolean;
+    message?: string;
 };

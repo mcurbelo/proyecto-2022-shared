@@ -70,7 +70,11 @@ export const verificarCodigo = (tokenReset: string): Promise<String> => {
 }
 
 export const obtenerInformacion = (token: string, uuid: string): Promise<InfoUsuarioResponse> => {
-  return axios.get(`http://${Auth.endpoint}/api/usuarios/` + uuid + `/infoUsuario`).then((response) => {
+  return axios.get(`http://${Auth.endpoint}/api/usuarios/` + uuid + `/infoUsuario`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  }).then((response) => {
     return response.data
   })
     .catch((error) => {
@@ -93,7 +97,11 @@ export const updateUser = (token: string, datos: UpdateInfo): Promise<UpdateResp
       "imagen": {
         "data": datos.imagen.data
       }
-    })
+    }, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
     .then((response) => {
       return {
         success: true
@@ -115,7 +123,11 @@ export const updateUser = (token: string, datos: UpdateInfo): Promise<UpdateResp
 }
 
 export const updateDatosEmpresa = (token: string, idUsuario: string, datos: UpdateInfoEmpresa): Promise<UpdateResponse> => {
-  return axios.put(`http://${Auth.endpoint}/api/usuarios/${idUsuario}/perfil`, datos)
+  return axios.put(`http://${Auth.endpoint}/api/usuarios/${idUsuario}/perfil`, datos, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
     .then((response) => {
       return {
         success: true
@@ -137,7 +149,11 @@ export const updateDatosEmpresa = (token: string, idUsuario: string, datos: Upda
 }
 
 export const updateContrasena = (token: string, idUsuario: string, datos: DtCambioContrasena): Promise<UpdateResponse> => {
-  return axios.put(`http://${Auth.endpoint}/api/usuarios/${idUsuario}/perfil`, datos)
+  return axios.put(`http://${Auth.endpoint}/api/usuarios/${idUsuario}/perfil`, datos, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
     .then((response) => {
       return {
         success: true
@@ -162,7 +178,11 @@ export const updateContrasena = (token: string, idUsuario: string, datos: DtCamb
 export const updateImagen = (token: string, idUsuario: string, imagen: File): Promise<UpdateResponse> => {
   const data = new FormData();
   data.append("imagen", imagen);
-  return axios.put(`http://${Auth.endpoint}/api/usuarios/${idUsuario}/perfil/imagen`, data)
+  return axios.put(`http://${Auth.endpoint}/api/usuarios/${idUsuario}/perfil/imagen`, data, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
     .then((response) => {
       return {
         success: true
@@ -184,7 +204,11 @@ export const updateImagen = (token: string, idUsuario: string, imagen: File): Pr
 }
 
 export const eliminarCuenta = (token: string, idUsuario: string): Promise<UpdateResponse> => {
-  return axios.delete(`http://${Auth.endpoint}/api/usuarios/${idUsuario}`)
+  return axios.delete(`http://${Auth.endpoint}/api/usuarios/${idUsuario}`, {
+    headers: {
+        authorization: `Bearer ${token}`
+    }
+})
     .then((response) => {
       return {
         success: true

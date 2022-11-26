@@ -12,7 +12,11 @@ export const listarCategorias = (): Promise<DtCategoria[]> => {
 }
 
 export const agregarCategoria = (nombre: DtCategoria, token: string): Promise<UpdateResponse> => {
-    return axios.post(`http://${Auth.endpoint}/api/categorias`, nombre).then((response) => {
+    return axios.post(`http://${Auth.endpoint}/api/categorias`, nombre,  {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return {
             success: true
         }

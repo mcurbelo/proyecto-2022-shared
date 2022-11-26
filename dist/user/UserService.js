@@ -72,7 +72,11 @@ var verificarCodigo = function (tokenReset) {
 };
 exports.verificarCodigo = verificarCodigo;
 var obtenerInformacion = function (token, uuid) {
-    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/usuarios/") + uuid + "/infoUsuario").then(function (response) {
+    return axios_1.default.get("http://".concat(__1.Auth.endpoint, "/api/usuarios/") + uuid + "/infoUsuario", {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return response.data;
     })
         .catch(function (error) {
@@ -93,6 +97,10 @@ var updateUser = function (token, datos) {
         "telefono": datos.telefono,
         "imagen": {
             "data": datos.imagen.data
+        }
+    }, {
+        headers: {
+            authorization: "Bearer ".concat(token)
         }
     })
         .then(function (response) {
@@ -117,7 +125,11 @@ var updateUser = function (token, datos) {
 };
 exports.updateUser = updateUser;
 var updateDatosEmpresa = function (token, idUsuario, datos) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/usuarios/").concat(idUsuario, "/perfil"), datos)
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/usuarios/").concat(idUsuario, "/perfil"), datos, {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    })
         .then(function (response) {
         return {
             success: true
@@ -140,7 +152,11 @@ var updateDatosEmpresa = function (token, idUsuario, datos) {
 };
 exports.updateDatosEmpresa = updateDatosEmpresa;
 var updateContrasena = function (token, idUsuario, datos) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/usuarios/").concat(idUsuario, "/perfil"), datos)
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/usuarios/").concat(idUsuario, "/perfil"), datos, {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    })
         .then(function (response) {
         return {
             success: true
@@ -165,7 +181,11 @@ exports.updateContrasena = updateContrasena;
 var updateImagen = function (token, idUsuario, imagen) {
     var data = new FormData();
     data.append("imagen", imagen);
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/usuarios/").concat(idUsuario, "/perfil/imagen"), data)
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/usuarios/").concat(idUsuario, "/perfil/imagen"), data, {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    })
         .then(function (response) {
         return {
             success: true
@@ -188,7 +208,11 @@ var updateImagen = function (token, idUsuario, imagen) {
 };
 exports.updateImagen = updateImagen;
 var eliminarCuenta = function (token, idUsuario) {
-    return axios_1.default.delete("http://".concat(__1.Auth.endpoint, "/api/usuarios/").concat(idUsuario))
+    return axios_1.default.delete("http://".concat(__1.Auth.endpoint, "/api/usuarios/").concat(idUsuario), {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    })
         .then(function (response) {
         return {
             success: true

@@ -23,7 +23,11 @@ export const altaProducto = (datosProducto: DtAltaProducto, imagenes: File[], to
 }
 
 export const cambiarEstadoProducto = (idUsuario: String, token: String, idProducto: String, nuevoEstado: EstadoProducto,): Promise<String> => {
-    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/productos/${idProducto}/estado?nuevoEstado=${nuevoEstado}`).then((response) => {
+    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/productos/${idProducto}/estado?nuevoEstado=${nuevoEstado}`, {}, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => {
         return response.status;
     })
         .catch((error) => {
@@ -77,7 +81,7 @@ export const listarMisVentas = (idUsuario: String, token: String, pageNo: string
 }
 
 export const gestionarReclamo = (idUsuario: String, token: String, idVenta: String, idReclamo: String, accion: TipoResolucion): Promise<String> => {
-    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/reclamos/${idReclamo}?accion=${accion}`,{}, {
+    return axios.put(`http://${Auth.endpoint}/api/vendedores/${idUsuario}/ventas/${idVenta}/reclamos/${idReclamo}?accion=${accion}`, {}, {
         headers: {
             authorization: `Bearer ${token}`
         }

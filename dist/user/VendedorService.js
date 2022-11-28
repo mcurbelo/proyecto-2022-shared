@@ -22,7 +22,11 @@ var altaProducto = function (datosProducto, imagenes, token) {
 };
 exports.altaProducto = altaProducto;
 var cambiarEstadoProducto = function (idUsuario, token, idProducto, nuevoEstado) {
-    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/productos/").concat(idProducto, "/estado?nuevoEstado=").concat(nuevoEstado)).then(function (response) {
+    return axios_1.default.put("http://".concat(__1.Auth.endpoint, "/api/vendedores/").concat(idUsuario, "/productos/").concat(idProducto, "/estado?nuevoEstado=").concat(nuevoEstado), {}, {
+        headers: {
+            authorization: "Bearer ".concat(token)
+        }
+    }).then(function (response) {
         return response.status;
     })
         .catch(function (error) {

@@ -266,7 +266,8 @@ export type DtCompraSlimVendedor = {
     puedeCompletar: boolean
     esEnvio: boolean,
     direccionEntrega: string,
-    calificacionComprador: number
+    calificacionComprador: number,
+    tieneChat: boolean
 }
 
 export type DtCompraSlimComprador = {

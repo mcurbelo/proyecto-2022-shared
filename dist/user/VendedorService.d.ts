@@ -74,6 +74,7 @@ export declare type DtCompraSlimVendedor = {
     esEnvio: boolean;
     direccionEntrega: string;
     calificacionComprador: number;
+    tieneChat: boolean;
 };
 export declare type DtCompraSlimComprador = {
     idCompra: string;
